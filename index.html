@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VOO3D | CS2 Visual Arts</title>
+    <title>VOO3D | Elite CS2 Visuals</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;900&family=Roboto:wght@100&display=swap');
 
@@ -17,7 +17,7 @@
             line-height: 1.6;
         }
 
-        /* Hero mit Parallax */
+        /* Hero Parallax */
         .hero {
             position: relative;
             height: 100vh;
@@ -35,7 +35,7 @@
             content: "";
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.2), #050505);
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1), #050505);
             z-index: 1;
         }
 
@@ -64,42 +64,59 @@
         }
 
         .content { padding: 100px 20px; max-width: 1100px; margin: 0 auto; }
-        .section-title { font-size: 1.5rem; text-transform: uppercase; letter-spacing: 8px; margin-bottom: 60px; text-align: center; color: #fff; }
+        .section-title { font-size: 1.5rem; text-transform: uppercase; letter-spacing: 12px; margin-bottom: 80px; text-align: center; }
 
-        /* Grid mit deinem gewünschten Rand */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
-        .project-card {
-            border: 1px solid rgba(255, 255, 255, 0.2); /* DEIN RAND */
-            height: 400px; position: relative; overflow: hidden; transition: 0.4s;
+        /* Work Grid */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-bottom: 150px; }
+        .project-card { border: 1px solid rgba(255, 255, 255, 0.1); height: 400px; overflow: hidden; transition: 0.4s; position: relative; }
+        .project-card:hover { border-color: white; }
+        .project-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.4; transition: 0.6s; }
+        .project-card:hover img { opacity: 0.8; transform: scale(1.05); }
+
+        /* Contact Engine */
+        .contact-container { 
+            background: rgba(255, 255, 255, 0.02); 
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 60px; margin-top: 100px; border-radius: 4px;
         }
-        .project-card:hover { border-color: white; transform: translateY(-5px); }
-        .project-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.5; transition: 0.5s; }
-        .project-card:hover img { opacity: 1; }
-
-        /* Info Sektionen */
-        .info-box { 
-            margin-top: 150px; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 80px; 
+        .contact-form { display: grid; gap: 20px; max-width: 700px; margin: 0 auto; }
+        .form-group { display: flex; flex-direction: column; }
+        .form-group label { text-transform: uppercase; font-size: 0.7rem; letter-spacing: 3px; margin-bottom: 10px; color: #555; }
+        .form-group input, .form-group select, .form-group textarea {
+            background: transparent; border: 1px solid rgba(255,255,255,0.1); padding: 15px; color: white;
+            font-family: 'Inter', sans-serif; outline: none; transition: 0.3s;
         }
-        .info-box h2 { font-weight: 900; letter-spacing: 2px; margin-bottom: 20px; }
-        .info-box p { color: #888; max-width: 600px; margin: 0 auto 30px; font-size: 1.1rem; }
-        
-        .contact-btn {
-            display: inline-block; padding: 15px 40px; border: 1px solid white; color: white;
-            text-decoration: none; text-transform: uppercase; letter-spacing: 3px; font-size: 0.8rem;
-            transition: 0.3s;
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: white; }
+        .send-btn { 
+            background: white; color: black; border: none; padding: 20px; 
+            text-transform: uppercase; letter-spacing: 5px; font-weight: 900; cursor: pointer; transition: 0.3s;
+            margin-top: 20px;
         }
-        .contact-btn:hover { background: white; color: black; }
+        .send-btn:hover { background: #888; transform: translateY(-3px); }
 
-        .about-section { margin-top: 150px; display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; text-align: left; }
-        .about-text h2 { letter-spacing: 5px; margin-bottom: 20px; text-transform: uppercase; }
-        .about-text p { color: #aaa; margin-bottom: 20px; }
+        /* About Section */
+        .about-section { 
+            margin-top: 200px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; 
+        }
+        .about-image { 
+            border: 1px solid rgba(255, 255, 255, 0.1); height: 500px; 
+            background-image: url('sabre-model.png'); /* Dein T-Model Bild */
+            background-size: cover; background-position: center;
+        }
+        .about-text h2 { font-size: 2.5rem; letter-spacing: -1px; margin-bottom: 30px; }
+        .about-text p { color: #888; font-size: 1.1rem; margin-bottom: 25px; }
+        .highlight { color: white; font-weight: 900; }
 
-        .steam-link { color: #555; text-decoration: none; font-size: 0.8rem; letter-spacing: 2px; transition: 0.3s; }
-        .steam-link:hover { color: white; }
+        .steam-button {
+            display: inline-block; padding: 12px 30px; border: 1px solid rgba(255,255,255,0.2);
+            color: #555; text-decoration: none; text-transform: uppercase; letter-spacing: 2px; font-size: 0.7rem;
+            transition: 0.3s; margin-top: 20px;
+        }
+        .steam-button:hover { color: white; border-color: white; }
 
-        footer { padding: 100px 50px 50px; text-align: center; color: #222; font-size: 0.7rem; letter-spacing: 2px; }
+        footer { padding: 100px 50px; text-align: center; color: #111; font-size: 0.7rem; letter-spacing: 4px; }
 
-        @media (max-width: 768px) { .about-section { grid-template-columns: 1fr; text-align: center; } }
+        @media (max-width: 768px) { .about-section { grid-template-columns: 1fr; } .contact-container { padding: 30px; } }
     </style>
 </head>
 <body>
@@ -111,38 +128,55 @@
             <span class="char char-o o2">O</span>
             <span class="char char-3d">3D</span>
         </div>
-        <p class="subtitle">CS2 Visual Arts & Motion Design</p>
+        <p class="subtitle">Next-Gen CS2 Motion Design</p>
     </section>
 
     <section class="content">
-        <h2 class="section-title">Latest Work</h2>
+        <h2 class="section-title">Selected Works</h2>
         <div class="grid">
-            <div class="project-card"><img src="project1.jpg" alt="Work 1"></div>
-            <div class="project-card"><img src="project2.jpg" alt="Work 2"></div>
-            <div class="project-card"><img src="project3.jpg" alt="Work 3"></div>
+            <div class="project-card"><img src="project1.jpg" alt="Portfolio 1"></div>
+            <div class="project-card"><img src="project2.jpg" alt="Portfolio 2"></div>
+            <div class="project-card"><img src="project3.jpg" alt="Portfolio 3"></div>
         </div>
 
-        <div class="info-box">
-            <h2>START A PROJECT</h2>
-            <p>Du willst 3D Bilder oder Videos für dein Projekt? Egal ob Skin-Reviews oder größere Motion-Design Aufträge – meldet euch einfach.</p>
-            <a href="mailto:vooart89@gmail.com" class="contact-btn">vooart89@gmail.com</a>
+        <div class="contact-container">
+            <h2 style="text-align: center; margin-bottom: 40px; letter-spacing: 5px;">INQUIRIES</h2>
+            <form class="contact-form" action="https://formspree.io/f/DEINE_ID" method="POST">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" name="name" placeholder="Agent 47" required>
+                </div>
+                <div class="form-group">
+                    <label>Project Type</label>
+                    <select name="type">
+                        <option value="skin-review">3D Skin Review</option>
+                        <option value="motion-design">Motion Graphics</option>
+                        <option value="full-production">Full Video Production</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea name="message" rows="5" placeholder="Tell me about your vision..." required></textarea>
+                </div>
+                <button type="submit" class="send-btn">Transmit Message</button>
+            </form>
         </div>
 
         <div class="about-section">
+            <div class="about-image"></div>
             <div class="about-text">
-                <h2>Behind the Lens</h2>
-                <p>Counter-Strike ist kein Spiel, es ist eine Leidenschaft. Seit der Version 1.5 bin ich dabei, 2003 ging die Reise richtig los. Dieses Herzblut fließt heute in jedes meiner 3D-Projekte.</p>
-                <p>Ich kombiniere jahrelange CS-Erfahrung mit modernstem Visual Design, um die Meta auf ein neues Level zu heben.</p>
-                <a href="https://steamcommunity.com/profiles/76561197974977104/" target="_blank" class="steam-link">VIEW STEAM PROFILE // </a>
-            </div>
-            <div style="border: 1px solid #222; height: 300px; display: flex; align-items: center; justify-content: center; color: #222;">
-                [ DEIN AVATAR / BILD ]
+                <h2>Blackwolf | Sabre</h2>
+                <p>They say art imitates life. In the server, I walk the path of the <span class="highlight">Sabre</span>. In the studio, I translate that raw aggression into high-end visuals.</p>
+                <p>This isn't just design; it's a legacy. My journey began in <span class="highlight">2003 with Version 1.5</span>. Two decades of Counter-Strike have etched the mechanics, the grit, and the soul of the game into my DNA.</p>
+                <p>I bridge the gap between old-school heritage and the future of <span class="highlight">CS2 Motion Design</span>. Your project deserves someone who knows the spray patterns as well as the render engines.</p>
+                <a href="https://steamcommunity.com/profiles/76561197974977104/" target="_blank" class="steam-button">Access Steam Profile // Established 2003</a>
             </div>
         </div>
     </section>
 
     <footer>
-        VOO3D &copy; 2026 // BASED IN GERMANY
+        VOO3D // VISUALIZING THE META // 2026
     </footer>
 
 </body>
