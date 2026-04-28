@@ -8,7 +8,15 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap');
 
         body {
+            /* DEIN NEUES PORSCHE NOIR BILD */
+            /* BITTE LAD DAS NEUE BILD ALS "porsche-noir.png" HOCH! */
+            background-image: url('porsche-noir.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
             background-color: #050505;
+
             color: white;
             font-family: 'Inter', sans-serif;
             margin: 0;
@@ -18,15 +26,28 @@
             justify-content: center;
             min-height: 100vh;
             overflow: hidden;
+            
+            position: relative;
+        }
+        
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.3); /* Nur 30% dunkler, damit das S/W Bild knallt */
+            z-index: 1;
         }
 
         .logo-container {
+            position: relative;
+            z-index: 2;
             display: flex;
             font-size: 6rem;
             font-weight: 900;
             letter-spacing: -2px;
             text-transform: uppercase;
             align-items: center;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
         }
 
         /* Gemeinsamer Nebel-Effekt für alle */
@@ -34,27 +55,31 @@
             opacity: 0;
             filter: blur(20px);
             display: inline-block;
-            color: white; /* Alles wieder ausgefüllt! */
+        }
+
+        /* VOO - Fett und Weiß */
+        .char-v, .char-o {
+            color: white;
         }
 
         /* V Animation */
-        .char-v {
-            animation: fogIn 1.5s ease-out forwards;
-        }
+        .char-v { animation: fogIn 1.5s ease-out forwards; }
 
-        /* O Animationen - drehen sich smooth rein */
-        .char-o {
-            animation: fogRotateIn 2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-        }
+        /* O Animationen */
+        .char-o { animation: fogRotateIn 2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
         .o1 { animation-delay: 0.4s; }
         .o2 { animation-delay: 0.7s; }
 
-        /* 3D Animation - Slidet von oben mit Nebel - KEINE OUTLINE MEHR */
+        /* 3D - DAS OUTLINE UPDATE */
         .char-3d {
+            /* Das hier ist die Magie für das Outline! */
+            -webkit-text-stroke: 1px white; /* Feiner weißer Rand */
+            color: transparent; /* Der Kern wird durchsichtig */
+            
             transform: translateY(-30px);
             animation: fogSlideDown 1.8s ease-out forwards;
             animation-delay: 1.2s;
-            margin-left: 10px;
+            margin-left: 15px; /* Etwas mehr Abstand, damit nichts überkreuzt */
         }
 
         @keyframes fogIn {
@@ -73,14 +98,17 @@
         }
 
         .subtitle {
+            position: relative;
+            z-index: 2;
             margin-top: 20px;
             font-size: 1rem;
             letter-spacing: 5px;
-            color: #444; /* Dunstiges Grau */
+            color: #aaa; /* Heller, damit es über dem S/W Bild lesbar ist */
             text-transform: uppercase;
             opacity: 0;
             animation: fogIn 2s ease forwards;
             animation-delay: 2.2s;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
         }
     </style>
 </head>
