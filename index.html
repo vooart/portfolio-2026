@@ -1035,13 +1035,15 @@
         }
 
         .about-image {
-            border: 1px solid var(--border);
-            height: 600px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
+            max-width: 450px;
+            aspect-ratio: 3 / 4;
             background-image: url('voodoo3d.jpg');
             background-size: cover;
-            background-position: center;
-            position: relative;
-            overflow: hidden;
+            background-position: center top;
+            background-repeat: no-repeat;
+            justify-self: start;
         }
 
         .about-image::after {
