@@ -1,3 +1,8 @@
+<!-- ══════════════════════════════════════
+     Ersetze den kompletten <style> Block und den <body> Inhalt
+     mit diesem Code
+══════════════════════════════════════ -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -272,32 +277,21 @@
             100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
         }
 
+        /* ══════════════════════════════════════
+           LOGO - FIXED: No more disappearing!
+        ══════════════════════════════════════ */
         .logo-container {
             position: relative;
             z-index: 2;
             display: flex;
             align-items: baseline;
             cursor: none;
+            user-select: none;
+            -webkit-user-select: none;
         }
 
-        .logo-container:hover .glitch-target {
-            animation: glitch 0.3s ease;
-        }
-
-        @keyframes glitch {
-            0% { transform: translate(0); }
-            20% { transform: translate(-3px, 3px); }
-            40% { transform: translate(3px, -3px); }
-            60% { transform: translate(-2px, -2px); }
-            80% { transform: translate(2px, 2px); }
-            100% { transform: translate(0); }
-        }
-
-        /* FIXED: Logo chars stay visible permanently */
         .char {
             display: inline-block;
-            opacity: 0;
-            filter: blur(20px);
         }
 
         .char-v, .char-o {
@@ -305,47 +299,103 @@
             font-weight: 900;
             font-size: clamp(3rem, 15vw, 7rem);
             letter-spacing: -6px;
+            /* Start hidden */
+            opacity: 0;
+            filter: blur(20px);
         }
 
+        /* ═══ FIX: "3D" Outline ohne hässliche Überlappung ═══ 
+           Statt -webkit-text-stroke nutzen wir text-shadow 
+           für einen cleanen Outline-Effekt ohne Overlap im D 
+        */
         .char-3d {
             font-family: 'Roboto', sans-serif;
             font-weight: 100;
             font-size: clamp(3.5rem, 16vw, 8rem);
-            color: transparent;
-            -webkit-text-stroke: 1.5px white;
             margin-left: 20px;
+            letter-spacing: 5px;
+            color: transparent;
+            /* Clean outline via text-shadow - no overlap! */
+            text-shadow:
+                -1px -1px 0 rgba(255,255,255,0.9),
+                 1px -1px 0 rgba(255,255,255,0.9),
+                -1px  1px 0 rgba(255,255,255,0.9),
+                 1px  1px 0 rgba(255,255,255,0.9),
+                 0   -1px 0 rgba(255,255,255,0.9),
+                 0    1px 0 rgba(255,255,255,0.9),
+                -1px  0   0 rgba(255,255,255,0.9),
+                 1px  0   0 rgba(255,255,255,0.9);
+            /* Start hidden */
+            opacity: 0;
+            filter: blur(20px);
+            transform: translateY(-40px);
         }
 
-        .char-v {
-            animation: fogIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            animation-delay: 2.8s;
+        /* ═══ FIX: Animations that STAY visible ═══
+           Using .loaded class added by JS after preloader
+           so animations only play once and lock final state
+        */
+        .loaded .char-v {
+            animation: logoFadeIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.2s;
         }
 
-        .char-o {
-            animation: fogRotateIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        .loaded .o1 {
+            animation: logoRotateIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.4s;
         }
 
-        .o1 { animation-delay: 3.0s; }
-        .o2 { animation-delay: 3.2s; }
-
-        .char-3d {
-            animation: fogSlideDown 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            animation-delay: 3.5s;
+        .loaded .o2 {
+            animation: logoRotateIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.6s;
         }
 
-        @keyframes fogIn {
-            0% { opacity: 0; filter: blur(20px); }
-            100% { opacity: 1; filter: blur(0); }
+        .loaded .char-3d {
+            animation: logoSlideDown 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 1.0s;
         }
 
-        @keyframes fogRotateIn {
-            0% { opacity: 0; filter: blur(20px); transform: rotate(-45deg); }
-            100% { opacity: 1; filter: blur(0); transform: rotate(0deg); }
+        .loaded .subtitle {
+            animation: logoFadeIn 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 1.6s;
         }
 
-        @keyframes fogSlideDown {
-            0% { opacity: 0; filter: blur(20px); transform: translateY(-40px); }
-            100% { opacity: 1; filter: blur(0); transform: translateY(0); }
+        .loaded .scroll-indicator {
+            animation: logoFadeIn 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 2.2s;
+        }
+
+        @keyframes logoFadeIn {
+            from { opacity: 0; filter: blur(20px); }
+            to   { opacity: 1; filter: blur(0); }
+        }
+
+        @keyframes logoRotateIn {
+            from { opacity: 0; filter: blur(20px); transform: rotate(-45deg); }
+            to   { opacity: 1; filter: blur(0); transform: rotate(0deg); }
+        }
+
+        @keyframes logoSlideDown {
+            from { opacity: 0; filter: blur(20px); transform: translateY(-40px); }
+            to   { opacity: 1; filter: blur(0); transform: translateY(0); }
+        }
+
+        /* ═══ FIX: Glitch only on hover, doesn't affect opacity ═══ */
+        .logo-container:hover .char-v,
+        .logo-container:hover .char-o {
+            animation: glitch 0.3s ease forwards;
+            /* Keep visible! */
+            opacity: 1 !important;
+            filter: blur(0) !important;
+        }
+
+        @keyframes glitch {
+            0%   { transform: translate(0); }
+            20%  { transform: translate(-3px, 3px); }
+            40%  { transform: translate(3px, -3px); }
+            60%  { transform: translate(-2px, -2px); }
+            80%  { transform: translate(2px, 2px); }
+            100% { transform: translate(0); }
         }
 
         .subtitle {
@@ -358,8 +408,6 @@
             color: rgba(255, 255, 255, 0.3);
             text-transform: uppercase;
             opacity: 0;
-            animation: fogIn 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            animation-delay: 4.2s;
         }
 
         .subtitle .accent-text {
@@ -376,8 +424,6 @@
             align-items: center;
             gap: 10px;
             opacity: 0;
-            animation: fogIn 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            animation-delay: 5s;
         }
 
         .scroll-indicator span {
@@ -652,13 +698,8 @@
             transition: opacity 0.5s ease;
         }
 
-        .service-card:hover::before {
-            opacity: 1;
-        }
-
-        .service-card:hover {
-            transform: translateY(-3px);
-        }
+        .service-card:hover::before { opacity: 1; }
+        .service-card:hover { transform: translateY(-3px); }
 
         .service-number {
             font-family: 'JetBrains Mono', monospace;
@@ -728,9 +769,7 @@
             transition: transform 0.6s ease;
         }
 
-        .tool-card:hover::before {
-            transform: translateX(0);
-        }
+        .tool-card:hover::before { transform: translateX(0); }
 
         .tool-card:hover {
             border-color: rgba(255, 255, 255, 0.2);
@@ -895,10 +934,9 @@
         }
 
         .contact-form { display: grid; gap: 25px; max-width: 700px; margin: 0 auto; }
-
         .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
-
         .form-group { display: flex; flex-direction: column; }
+
         .form-group label {
             font-family: 'JetBrains Mono', monospace;
             text-transform: uppercase;
@@ -924,9 +962,7 @@
             background: rgba(255, 255, 255, 0.03);
         }
 
-        .form-group input::placeholder, .form-group textarea::placeholder {
-            color: #222;
-        }
+        .form-group input::placeholder, .form-group textarea::placeholder { color: #222; }
 
         .send-btn {
             background: var(--white);
@@ -992,7 +1028,7 @@
         .footer-right a:hover { color: var(--gray); }
 
         /* ══════════════════════════════════════
-           GRAIN OVERLAY
+           GRAIN
         ══════════════════════════════════════ */
         .grain {
             position: fixed;
@@ -1005,16 +1041,14 @@
         }
 
         /* ══════════════════════════════════════
-           MOBILE RESPONSIVE
+           MOBILE
         ══════════════════════════════════════ */
         @media (max-width: 768px) {
             .cursor, .cursor-dot { display: none; }
             body { cursor: auto; }
-
             .nav { padding: 15px 20px; }
             .nav-links { display: none; }
             .nav-status { display: none; }
-
             .stats-bar { grid-template-columns: repeat(2, 1fr); }
             .about-section { grid-template-columns: 1fr; }
             .contact-container { padding: 30px; }
@@ -1022,10 +1056,7 @@
             .grid { grid-template-columns: 1fr; }
             .tools-grid { grid-template-columns: 1fr; }
             .services-grid { grid-template-columns: 1fr; }
-
-            .send-btn { cursor: pointer; }
-            .steam-button { cursor: pointer; }
-
+            .send-btn, .steam-button { cursor: pointer; }
             footer { flex-direction: column; gap: 20px; text-align: center; }
             .footer-right { flex-wrap: wrap; justify-content: center; }
         }
@@ -1038,15 +1069,12 @@
 </head>
 <body>
 
-    <!-- Grain Overlay -->
     <div class="grain"></div>
-
-    <!-- Custom Cursor -->
     <div class="cursor"></div>
     <div class="cursor-dot"></div>
 
     <!-- Preloader -->
-    <div class="preloader">
+    <div class="preloader" id="preloader">
         <div class="preloader-text">Initializing</div>
         <div class="preloader-bar"></div>
     </div>
@@ -1071,9 +1099,9 @@
     <section class="hero">
         <div class="hero-particles" id="particles"></div>
         <div class="logo-container">
-            <span class="char char-v glitch-target">V</span>
-            <span class="char char-o o1 glitch-target">O</span>
-            <span class="char char-o o2 glitch-target">O</span>
+            <span class="char char-v">V</span>
+            <span class="char char-o o1">O</span>
+            <span class="char char-o o2">O</span>
             <span class="char char-3d">3D</span>
         </div>
         <p class="subtitle">CS2 3D Art <span class="accent-text">&</span> Motion Design</p>
@@ -1086,7 +1114,6 @@
     <!-- Content -->
     <section class="content">
 
-        <!-- Stats -->
         <div class="stats-bar reveal">
             <div class="stat-item">
                 <div class="stat-number"><span class="counter" data-target="20">0</span><span class="accent">+</span></div>
@@ -1106,7 +1133,6 @@
             </div>
         </div>
 
-        <!-- Selected Works -->
         <div id="works">
             <div class="section-header reveal">
                 <span class="section-label">// Portfolio</span>
@@ -1141,7 +1167,6 @@
             </div>
         </div>
 
-        <!-- Showreel -->
         <div class="showreel reveal">
             <div class="section-header">
                 <span class="section-label">// Showreel 2026</span>
@@ -1156,7 +1181,6 @@
             </div>
         </div>
 
-        <!-- Services -->
         <div id="services">
             <div class="section-header reveal">
                 <span class="section-label">// What I Do</span>
@@ -1207,7 +1231,6 @@
             </div>
         </div>
 
-        <!-- Tools -->
         <div id="tools">
             <div class="section-header reveal">
                 <span class="section-label">// Arsenal</span>
@@ -1238,7 +1261,6 @@
             </div>
         </div>
 
-        <!-- About -->
         <div class="about-section" id="about">
             <div class="about-image reveal"></div>
             <div class="about-text reveal reveal-delay-2">
@@ -1267,7 +1289,6 @@
             </div>
         </div>
 
-        <!-- Contact -->
         <div class="contact-container reveal" id="contact">
             <div class="section-header">
                 <span class="section-label">// Get in Touch</span>
@@ -1301,7 +1322,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <div class="footer-left">VOO3D // CS2 3D ART & MOTION DESIGN // 2026</div>
         <div class="footer-right">
@@ -1314,22 +1334,44 @@
 
     <script>
         // ══════════════════════════════════════
-        // PRELOADER
+        // PRELOADER + LOGO FIX
+        // The key fix: We add .loaded to body AFTER preloader
+        // This triggers the logo animations fresh
+        // and they stay visible because of "forwards"
         // ══════════════════════════════════════
         window.addEventListener('load', () => {
             setTimeout(() => {
-                document.querySelector('.preloader').classList.add('hidden');
-            }, 3000);
+                document.getElementById('preloader').classList.add('hidden');
+                // Small delay so animations start AFTER preloader fades
+                setTimeout(() => {
+                    document.body.classList.add('loaded');
+                }, 300);
+            }, 2800);
         });
+
+        // ══════════════════════════════════════
+        // EXTRA SAFETY: After all logo animations finish,
+        // force all chars to be permanently visible
+        // This is the bulletproof fix for the disappearing issue
+        // ══════════════════════════════════════
+        setTimeout(() => {
+            document.querySelectorAll('.char').forEach(c => {
+                c.style.opacity = '1';
+                c.style.filter = 'blur(0)';
+                c.style.transform = 'none';
+            });
+            const sub = document.querySelector('.subtitle');
+            const scroll = document.querySelector('.scroll-indicator');
+            if (sub) sub.style.opacity = '1';
+            if (scroll) scroll.style.opacity = '1';
+        }, 6000);
 
         // ══════════════════════════════════════
         // CUSTOM CURSOR
         // ══════════════════════════════════════
         const cursor = document.querySelector('.cursor');
         const cursorDot = document.querySelector('.cursor-dot');
-
-        let mouseX = 0, mouseY = 0;
-        let cursorX = 0, cursorY = 0;
+        let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0;
 
         document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
@@ -1347,8 +1389,8 @@
         }
         animateCursor();
 
-        const hoverElements = document.querySelectorAll('a, button, .project-card, .tool-card, .service-card, .showreel-play');
-        hoverElements.forEach(el => {
+        const hoverEls = document.querySelectorAll('a, button, .project-card, .tool-card, .service-card, .showreel-play');
+        hoverEls.forEach(el => {
             el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
             el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
         });
@@ -1357,163 +1399,120 @@
         // NAVIGATION
         // ══════════════════════════════════════
         const navbar = document.getElementById('navbar');
-
         window.addEventListener('scroll', () => {
-            const currentScroll = window.scrollY;
-
-            if (currentScroll > 100) {
-                navbar.classList.add('visible');
-                navbar.classList.add('scrolled');
+            if (window.scrollY > 100) {
+                navbar.classList.add('visible', 'scrolled');
             } else {
-                navbar.classList.remove('visible');
-                navbar.classList.remove('scrolled');
+                navbar.classList.remove('visible', 'scrolled');
             }
         });
 
         // ══════════════════════════════════════
         // PARTICLES
         // ══════════════════════════════════════
-        const particleContainer = document.getElementById('particles');
+        const pc = document.getElementById('particles');
         for (let i = 0; i < 40; i++) {
-            const particle = document.createElement('div');
-            particle.classList.add('particle');
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.width = Math.random() * 2 + 1 + 'px';
-            particle.style.height = particle.style.width;
-            particle.style.animationDuration = Math.random() * 15 + 10 + 's';
-            particle.style.animationDelay = Math.random() * 10 + 's';
-            particleContainer.appendChild(particle);
+            const p = document.createElement('div');
+            p.classList.add('particle');
+            p.style.left = Math.random() * 100 + '%';
+            p.style.width = Math.random() * 2 + 1 + 'px';
+            p.style.height = p.style.width;
+            p.style.animationDuration = Math.random() * 15 + 10 + 's';
+            p.style.animationDelay = Math.random() * 10 + 's';
+            pc.appendChild(p);
         }
 
         // ══════════════════════════════════════
         // SCROLL REVEAL
         // ══════════════════════════════════════
-        const revealElements = document.querySelectorAll('.reveal');
-
         const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
+                if (entry.isIntersecting) entry.target.classList.add('active');
             });
         }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-        revealElements.forEach(el => revealObserver.observe(el));
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
         // ══════════════════════════════════════
-        // TOOL BARS ANIMATION
+        // TOOL BARS
         // ══════════════════════════════════════
-        const toolCards = document.querySelectorAll('.tool-card');
         const toolObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
+                if (entry.isIntersecting) entry.target.classList.add('active');
             });
         }, { threshold: 0.5 });
 
-        toolCards.forEach(card => toolObserver.observe(card));
+        document.querySelectorAll('.tool-card').forEach(card => toolObserver.observe(card));
 
         // ══════════════════════════════════════
         // COUNTER ANIMATION
         // ══════════════════════════════════════
-        const counters = document.querySelectorAll('.counter');
         let countersStarted = false;
-
         const counterObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting && !countersStarted) {
                     countersStarted = true;
-                    counters.forEach(counter => {
-                        const target = parseInt(counter.getAttribute('data-target'));
+                    document.querySelectorAll('.counter').forEach(counter => {
+                        const target = parseInt(counter.dataset.target);
                         const duration = 2000;
                         const start = performance.now();
-
-                        function updateCounter(currentTime) {
-                            const elapsed = currentTime - start;
-                            const progress = Math.min(elapsed / duration, 1);
+                        function update(now) {
+                            const progress = Math.min((now - start) / duration, 1);
                             const eased = 1 - Math.pow(1 - progress, 4);
                             counter.textContent = Math.floor(eased * target);
-
-                            if (progress < 1) {
-                                requestAnimationFrame(updateCounter);
-                            } else {
-                                counter.textContent = target;
-                            }
+                            if (progress < 1) requestAnimationFrame(update);
+                            else counter.textContent = target;
                         }
-                        requestAnimationFrame(updateCounter);
+                        requestAnimationFrame(update);
                     });
                 }
             });
         }, { threshold: 0.5 });
 
-        const statsBar = document.querySelector('.stats-bar');
-        if (statsBar) counterObserver.observe(statsBar);
+        const sb = document.querySelector('.stats-bar');
+        if (sb) counterObserver.observe(sb);
 
         // ══════════════════════════════════════
-        // SHOWREEL PLAY
+        // SHOWREEL
         // ══════════════════════════════════════
         const playBtn = document.getElementById('playBtn');
         const showreel = document.getElementById('showreel');
-
         if (playBtn && showreel) {
             playBtn.addEventListener('click', () => {
-                if (showreel.paused) {
-                    showreel.play();
-                    playBtn.style.opacity = '0';
-                } else {
-                    showreel.pause();
-                    playBtn.style.opacity = '1';
-                }
+                if (showreel.paused) { showreel.play(); playBtn.style.opacity = '0'; }
+                else { showreel.pause(); playBtn.style.opacity = '1'; }
             });
-
             showreel.addEventListener('click', () => {
-                if (!showreel.paused) {
-                    showreel.pause();
-                    playBtn.style.opacity = '1';
-                }
+                if (!showreel.paused) { showreel.pause(); playBtn.style.opacity = '1'; }
             });
         }
 
         // ══════════════════════════════════════
-        // FORM SUBMISSION
+        // FORM
         // ══════════════════════════════════════
         const form = document.querySelector('.contact-form');
         const status = document.getElementById('status');
-
         form.onsubmit = async (e) => {
             e.preventDefault();
             const btn = document.getElementById('submit-btn');
             btn.textContent = 'TRANSMITTING...';
             btn.style.opacity = '0.5';
-
-            const data = new FormData(form);
-            const response = await fetch(form.action, {
-                method: 'POST',
-                body: data,
+            const resp = await fetch(form.action, {
+                method: 'POST', body: new FormData(form),
                 headers: { 'Accept': 'application/json' }
             });
-
-            if (response.ok) {
-                form.style.display = 'none';
-                status.style.display = 'block';
-            } else {
-                btn.textContent = 'ERROR — RETRY';
-                btn.style.opacity = '1';
-                btn.style.background = '#ff4444';
-            }
+            if (resp.ok) { form.style.display = 'none'; status.style.display = 'block'; }
+            else { btn.textContent = 'ERROR — RETRY'; btn.style.opacity = '1'; btn.style.background = '#ff4444'; }
         };
 
         // ══════════════════════════════════════
-        // SMOOTH SCROLL FOR NAV LINKS
+        // SMOOTH SCROLL NAV
         // ══════════════════════════════════════
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
-                const target = document.querySelector(link.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
+                const t = document.querySelector(link.getAttribute('href'));
+                if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
         });
     </script>
