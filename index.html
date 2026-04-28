@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VOO3D | Lukas R. - CS2 Visuals</title>
+    <title>VOO3D | Lukas R. - CS2 3D Art & Motion Design</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Roboto:wght@100;300&family=JetBrains+Mono:wght@300;400&display=swap');
 
@@ -280,8 +280,7 @@
             cursor: none;
         }
 
-        .logo-container:hover .char-v,
-        .logo-container:hover .char-o {
+        .logo-container:hover .glitch-target {
             animation: glitch 0.3s ease;
         }
 
@@ -294,13 +293,20 @@
             100% { transform: translate(0); }
         }
 
-        .char { opacity: 0; filter: blur(20px); display: inline-block; }
+        /* FIXED: Logo chars stay visible permanently */
+        .char {
+            display: inline-block;
+            opacity: 0;
+            filter: blur(20px);
+        }
+
         .char-v, .char-o {
             color: white;
             font-weight: 900;
             font-size: clamp(3rem, 15vw, 7rem);
             letter-spacing: -6px;
         }
+
         .char-3d {
             font-family: 'Roboto', sans-serif;
             font-weight: 100;
@@ -310,28 +316,55 @@
             margin-left: 20px;
         }
 
-        .char-v { animation: fogIn 1.5s forwards; animation-delay: 2.8s; }
-        .char-o { animation: fogRotateIn 2s forwards; }
-        .o1 { animation-delay: 3.2s; }
-        .o2 { animation-delay: 3.4s; }
-        .char-3d { animation: fogSlideDown 1.8s forwards; animation-delay: 3.8s; }
+        .char-v {
+            animation: fogIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 2.8s;
+        }
 
-        @keyframes fogIn { to { opacity: 1; filter: blur(0); } }
-        @keyframes fogRotateIn { 0% { transform: rotate(-45deg); } 100% { opacity: 1; filter: blur(0); transform: rotate(0); } }
-        @keyframes fogSlideDown { 0% { transform: translateY(-40px); } 100% { opacity: 1; filter: blur(0); transform: translateY(0); } }
+        .char-o {
+            animation: fogRotateIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .o1 { animation-delay: 3.0s; }
+        .o2 { animation-delay: 3.2s; }
+
+        .char-3d {
+            animation: fogSlideDown 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 3.5s;
+        }
+
+        @keyframes fogIn {
+            0% { opacity: 0; filter: blur(20px); }
+            100% { opacity: 1; filter: blur(0); }
+        }
+
+        @keyframes fogRotateIn {
+            0% { opacity: 0; filter: blur(20px); transform: rotate(-45deg); }
+            100% { opacity: 1; filter: blur(0); transform: rotate(0deg); }
+        }
+
+        @keyframes fogSlideDown {
+            0% { opacity: 0; filter: blur(20px); transform: translateY(-40px); }
+            100% { opacity: 1; filter: blur(0); transform: translateY(0); }
+        }
 
         .subtitle {
             position: relative;
             z-index: 2;
-            margin-top: 10px;
+            margin-top: 15px;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
-            letter-spacing: 8px;
+            font-size: 0.7rem;
+            letter-spacing: 6px;
             color: rgba(255, 255, 255, 0.3);
             text-transform: uppercase;
             opacity: 0;
-            animation: fogIn 2s forwards;
-            animation-delay: 4.5s;
+            animation: fogIn 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 4.2s;
+        }
+
+        .subtitle .accent-text {
+            color: var(--accent);
+            font-weight: 400;
         }
 
         .scroll-indicator {
@@ -343,7 +376,7 @@
             align-items: center;
             gap: 10px;
             opacity: 0;
-            animation: fogIn 2s forwards;
+            animation: fogIn 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             animation-delay: 5s;
         }
 
@@ -543,7 +576,6 @@
         ══════════════════════════════════════ */
         .showreel {
             margin-bottom: 150px;
-            position: relative;
         }
 
         .showreel-container {
@@ -588,6 +620,84 @@
             border-width: 10px 0 10px 18px;
             border-color: transparent transparent transparent var(--white);
             margin-left: 4px;
+        }
+
+        /* ══════════════════════════════════════
+           SERVICES SECTION
+        ══════════════════════════════════════ */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            margin-bottom: 150px;
+        }
+
+        .service-card {
+            background: var(--bg);
+            padding: 45px 35px;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.02);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .service-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.5rem;
+            letter-spacing: 3px;
+            color: var(--accent);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .service-name {
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .service-desc {
+            font-size: 0.8rem;
+            color: #444;
+            line-height: 1.7;
+        }
+
+        .service-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .service-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.5rem;
+            letter-spacing: 2px;
+            color: #333;
+            border: 1px solid #1a1a1a;
+            padding: 4px 10px;
+            text-transform: uppercase;
         }
 
         /* ══════════════════════════════════════
@@ -661,64 +771,6 @@
 
         .tool-card.active .tool-bar-fill {
             width: var(--level);
-        }
-
-        /* ══════════════════════════════════════
-           TESTIMONIALS
-        ══════════════════════════════════════ */
-        .testimonials {
-            margin-bottom: 150px;
-        }
-
-        .testimonial-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .testimonial-card {
-            border: 1px solid var(--border);
-            padding: 40px;
-            position: relative;
-            transition: all 0.5s ease;
-        }
-
-        .testimonial-card:hover {
-            border-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .testimonial-quote {
-            font-size: 1rem;
-            color: var(--gray);
-            font-style: italic;
-            margin-bottom: 25px;
-            line-height: 1.8;
-        }
-
-        .testimonial-quote::before {
-            content: '"';
-            font-size: 3rem;
-            color: #1a1a1a;
-            position: absolute;
-            top: 15px;
-            left: 25px;
-            font-family: Georgia, serif;
-        }
-
-        .testimonial-author {
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-        }
-
-        .testimonial-role {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.55rem;
-            color: #333;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-top: 5px;
         }
 
         /* ══════════════════════════════════════
@@ -940,7 +992,7 @@
         .footer-right a:hover { color: var(--gray); }
 
         /* ══════════════════════════════════════
-           MAGNETIC EFFECT AREAS
+           GRAIN OVERLAY
         ══════════════════════════════════════ */
         .grain {
             position: fixed;
@@ -969,6 +1021,10 @@
             .form-row { grid-template-columns: 1fr; }
             .grid { grid-template-columns: 1fr; }
             .tools-grid { grid-template-columns: 1fr; }
+            .services-grid { grid-template-columns: 1fr; }
+
+            .send-btn { cursor: pointer; }
+            .steam-button { cursor: pointer; }
 
             footer { flex-direction: column; gap: 20px; text-align: center; }
             .footer-right { flex-wrap: wrap; justify-content: center; }
@@ -1000,6 +1056,7 @@
         <div class="nav-logo">VOO<span>3D</span></div>
         <ul class="nav-links">
             <li><a href="#works">Works</a></li>
+            <li><a href="#services">Services</a></li>
             <li><a href="#tools">Tools</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
@@ -1014,12 +1071,12 @@
     <section class="hero">
         <div class="hero-particles" id="particles"></div>
         <div class="logo-container">
-            <span class="char char-v">V</span>
-            <span class="char char-o o1">O</span>
-            <span class="char char-o o2">O</span>
+            <span class="char char-v glitch-target">V</span>
+            <span class="char char-o o1 glitch-target">O</span>
+            <span class="char char-o o2 glitch-target">O</span>
             <span class="char char-3d">3D</span>
         </div>
-        <p class="subtitle">Visualizing the Meta</p>
+        <p class="subtitle">CS2 3D Art <span class="accent-text">&</span> Motion Design</p>
         <div class="scroll-indicator">
             <span>Scroll</span>
             <div class="scroll-line"></div>
@@ -1059,7 +1116,7 @@
             <div class="grid">
                 <div class="project-card reveal reveal-delay-1">
                     <span class="project-number">001</span>
-                    <img src="project1.jpg" alt="AK-47 Neon Rider">
+                    <img src="project1.jpg" alt="Project 1">
                     <div class="project-overlay">
                         <div class="project-category">Weapon Render</div>
                         <div class="project-name">AK-47 Neon Rider</div>
@@ -1067,7 +1124,7 @@
                 </div>
                 <div class="project-card reveal reveal-delay-2">
                     <span class="project-number">002</span>
-                    <img src="project2.jpg" alt="AWP Dragon Lore">
+                    <img src="project2.jpg" alt="Project 2">
                     <div class="project-overlay">
                         <div class="project-category">Scene Design</div>
                         <div class="project-name">AWP Dragon Lore</div>
@@ -1075,7 +1132,7 @@
                 </div>
                 <div class="project-card reveal reveal-delay-3">
                     <span class="project-number">003</span>
-                    <img src="project3.jpg" alt="Karambit Fade">
+                    <img src="project3.jpg" alt="Project 3">
                     <div class="project-overlay">
                         <div class="project-category">Motion Design</div>
                         <div class="project-name">Karambit Fade</div>
@@ -1092,11 +1149,61 @@
                 <div class="section-line"></div>
             </div>
             <div class="showreel-container" style="margin-top: 60px;">
-                <!-- Replace with your actual showreel video -->
                 <video id="showreel" poster="showreel-poster.jpg" loop muted>
                     <source src="showreel.mp4" type="video/mp4">
                 </video>
                 <div class="showreel-play" id="playBtn"></div>
+            </div>
+        </div>
+
+        <!-- Services -->
+        <div id="services">
+            <div class="section-header reveal">
+                <span class="section-label">// What I Do</span>
+                <h2 class="section-title">Services</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="services-grid reveal">
+                <div class="service-card">
+                    <span class="service-number">01</span>
+                    <div class="service-name">3D Skin Renders</div>
+                    <div class="service-desc">High-end weapon skin renders with cinematic lighting and studio-quality compositing.</div>
+                    <div class="service-tags">
+                        <span class="service-tag">Blender</span>
+                        <span class="service-tag">4K Output</span>
+                        <span class="service-tag">PBR</span>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <span class="service-number">02</span>
+                    <div class="service-name">Scene Design</div>
+                    <div class="service-desc">Custom environment builds and atmospheric scene compositions based on CS2 maps and aesthetics.</div>
+                    <div class="service-tags">
+                        <span class="service-tag">Environments</span>
+                        <span class="service-tag">Lighting</span>
+                        <span class="service-tag">Mood</span>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <span class="service-number">03</span>
+                    <div class="service-name">Motion Design</div>
+                    <div class="service-desc">Animated weapon showcases, intro sequences, and cinematic loops for content creators.</div>
+                    <div class="service-tags">
+                        <span class="service-tag">Animation</span>
+                        <span class="service-tag">60fps</span>
+                        <span class="service-tag">After Effects</span>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <span class="service-number">04</span>
+                    <div class="service-name">Thumbnails & Social</div>
+                    <div class="service-desc">Eye-catching thumbnails and social media visuals optimized for YouTube, Twitter, and Steam.</div>
+                    <div class="service-tags">
+                        <span class="service-tag">YouTube</span>
+                        <span class="service-tag">Twitter</span>
+                        <span class="service-tag">Steam</span>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -1108,51 +1215,25 @@
                 <div class="section-line"></div>
             </div>
             <div class="tools-grid">
-                <div class="tool-card reveal reveal-delay-1" data-level="95">
+                <div class="tool-card reveal reveal-delay-1">
                     <div class="tool-name">Blender</div>
                     <div class="tool-desc">Primary 3D Suite</div>
                     <div class="tool-bar"><div class="tool-bar-fill" style="--level: 95%"></div></div>
                 </div>
-                <div class="tool-card reveal reveal-delay-2" data-level="80">
+                <div class="tool-card reveal reveal-delay-2">
                     <div class="tool-name">Cinema 4D</div>
                     <div class="tool-desc">Legacy Workflow</div>
                     <div class="tool-bar"><div class="tool-bar-fill" style="--level: 80%"></div></div>
                 </div>
-                <div class="tool-card reveal reveal-delay-3" data-level="90">
+                <div class="tool-card reveal reveal-delay-3">
                     <div class="tool-name">After Effects</div>
                     <div class="tool-desc">Motion & Compositing</div>
                     <div class="tool-bar"><div class="tool-bar-fill" style="--level: 90%"></div></div>
                 </div>
-                <div class="tool-card reveal reveal-delay-4" data-level="85">
+                <div class="tool-card reveal reveal-delay-4">
                     <div class="tool-name">Photoshop</div>
                     <div class="tool-desc">Textures & Post</div>
                     <div class="tool-bar"><div class="tool-bar-fill" style="--level: 85%"></div></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Testimonials -->
-        <div class="testimonials">
-            <div class="section-header reveal">
-                <span class="section-label">// Feedback</span>
-                <h2 class="section-title">Client Words</h2>
-                <div class="section-line"></div>
-            </div>
-            <div class="testimonial-grid">
-                <div class="testimonial-card reveal reveal-delay-1">
-                    <p class="testimonial-quote">Absolutely insane work. The attention to detail on the skin renders is unmatched. Will definitely work together again.</p>
-                    <div class="testimonial-author">@SkinCollector</div>
-                    <div class="testimonial-role">CS2 Content Creator</div>
-                </div>
-                <div class="testimonial-card reveal reveal-delay-2">
-                    <p class="testimonial-quote">VOO3D delivered beyond expectations. Clean communication, fast turnaround, and the quality speaks for itself.</p>
-                    <div class="testimonial-author">@TradeKing</div>
-                    <div class="testimonial-role">Skin Trading Community</div>
-                </div>
-                <div class="testimonial-card reveal reveal-delay-3">
-                    <p class="testimonial-quote">The cinematic feel of every render is something else. This guy understands the CS2 aesthetic on another level.</p>
-                    <div class="testimonial-author">@FragHighlights</div>
-                    <div class="testimonial-role">YouTube // 250K Subs</div>
                 </div>
             </div>
         </div>
@@ -1222,7 +1303,7 @@
 
     <!-- Footer -->
     <footer>
-        <div class="footer-left">VOO3D // VISUALIZING THE META // 2026</div>
+        <div class="footer-left">VOO3D // CS2 3D ART & MOTION DESIGN // 2026</div>
         <div class="footer-right">
             <a href="https://steamcommunity.com/profiles/76561197974977104/" target="_blank">Steam</a>
             <a href="#" target="_blank">Twitter</a>
@@ -1266,8 +1347,7 @@
         }
         animateCursor();
 
-        // Hover states
-        const hoverElements = document.querySelectorAll('a, button, .project-card, .tool-card, .showreel-play');
+        const hoverElements = document.querySelectorAll('a, button, .project-card, .tool-card, .service-card, .showreel-play');
         hoverElements.forEach(el => {
             el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
             el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
@@ -1277,7 +1357,6 @@
         // NAVIGATION
         // ══════════════════════════════════════
         const navbar = document.getElementById('navbar');
-        let lastScroll = 0;
 
         window.addEventListener('scroll', () => {
             const currentScroll = window.scrollY;
@@ -1289,8 +1368,6 @@
                 navbar.classList.remove('visible');
                 navbar.classList.remove('scrolled');
             }
-
-            lastScroll = currentScroll;
         });
 
         // ══════════════════════════════════════
