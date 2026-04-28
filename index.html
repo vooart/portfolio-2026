@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VOO3D | CS2 Portfolio</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@900&display=swap');
+        /* Wir laden hier die dicke Schrift (Inter) für VOO UND eine dünnere (Roboto) für 3D */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@900&family=Roboto:wght@100&display=swap');
 
         body {
             background-image: url('porsche-noir.png');
@@ -15,7 +16,7 @@
             background-attachment: fixed;
             background-color: #050505;
             color: white;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', sans-serif; /* Standardmäßig die dicke Schrift */
             margin: 0;
             display: flex;
             flex-direction: column;
@@ -23,6 +24,7 @@
             justify-content: center;
             min-height: 100vh;
             overflow: hidden;
+            position: relative;
         }
         
         body::before {
@@ -37,10 +39,7 @@
             position: relative;
             z-index: 2;
             display: flex;
-            font-size: 7rem; /* Etwas größer für mehr Impact */
-            font-weight: 900;
-            text-transform: uppercase;
-            align-items: center;
+            align-items: baseline; /* Damit die Unterseiten der Buchstaben auf einer Linie sind */
         }
 
         .char {
@@ -49,10 +48,13 @@
             display: inline-block;
         }
 
-        /* VOO - Massiv & Weiß */
+        /* VOO - Massiv, Weiß, Dicke Schrift */
         .char-v, .char-o {
             color: white;
-            letter-spacing: -4px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 900;
+            font-size: 7rem;
+            letter-spacing: -6px;
         }
 
         .char-v { animation: fogIn 1.5s ease-out forwards; }
@@ -60,12 +62,18 @@
         .o1 { animation-delay: 0.4s; }
         .o2 { animation-delay: 0.6s; }
 
-        /* 3D - DER PERFEKTE OUTLINE LOOK */
+        /* 3D - DAS FINALE OUTLINE UPDATE - MIT DÜNNER SCHRIFT */
         .char-3d {
+            font-family: 'Roboto', sans-serif; /* Dünne Schrift, die sich nicht überkreuzt! */
+            font-weight: 100;
+            font-size: 8rem; /* Etwas größer, weil sie dünner ist */
+            
+            /* Der feine Outline-Look */
             color: transparent;
-            -webkit-text-stroke: 2px white; /* Hier ist die Outline */
-            letter-spacing: 8px; /* Mehr Platz, damit das D nicht das 3 berührt */
-            margin-left: 20px;
+            -webkit-text-stroke: 1.5px white;
+            letter-spacing: 0px; /* Hier brauchen wir keinen extra Abstand mehr, Roboto macht das von alleine clean */
+            margin-left: 25px; /* Nur Abstand zum VOO */
+            
             transform: translateY(-30px);
             animation: fogSlideDown 1.8s ease-out forwards;
             animation-delay: 1s;
@@ -90,11 +98,13 @@
             position: relative;
             z-index: 2;
             margin-top: 10px;
-            font-size: 1.1rem;
-            letter-spacing: 8px;
+            font-size: 1rem;
+            letter-spacing: 7px;
             color: rgba(255, 255, 255, 0.5);
             text-transform: uppercase;
             opacity: 0;
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
             animation: fogIn 2s ease forwards;
             animation-delay: 2s;
         }
