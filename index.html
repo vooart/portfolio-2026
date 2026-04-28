@@ -17,7 +17,7 @@
             line-height: 1.6;
         }
 
-        /* Hero Parallax */
+        /* Hero Section with Porsche Background */
         .hero {
             position: relative;
             height: 100vh;
@@ -66,14 +66,14 @@
         .content { padding: 100px 20px; max-width: 1100px; margin: 0 auto; }
         .section-title { font-size: 1.5rem; text-transform: uppercase; letter-spacing: 12px; margin-bottom: 80px; text-align: center; }
 
-        /* Work Grid */
+        /* Project Grid with Rands */
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-bottom: 150px; }
         .project-card { border: 1px solid rgba(255, 255, 255, 0.1); height: 400px; overflow: hidden; transition: 0.4s; position: relative; }
         .project-card:hover { border-color: white; }
         .project-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.4; transition: 0.6s; }
         .project-card:hover img { opacity: 0.8; transform: scale(1.05); }
 
-        /* Contact Engine */
+        /* Pro Contact Form */
         .contact-container { 
             background: rgba(255, 255, 255, 0.02); 
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -94,16 +94,16 @@
         }
         .send-btn:hover { background: #888; transform: translateY(-3px); }
 
-        /* About Section */
+        /* About Section (Sabre / Blackwolf) */
         .about-section { 
-            margin-top: 200px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; 
+            margin-top: 200px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; 
         }
         .about-image { 
-            border: 1px solid rgba(255, 255, 255, 0.1); height: 500px; 
-            background-image: url('sabre-model.png'); /* Dein T-Model Bild */
+            border: 1px solid rgba(255, 255, 255, 0.1); height: 600px; 
+            background-image: url('voo3d.png'); /* Dein Sabre Bild */
             background-size: cover; background-position: center;
         }
-        .about-text h2 { font-size: 2.5rem; letter-spacing: -1px; margin-bottom: 30px; }
+        .about-text h2 { font-size: 2.5rem; letter-spacing: -1px; margin-bottom: 30px; text-transform: uppercase; }
         .about-text p { color: #888; font-size: 1.1rem; margin-bottom: 25px; }
         .highlight { color: white; font-weight: 900; }
 
@@ -141,10 +141,10 @@
 
         <div class="contact-container">
             <h2 style="text-align: center; margin-bottom: 40px; letter-spacing: 5px;">INQUIRIES</h2>
-            <form class="contact-form" action="https://formspree.io/f/DEINE_ID" method="POST">
+            <form class="contact-form" action="https://formspree.io/f/mqewrkyl" method="POST">
                 <div class="form-group">
                     <label>Full Name</label>
-                    <input type="text" name="name" placeholder="Agent 47" required>
+                    <input type="text" name="name" placeholder="Your Identity" required>
                 </div>
                 <div class="form-group">
                     <label>Project Type</label>
@@ -152,12 +152,12 @@
                         <option value="skin-review">3D Skin Review</option>
                         <option value="motion-design">Motion Graphics</option>
                         <option value="full-production">Full Video Production</option>
-                        <option value="other">Other</option>
+                        <option value="other">Custom Request</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label>Message</label>
-                    <textarea name="message" rows="5" placeholder="Tell me about your vision..." required></textarea>
+                    <textarea name="message" rows="5" placeholder="Define your vision..." required></textarea>
                 </div>
                 <button type="submit" class="send-btn">Transmit Message</button>
             </form>
@@ -167,8 +167,8 @@
             <div class="about-image"></div>
             <div class="about-text">
                 <h2>Blackwolf | Sabre</h2>
-                <p>They say art imitates life. In the server, I walk the path of the <span class="highlight">Sabre</span>. In the studio, I translate that raw aggression into high-end visuals.</p>
-                <p>This isn't just design; it's a legacy. My journey began in <span class="highlight">2003 with Version 1.5</span>. Two decades of Counter-Strike have etched the mechanics, the grit, and the soul of the game into my DNA.</p>
+                <p>In the server, I walk the path of the <span class="highlight">Sabre</span>. In the studio, I translate that raw precision into high-end visuals.</p>
+                <p>This isn't just design; it's a legacy. My journey began in <span class="highlight">2003 with Version 1.5</span>. Over two decades of Counter-Strike have etched the mechanics, the grit, and the soul of the game into my DNA.</p>
                 <p>I bridge the gap between old-school heritage and the future of <span class="highlight">CS2 Motion Design</span>. Your project deserves someone who knows the spray patterns as well as the render engines.</p>
                 <a href="https://steamcommunity.com/profiles/76561197974977104/" target="_blank" class="steam-button">Access Steam Profile // Established 2003</a>
             </div>
