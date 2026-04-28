@@ -1,8 +1,3 @@
-<!-- ══════════════════════════════════════
-     Ersetze den kompletten <style> Block und den <body> Inhalt
-     mit diesem Code
-══════════════════════════════════════ -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,6 +37,10 @@
             overflow-x: hidden;
             line-height: 1.6;
             cursor: none;
+        }
+
+        body.lightbox-open {
+            overflow: hidden;
         }
 
         /* ══════════════════════════════════════
@@ -278,7 +277,7 @@
         }
 
         /* ══════════════════════════════════════
-           LOGO - FIXED: No more disappearing!
+           LOGO
         ══════════════════════════════════════ */
         .logo-container {
             position: relative;
@@ -290,24 +289,17 @@
             -webkit-user-select: none;
         }
 
-        .char {
-            display: inline-block;
-        }
+        .char { display: inline-block; }
 
         .char-v, .char-o {
             color: white;
             font-weight: 900;
             font-size: clamp(3rem, 15vw, 7rem);
             letter-spacing: -6px;
-            /* Start hidden */
             opacity: 0;
             filter: blur(20px);
         }
 
-        /* ═══ FIX: "3D" Outline ohne hässliche Überlappung ═══ 
-           Statt -webkit-text-stroke nutzen wir text-shadow 
-           für einen cleanen Outline-Effekt ohne Overlap im D 
-        */
         .char-3d {
             font-family: 'Roboto', sans-serif;
             font-weight: 100;
@@ -315,7 +307,6 @@
             margin-left: 20px;
             letter-spacing: 5px;
             color: transparent;
-            /* Clean outline via text-shadow - no overlap! */
             text-shadow:
                 -1px -1px 0 rgba(255,255,255,0.9),
                  1px -1px 0 rgba(255,255,255,0.9),
@@ -325,16 +316,11 @@
                  0    1px 0 rgba(255,255,255,0.9),
                 -1px  0   0 rgba(255,255,255,0.9),
                  1px  0   0 rgba(255,255,255,0.9);
-            /* Start hidden */
             opacity: 0;
             filter: blur(20px);
             transform: translateY(-40px);
         }
 
-        /* ═══ FIX: Animations that STAY visible ═══
-           Using .loaded class added by JS after preloader
-           so animations only play once and lock final state
-        */
         .loaded .char-v {
             animation: logoFadeIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             animation-delay: 0.2s;
@@ -380,11 +366,9 @@
             to   { opacity: 1; filter: blur(0); transform: translateY(0); }
         }
 
-        /* ═══ FIX: Glitch only on hover, doesn't affect opacity ═══ */
         .logo-container:hover .char-v,
         .logo-container:hover .char-o {
             animation: glitch 0.3s ease forwards;
-            /* Keep visible! */
             opacity: 1 !important;
             filter: blur(0) !important;
         }
@@ -617,8 +601,239 @@
             letter-spacing: 2px;
         }
 
+        .project-hint {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.5rem;
+            letter-spacing: 3px;
+            color: #333;
+            text-transform: uppercase;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .project-card:hover .project-hint {
+            opacity: 1;
+        }
+
         /* ══════════════════════════════════════
-           SHOWREEL SECTION
+           LIGHTBOX
+        ══════════════════════════════════════ */
+        .lightbox {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 50000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                        visibility 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .lightbox.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .lightbox-backdrop {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .lightbox-content {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            max-width: 1100px;
+            width: 90%;
+            max-height: 85vh;
+            gap: 0;
+            border: 1px solid var(--border);
+            background: var(--bg);
+            transform: translateY(30px) scale(0.95);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .lightbox.active .lightbox-content {
+            transform: translateY(0) scale(1);
+        }
+
+        .lightbox-image {
+            width: 100%;
+            height: 100%;
+            min-height: 400px;
+            max-height: 85vh;
+            object-fit: cover;
+            display: block;
+        }
+
+        .lightbox-info {
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow-y: auto;
+        }
+
+        .lightbox-category {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.55rem;
+            letter-spacing: 5px;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .lightbox-title {
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .lightbox-client {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 3px;
+            color: #333;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .lightbox-desc {
+            color: var(--gray);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .lightbox-meta {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 35px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .lightbox-meta-item {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .lightbox-meta-item .meta-label {
+            font-size: 0.45rem;
+            letter-spacing: 3px;
+            color: #333;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .lightbox-meta-item .meta-value {
+            font-size: 0.7rem;
+            color: var(--gray);
+            letter-spacing: 2px;
+        }
+
+        .lightbox-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 30px;
+            border: 1px solid var(--border);
+            color: var(--dark-gray);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.6rem;
+            font-family: 'JetBrains Mono', monospace;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            align-self: flex-start;
+        }
+
+        .lightbox-link:hover {
+            color: var(--white);
+            border-color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: none;
+            transition: transform 0.3s ease;
+            z-index: 3;
+        }
+
+        .lightbox-close:hover {
+            transform: rotate(90deg);
+        }
+
+        .lightbox-close::before,
+        .lightbox-close::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 1px;
+            background: #555;
+            transition: background 0.3s ease;
+        }
+
+        .lightbox-close:hover::before,
+        .lightbox-close:hover::after {
+            background: var(--white);
+        }
+
+        .lightbox-close::before { transform: rotate(45deg); }
+        .lightbox-close::after { transform: rotate(-45deg); }
+
+        .lightbox-nav {
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .lightbox-nav-btn {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.55rem;
+            letter-spacing: 3px;
+            color: #333;
+            text-transform: uppercase;
+            background: none;
+            border: 1px solid #1a1a1a;
+            padding: 8px 20px;
+            cursor: none;
+            transition: all 0.3s ease;
+        }
+
+        .lightbox-nav-btn:hover {
+            color: var(--white);
+            border-color: var(--gray);
+        }
+
+        /* ══════════════════════════════════════
+           SHOWREEL
         ══════════════════════════════════════ */
         .showreel {
             margin-bottom: 150px;
@@ -669,7 +884,7 @@
         }
 
         /* ══════════════════════════════════════
-           SERVICES SECTION
+           SERVICES
         ══════════════════════════════════════ */
         .services-grid {
             display: grid;
@@ -742,7 +957,7 @@
         }
 
         /* ══════════════════════════════════════
-           TOOLS SECTION
+           TOOLS
         ══════════════════════════════════════ */
         .tools-grid {
             display: grid;
@@ -770,7 +985,6 @@
         }
 
         .tool-card:hover::before { transform: translateX(0); }
-
         .tool-card:hover {
             border-color: rgba(255, 255, 255, 0.2);
             transform: translateY(-3px);
@@ -797,7 +1011,6 @@
             width: 100%;
             height: 2px;
             background: #111;
-            position: relative;
             overflow: hidden;
         }
 
@@ -808,9 +1021,7 @@
             transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .tool-card.active .tool-bar-fill {
-            width: var(--level);
-        }
+        .tool-card.active .tool-bar-fill { width: var(--level); }
 
         /* ══════════════════════════════════════
            ABOUT
@@ -863,9 +1074,7 @@
             border-top: 1px solid var(--border);
         }
 
-        .about-meta-item {
-            font-family: 'JetBrains Mono', monospace;
-        }
+        .about-meta-item { font-family: 'JetBrains Mono', monospace; }
 
         .about-meta-item .label {
             font-size: 0.5rem;
@@ -1010,10 +1219,7 @@
             color: #1a1a1a;
         }
 
-        .footer-right {
-            display: flex;
-            gap: 25px;
-        }
+        .footer-right { display: flex; gap: 25px; }
 
         .footer-right a {
             font-family: 'JetBrains Mono', monospace;
@@ -1056,7 +1262,27 @@
             .grid { grid-template-columns: 1fr; }
             .tools-grid { grid-template-columns: 1fr; }
             .services-grid { grid-template-columns: 1fr; }
-            .send-btn, .steam-button { cursor: pointer; }
+            .send-btn, .steam-button, .lightbox-link, .lightbox-close, .lightbox-nav-btn { cursor: pointer; }
+            .project-card { cursor: pointer; }
+
+            .lightbox-content {
+                grid-template-columns: 1fr;
+                max-height: 90vh;
+                width: 95%;
+            }
+
+            .lightbox-image {
+                height: 250px;
+                min-height: 200px;
+            }
+
+            .lightbox-info {
+                padding: 25px;
+            }
+
+            .lightbox-title { font-size: 1.2rem; }
+            .lightbox-meta { flex-wrap: wrap; gap: 15px; }
+
             footer { flex-direction: column; gap: 20px; text-align: center; }
             .footer-right { flex-wrap: wrap; justify-content: center; }
         }
@@ -1073,13 +1299,49 @@
     <div class="cursor"></div>
     <div class="cursor-dot"></div>
 
-    <!-- Preloader -->
     <div class="preloader" id="preloader">
         <div class="preloader-text">Initializing</div>
         <div class="preloader-bar"></div>
     </div>
 
-    <!-- Navigation -->
+    <!-- ══════════════════════════════════════
+         LIGHTBOX OVERLAY
+    ══════════════════════════════════════ -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-backdrop" id="lightboxBackdrop"></div>
+        <div class="lightbox-content">
+            <div class="lightbox-close" id="lightboxClose"></div>
+            <img class="lightbox-image" id="lightboxImage" src="" alt="">
+            <div class="lightbox-info">
+                <div class="lightbox-category" id="lightboxCategory"></div>
+                <h2 class="lightbox-title" id="lightboxTitle"></h2>
+                <div class="lightbox-client" id="lightboxClient"></div>
+                <p class="lightbox-desc" id="lightboxDesc"></p>
+                <div class="lightbox-meta">
+                    <div class="lightbox-meta-item">
+                        <div class="meta-label">Software</div>
+                        <div class="meta-value" id="lightboxSoftware"></div>
+                    </div>
+                    <div class="lightbox-meta-item">
+                        <div class="meta-label">Year</div>
+                        <div class="meta-value" id="lightboxYear"></div>
+                    </div>
+                    <div class="lightbox-meta-item">
+                        <div class="meta-label">Type</div>
+                        <div class="meta-value" id="lightboxType"></div>
+                    </div>
+                </div>
+                <a class="lightbox-link" id="lightboxLink" href="#" target="_blank" style="display:none;">
+                    View Project →
+                </a>
+            </div>
+            <div class="lightbox-nav">
+                <button class="lightbox-nav-btn" id="lightboxPrev">← Prev</button>
+                <button class="lightbox-nav-btn" id="lightboxNext">Next →</button>
+            </div>
+        </div>
+    </div>
+
     <nav class="nav" id="navbar">
         <div class="nav-logo">VOO<span>3D</span></div>
         <ul class="nav-links">
@@ -1095,7 +1357,6 @@
         </div>
     </nav>
 
-    <!-- Hero -->
     <section class="hero">
         <div class="hero-particles" id="particles"></div>
         <div class="logo-container">
@@ -1111,7 +1372,6 @@
         </div>
     </section>
 
-    <!-- Content -->
     <section class="content">
 
         <div class="stats-bar reveal">
@@ -1133,6 +1393,10 @@
             </div>
         </div>
 
+        <!-- ══════════════════════════════════════
+             PROJECT CARDS WITH DATA ATTRIBUTES
+             Edit these to customize your lightbox content!
+        ══════════════════════════════════════ -->
         <div id="works">
             <div class="section-header reveal">
                 <span class="section-label">// Portfolio</span>
@@ -1140,29 +1404,61 @@
                 <div class="section-line"></div>
             </div>
             <div class="grid">
-                <div class="project-card reveal reveal-delay-1">
+                <div class="project-card reveal reveal-delay-1"
+                     data-category="Commercial // Promo Video"
+                     data-title="PashaBiceps"
+                     data-client="Client: Jarosław 'pashaBiceps' Jarząbkowski"
+                     data-desc="Created a high-end 3D promotional video for pashaBiceps and his PA PI TO brand. The project included cinematic weapon renders, dynamic camera movements, and brand-integrated motion graphics designed to capture the essence of the legendary CS player's personal brand."
+                     data-software="Blender / After Effects"
+                     data-year="2026"
+                     data-type="Promo Video"
+                     data-link="https://youtube.com/example"
+                     data-image="project1.jpg">
                     <span class="project-number">001</span>
-                    <img src="project1.jpg" alt="Project 1">
+                    <img src="project1.jpg" alt="PashaBiceps PA PI TO">
                     <div class="project-overlay">
-                        <div class="project-category">Weapon Render</div>
-                        <div class="project-name">AK-47 Neon Rider</div>
+                        <div class="project-category">Commercial</div>
+                        <div class="project-name">PashaBiceps</div>
                     </div>
+                    <div class="project-hint">Click to View →</div>
                 </div>
-                <div class="project-card reveal reveal-delay-2">
+
+                <div class="project-card reveal reveal-delay-2"
+                     data-category="Weapon Render // Showcase"
+                     data-title="AWP Dragon Lore"
+                     data-client="Personal Project"
+                     data-desc="A cinematic showcase of the legendary AWP Dragon Lore skin. Rendered with realistic PBR materials, volumetric lighting, and a moody environment inspired by the map de_cobblestone. Every detail from the hand-painted dragon to the subtle wear patterns was carefully recreated in 3D."
+                     data-software="Blender / Photoshop"
+                     data-year="2025"
+                     data-type="3D Render"
+                     data-link=""
+                     data-image="project2.jpg">
                     <span class="project-number">002</span>
-                    <img src="project2.jpg" alt="Project 2">
+                    <img src="project2.jpg" alt="AWP Dragon Lore">
                     <div class="project-overlay">
                         <div class="project-category">Scene Design</div>
                         <div class="project-name">AWP Dragon Lore</div>
                     </div>
+                    <div class="project-hint">Click to View →</div>
                 </div>
-                <div class="project-card reveal reveal-delay-3">
+
+                <div class="project-card reveal reveal-delay-3"
+                     data-category="Motion Design // Animation"
+                     data-title="Karambit Fade"
+                     data-client="Commission Work"
+                     data-desc="A smooth 60fps animation showcasing the iconic Karambit Fade with a full 360° inspection animation. The piece features dynamic lighting transitions that highlight the gradient fade pattern, combined with subtle particle effects and a clean dark environment."
+                     data-software="Blender / After Effects"
+                     data-year="2025"
+                     data-type="Animation"
+                     data-link="https://youtube.com/example"
+                     data-image="project3.jpg">
                     <span class="project-number">003</span>
-                    <img src="project3.jpg" alt="Project 3">
+                    <img src="project3.jpg" alt="Karambit Fade">
                     <div class="project-overlay">
                         <div class="project-category">Motion Design</div>
                         <div class="project-name">Karambit Fade</div>
                     </div>
+                    <div class="project-hint">Click to View →</div>
                 </div>
             </div>
         </div>
@@ -1334,26 +1630,17 @@
 
     <script>
         // ══════════════════════════════════════
-        // PRELOADER + LOGO FIX
-        // The key fix: We add .loaded to body AFTER preloader
-        // This triggers the logo animations fresh
-        // and they stay visible because of "forwards"
+        // PRELOADER + LOGO
         // ══════════════════════════════════════
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.getElementById('preloader').classList.add('hidden');
-                // Small delay so animations start AFTER preloader fades
                 setTimeout(() => {
                     document.body.classList.add('loaded');
                 }, 300);
             }, 2800);
         });
 
-        // ══════════════════════════════════════
-        // EXTRA SAFETY: After all logo animations finish,
-        // force all chars to be permanently visible
-        // This is the bulletproof fix for the disappearing issue
-        // ══════════════════════════════════════
         setTimeout(() => {
             document.querySelectorAll('.char').forEach(c => {
                 c.style.opacity = '1';
@@ -1389,11 +1676,13 @@
         }
         animateCursor();
 
-        const hoverEls = document.querySelectorAll('a, button, .project-card, .tool-card, .service-card, .showreel-play');
-        hoverEls.forEach(el => {
-            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-        });
+        function setupHoverCursors() {
+            document.querySelectorAll('a, button, .project-card, .tool-card, .service-card, .showreel-play, .lightbox-close, .lightbox-nav-btn').forEach(el => {
+                el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+                el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+            });
+        }
+        setupHoverCursors();
 
         // ══════════════════════════════════════
         // NAVIGATION
@@ -1445,7 +1734,7 @@
         document.querySelectorAll('.tool-card').forEach(card => toolObserver.observe(card));
 
         // ══════════════════════════════════════
-        // COUNTER ANIMATION
+        // COUNTER
         // ══════════════════════════════════════
         let countersStarted = false;
         const counterObserver = new IntersectionObserver((entries) => {
@@ -1486,6 +1775,88 @@
                 if (!showreel.paused) { showreel.pause(); playBtn.style.opacity = '1'; }
             });
         }
+
+        // ══════════════════════════════════════
+        // LIGHTBOX SYSTEM
+        // ══════════════════════════════════════
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = document.getElementById('lightboxImage');
+        const lightboxCategory = document.getElementById('lightboxCategory');
+        const lightboxTitle = document.getElementById('lightboxTitle');
+        const lightboxClient = document.getElementById('lightboxClient');
+        const lightboxDesc = document.getElementById('lightboxDesc');
+        const lightboxSoftware = document.getElementById('lightboxSoftware');
+        const lightboxYear = document.getElementById('lightboxYear');
+        const lightboxType = document.getElementById('lightboxType');
+        const lightboxLink = document.getElementById('lightboxLink');
+        const lightboxClose = document.getElementById('lightboxClose');
+        const lightboxBackdrop = document.getElementById('lightboxBackdrop');
+        const lightboxPrev = document.getElementById('lightboxPrev');
+        const lightboxNext = document.getElementById('lightboxNext');
+
+        const projectCards = document.querySelectorAll('.project-card');
+        let currentProject = 0;
+
+        function openLightbox(index) {
+            const card = projectCards[index];
+            currentProject = index;
+
+            lightboxImage.src = card.dataset.image;
+            lightboxCategory.textContent = card.dataset.category;
+            lightboxTitle.textContent = card.dataset.title;
+            lightboxClient.textContent = card.dataset.client;
+            lightboxDesc.textContent = card.dataset.desc;
+            lightboxSoftware.textContent = card.dataset.software;
+            lightboxYear.textContent = card.dataset.year;
+            lightboxType.textContent = card.dataset.type;
+
+            if (card.dataset.link && card.dataset.link.length > 0) {
+                lightboxLink.href = card.dataset.link;
+                lightboxLink.style.display = 'inline-flex';
+            } else {
+                lightboxLink.style.display = 'none';
+            }
+
+            lightbox.classList.add('active');
+            document.body.classList.add('lightbox-open');
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.classList.remove('lightbox-open');
+        }
+
+        projectCards.forEach((card, index) => {
+            card.addEventListener('click', () => openLightbox(index));
+        });
+
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightboxBackdrop.addEventListener('click', closeLightbox);
+
+        lightboxPrev.addEventListener('click', () => {
+            currentProject = (currentProject - 1 + projectCards.length) % projectCards.length;
+            openLightbox(currentProject);
+        });
+
+        lightboxNext.addEventListener('click', () => {
+            currentProject = (currentProject + 1) % projectCards.length;
+            openLightbox(currentProject);
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('active')) return;
+
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') {
+                currentProject = (currentProject - 1 + projectCards.length) % projectCards.length;
+                openLightbox(currentProject);
+            }
+            if (e.key === 'ArrowRight') {
+                currentProject = (currentProject + 1) % projectCards.length;
+                openLightbox(currentProject);
+            }
+        });
 
         // ══════════════════════════════════════
         // FORM
