@@ -5,18 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VOO3D | CS2 Portfolio</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@900&display=swap');
 
         body {
-            /* DEIN NEUES PORSCHE NOIR BILD */
-            /* BITTE LAD DAS NEUE BILD ALS "porsche-noir.png" HOCH! */
             background-image: url('porsche-noir.png');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-color: #050505;
-
             color: white;
             font-family: 'Inter', sans-serif;
             margin: 0;
@@ -26,15 +23,13 @@
             justify-content: center;
             min-height: 100vh;
             overflow: hidden;
-            
-            position: relative;
         }
         
         body::before {
             content: "";
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(0, 0, 0, 0.3); /* Nur 30% dunkler, damit das S/W Bild knallt */
+            background-color: rgba(0, 0, 0, 0.4);
             z-index: 1;
         }
 
@@ -42,44 +37,38 @@
             position: relative;
             z-index: 2;
             display: flex;
-            font-size: 6rem;
+            font-size: 7rem; /* Etwas größer für mehr Impact */
             font-weight: 900;
-            letter-spacing: -2px;
             text-transform: uppercase;
             align-items: center;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
         }
 
-        /* Gemeinsamer Nebel-Effekt für alle */
         .char {
             opacity: 0;
             filter: blur(20px);
             display: inline-block;
         }
 
-        /* VOO - Fett und Weiß */
+        /* VOO - Massiv & Weiß */
         .char-v, .char-o {
             color: white;
+            letter-spacing: -4px;
         }
 
-        /* V Animation */
         .char-v { animation: fogIn 1.5s ease-out forwards; }
-
-        /* O Animationen */
         .char-o { animation: fogRotateIn 2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
         .o1 { animation-delay: 0.4s; }
-        .o2 { animation-delay: 0.7s; }
+        .o2 { animation-delay: 0.6s; }
 
-        /* 3D - DAS OUTLINE UPDATE */
+        /* 3D - DER PERFEKTE OUTLINE LOOK */
         .char-3d {
-            /* Das hier ist die Magie für das Outline! */
-            -webkit-text-stroke: 1px white; /* Feiner weißer Rand */
-            color: transparent; /* Der Kern wird durchsichtig */
-            
+            color: transparent;
+            -webkit-text-stroke: 2px white; /* Hier ist die Outline */
+            letter-spacing: 8px; /* Mehr Platz, damit das D nicht das 3 berührt */
+            margin-left: 20px;
             transform: translateY(-30px);
             animation: fogSlideDown 1.8s ease-out forwards;
-            animation-delay: 1.2s;
-            margin-left: 15px; /* Etwas mehr Abstand, damit nichts überkreuzt */
+            animation-delay: 1s;
         }
 
         @keyframes fogIn {
@@ -88,27 +77,26 @@
         }
 
         @keyframes fogRotateIn {
-            0% { opacity: 0; filter: blur(20px); transform: rotate(-90deg) scale(0.8); }
+            0% { opacity: 0; filter: blur(20px); transform: rotate(-45deg) scale(0.8); }
             100% { opacity: 1; filter: blur(0); transform: rotate(0) scale(1); }
         }
 
         @keyframes fogSlideDown {
-            0% { opacity: 0; filter: blur(15px); transform: translateY(-30px); }
+            0% { opacity: 0; filter: blur(15px); transform: translateY(-40px); }
             100% { opacity: 1; filter: blur(0); transform: translateY(0); }
         }
 
         .subtitle {
             position: relative;
             z-index: 2;
-            margin-top: 20px;
-            font-size: 1rem;
-            letter-spacing: 5px;
-            color: #aaa; /* Heller, damit es über dem S/W Bild lesbar ist */
+            margin-top: 10px;
+            font-size: 1.1rem;
+            letter-spacing: 8px;
+            color: rgba(255, 255, 255, 0.5);
             text-transform: uppercase;
             opacity: 0;
             animation: fogIn 2s ease forwards;
-            animation-delay: 2.2s;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+            animation-delay: 2s;
         }
     </style>
 </head>
