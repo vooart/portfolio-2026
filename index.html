@@ -3,35 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VOO3D | CS2 Portfolio</title>
+    <title>VOO3D | CS2 Visual Arts</title>
     <style>
-        /* Wir laden hier die dicke Schrift (Inter) für VOO UND eine dünnere (Roboto) für 3D */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@900&family=Roboto:wght@100&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;900&family=Roboto:wght@100&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background-image: url('porsche-noir.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
             background-color: #050505;
             color: white;
-            font-family: 'Inter', sans-serif; /* Standardmäßig die dicke Schrift */
-            margin: 0;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Hintergrund mit Parallax */
+        .hero {
+            position: relative;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
-            overflow: hidden;
-            position: relative;
+            background-image: url('porsche-noir.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Parallax-Effekt */
         }
-        
-        body::before {
+
+        .hero::before {
             content: "";
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(0, 0, 0, 0.4);
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), #050505);
             z-index: 1;
         }
 
@@ -39,87 +42,135 @@
             position: relative;
             z-index: 2;
             display: flex;
-            align-items: baseline; /* Damit die Unterseiten der Buchstaben auf einer Linie sind */
+            align-items: baseline;
         }
 
-        .char {
-            opacity: 0;
-            filter: blur(20px);
-            display: inline-block;
+        .char { opacity: 0; filter: blur(20px); display: inline-block; }
+        .char-v, .char-o { color: white; font-weight: 900; font-size: clamp(3rem, 15vw, 7rem); letter-spacing: -6px; }
+        .char-3d { 
+            font-family: 'Roboto', sans-serif; font-weight: 100; font-size: clamp(3.5rem, 16vw, 8rem);
+            color: transparent; -webkit-text-stroke: 1.5px white; margin-left: 20px;
         }
 
-        /* VOO - Massiv, Weiß, Dicke Schrift */
-        .char-v, .char-o {
-            color: white;
-            font-family: 'Inter', sans-serif;
-            font-weight: 900;
-            font-size: 7rem;
-            letter-spacing: -6px;
-        }
-
-        .char-v { animation: fogIn 1.5s ease-out forwards; }
-        .char-o { animation: fogRotateIn 2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+        /* Animationen */
+        .char-v { animation: fogIn 1.5s forwards; }
+        .char-o { animation: fogRotateIn 2s forwards; }
         .o1 { animation-delay: 0.4s; }
         .o2 { animation-delay: 0.6s; }
+        .char-3d { animation: fogSlideDown 1.8s forwards; animation-delay: 1s; }
 
-        /* 3D - DAS FINALE OUTLINE UPDATE - MIT DÜNNER SCHRIFT */
-        .char-3d {
-            font-family: 'Roboto', sans-serif; /* Dünne Schrift, die sich nicht überkreuzt! */
-            font-weight: 100;
-            font-size: 8rem; /* Etwas größer, weil sie dünner ist */
-            
-            /* Der feine Outline-Look */
-            color: transparent;
-            -webkit-text-stroke: 1.5px white;
-            letter-spacing: 0px; /* Hier brauchen wir keinen extra Abstand mehr, Roboto macht das von alleine clean */
-            margin-left: 25px; /* Nur Abstand zum VOO */
-            
-            transform: translateY(-30px);
-            animation: fogSlideDown 1.8s ease-out forwards;
-            animation-delay: 1s;
-        }
-
-        @keyframes fogIn {
-            0% { opacity: 0; filter: blur(20px); transform: scale(1.1); }
-            100% { opacity: 1; filter: blur(0); transform: scale(1); }
-        }
-
-        @keyframes fogRotateIn {
-            0% { opacity: 0; filter: blur(20px); transform: rotate(-45deg) scale(0.8); }
-            100% { opacity: 1; filter: blur(0); transform: rotate(0) scale(1); }
-        }
-
-        @keyframes fogSlideDown {
-            0% { opacity: 0; filter: blur(15px); transform: translateY(-40px); }
-            100% { opacity: 1; filter: blur(0); transform: translateY(0); }
-        }
+        @keyframes fogIn { to { opacity: 1; filter: blur(0); transform: scale(1); } }
+        @keyframes fogRotateIn { 0% { transform: rotate(-45deg); } 100% { opacity: 1; filter: blur(0); transform: rotate(0); } }
+        @keyframes fogSlideDown { 0% { transform: translateY(-40px); } 100% { opacity: 1; filter: blur(0); transform: translateY(0); } }
 
         .subtitle {
+            position: relative; z-index: 2; margin-top: 10px; font-size: 0.9rem; letter-spacing: 6px;
+            color: rgba(255, 255, 255, 0.5); text-transform: uppercase; opacity: 0;
+            animation: fogIn 2s forwards; animation-delay: 2s;
+        }
+
+        /* Portfolio Bereich */
+        .content {
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
             position: relative;
             z-index: 2;
-            margin-top: 10px;
-            font-size: 1rem;
-            letter-spacing: 7px;
-            color: rgba(255, 255, 255, 0.5);
-            text-transform: uppercase;
-            opacity: 0;
-            font-family: 'Inter', sans-serif;
-            font-weight: 400;
-            animation: fogIn 2s ease forwards;
-            animation-delay: 2s;
         }
+
+        .section-title {
+            font-size: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 10px;
+            margin-bottom: 50px;
+            text-align: center;
+            color: #fff;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            height: 450px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 4px;
+            transition: 0.5s;
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+        .project-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.6;
+            transition: 0.5s;
+        }
+
+        .project-card:hover img { opacity: 1; transform: scale(1.05); }
+
+        .project-info {
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+        }
+
+        .project-info h3 { text-transform: uppercase; letter-spacing: 3px; font-size: 1.2rem; }
+
+        footer {
+            padding: 50px;
+            text-align: center;
+            color: #333;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+        }
+
     </style>
 </head>
 <body>
 
-    <div class="logo-container">
-        <span class="char char-v">V</span>
-        <span class="char char-o o1">O</span>
-        <span class="char char-o o2">O</span>
-        <span class="char char-3d">3D</span>
-    </div>
-    
-    <p class="subtitle">CS2 Visual Arts & Motion Design</p>
+    <section class="hero">
+        <div class="logo-container">
+            <span class="char char-v">V</span>
+            <span class="char char-o o1">O</span>
+            <span class="char char-o o2">O</span>
+            <span class="char char-3d">3D</span>
+        </div>
+        <p class="subtitle">CS2 Visual Arts & Motion Design</p>
+    </section>
+
+    <section class="content">
+        <h2 class="section-title">Latest Work</h2>
+        <div class="grid">
+            <div class="project-card">
+                <img src="project1.jpg" alt="Work 1">
+                <div class="project-info"><h3>Pasha Edit</h3></div>
+            </div>
+            <div class="project-card">
+                <img src="project2.jpg" alt="Work 2">
+                <div class="project-info"><h3>Knife Render</h3></div>
+            </div>
+            <div class="project-card">
+                <img src="project3.jpg" alt="Work 3">
+                <div class="project-info"><h3>Environment Design</h3></div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        &copy; 2026 VOO3D. ALL RIGHTS RESERVED.
+    </footer>
 
 </body>
 </html>
