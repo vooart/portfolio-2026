@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VOOART | 3D Visuals</title>
+    <style>
+        body {
+            background-color: #0a0a0a;
+            color: #e0e0e0;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            line-height: 1.6;
+        }
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('dein-pasha-bild.jpg'); /* Später ersetzen */
+            background-size: cover;
+            text-align: center;
+        }
+        h1 { font-size: 4rem; letter-spacing: 10px; margin: 0; color: #fff; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 40px;
+        }
+        .project-card {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            padding: 10px;
+            transition: 0.3s;
+        }
+        .project-card:hover { border-color: #ff00ea; transform: translateY(-5px); }
+        section { padding: 80px 40px; max-width: 900px; margin: auto; }
+        #contact { background: #111; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>VOOART</h1>
+        <p>3D ANIMATION | CS2 SPECIALIST | FULL CONTROL</p>
+    </header>
+
+    <section id="portfolio">
+        <h2>PROJECTS</h2>
+        <div class="grid">
+            <div class="project-card">
+                <h3>Pasha Papito Energy</h3>
+                <p>Commercial 3D Animation & Sound Design.</p>
+            </div>
+            </div>
+    </section>
+
+    <section id="about">
+        <h2>ABOUT</h2>
+        <p>I build digital worlds where every frame matters. Obsessed with CS2, high-end shaders, and lighting that tells a story.</p>
+    </section>
+
+    <section id="contact">
+        <h2>GET IN TOUCH</h2>
+        <p>Email: deinname@example.com</p>
+    </section>
+
+</body>
+</html>
