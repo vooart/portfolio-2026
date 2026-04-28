@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VOO3D | Portfolio</title>
+    <title>VOO3D | CS2 Portfolio</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap');
 
@@ -34,6 +34,7 @@
             opacity: 0;
             filter: blur(20px);
             display: inline-block;
+            color: white; /* Alles wieder ausgefüllt! */
         }
 
         /* V Animation */
@@ -48,10 +49,8 @@
         .o1 { animation-delay: 0.4s; }
         .o2 { animation-delay: 0.7s; }
 
-        /* 3D Outline Animation - Slidet von oben mit Nebel */
+        /* 3D Animation - Slidet von oben mit Nebel - KEINE OUTLINE MEHR */
         .char-3d {
-            color: transparent;
-            -webkit-text-stroke: 1.5px white; /* Nur der Rand */
             transform: translateY(-30px);
             animation: fogSlideDown 1.8s ease-out forwards;
             animation-delay: 1.2s;
@@ -77,7 +76,7 @@
             margin-top: 20px;
             font-size: 1rem;
             letter-spacing: 5px;
-            color: #444;
+            color: #444; /* Dunstiges Grau */
             text-transform: uppercase;
             opacity: 0;
             animation: fogIn 2s ease forwards;
@@ -94,7 +93,7 @@
         <span class="char char-3d">3D</span>
     </div>
     
-    <p class="subtitle">Visual Arts & 3D Design</p>
+    <p class="subtitle">CS2 Visual Arts & Motion Design</p>
 
 </body>
 </html>
