@@ -17,76 +17,84 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            overflow-x: hidden;
+            overflow: hidden;
         }
 
         .logo-container {
             display: flex;
-            font-size: 5rem;
+            font-size: 6rem;
             font-weight: 900;
             letter-spacing: -2px;
             text-transform: uppercase;
+            align-items: center;
         }
 
-        /* Animation für das V */
+        /* Gemeinsamer Nebel-Effekt für alle */
+        .char {
+            opacity: 0;
+            filter: blur(20px);
+            display: inline-block;
+        }
+
+        /* V Animation */
         .char-v {
-            opacity: 0;
-            animation: fadeIn 0.8s ease forwards;
+            animation: fogIn 1.5s ease-out forwards;
         }
 
-        /* Animation für die O's */
+        /* O Animationen - drehen sich smooth rein */
         .char-o {
-            opacity: 0;
-            display: inline-block;
-            animation: rotateIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            animation: fogRotateIn 2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
         }
+        .o1 { animation-delay: 0.4s; }
+        .o2 { animation-delay: 0.7s; }
 
-        .o1 { animation-delay: 0.3s; }
-        .o2 { animation-delay: 0.5s; }
-
-        /* Animation für 3D */
+        /* 3D Outline Animation - Slidet von oben mit Nebel */
         .char-3d {
-            display: inline-block;
-            color: #ff00ea; /* Dein Signature-Pink */
-            opacity: 0;
-            transform: translateY(-50px);
-            animation: slideDown 0.6s ease forwards;
-            animation-delay: 1s;
+            color: transparent;
+            -webkit-text-stroke: 1.5px white; /* Nur der Rand */
+            transform: translateY(-30px);
+            animation: fogSlideDown 1.8s ease-out forwards;
+            animation-delay: 1.2s;
+            margin-left: 10px;
         }
 
-        @keyframes fadeIn {
-            to { opacity: 1; }
+        @keyframes fogIn {
+            0% { opacity: 0; filter: blur(20px); transform: scale(1.1); }
+            100% { opacity: 1; filter: blur(0); transform: scale(1); }
         }
 
-        @keyframes rotateIn {
-            from { transform: rotate(-180deg) scale(0.5); opacity: 0; }
-            to { transform: rotate(0) scale(1); opacity: 1; }
+        @keyframes fogRotateIn {
+            0% { opacity: 0; filter: blur(20px); transform: rotate(-90deg) scale(0.8); }
+            100% { opacity: 1; filter: blur(0); transform: rotate(0) scale(1); }
         }
 
-        @keyframes slideDown {
-            to { transform: translateY(0); opacity: 1; }
+        @keyframes fogSlideDown {
+            0% { opacity: 0; filter: blur(15px); transform: translateY(-30px); }
+            100% { opacity: 1; filter: blur(0); transform: translateY(0); }
         }
 
         .subtitle {
-            margin-top: 10px;
-            font-size: 1.2rem;
-            color: #666;
+            margin-top: 20px;
+            font-size: 1rem;
+            letter-spacing: 5px;
+            color: #444;
+            text-transform: uppercase;
             opacity: 0;
-            animation: fadeIn 1s ease forwards;
-            animation-delay: 1.5s;
+            animation: fogIn 2s ease forwards;
+            animation-delay: 2.2s;
         }
     </style>
 </head>
 <body>
 
     <div class="logo-container">
-        <span class="char-v">V</span>
-        <span class="char-o o1">O</span>
-        <span class="char-o o2">O</span>
-        <span class="char-3d">3D</span>
+        <span class="char char-v">V</span>
+        <span class="char char-o o1">O</span>
+        <span class="char char-o o2">O</span>
+        <span class="char char-3d">3D</span>
     </div>
     
-    <p class="subtitle">3D Artist & Motion Designer</p>
+    <p class="subtitle">Visual Arts & 3D Design</p>
 
 </body>
 </html>
