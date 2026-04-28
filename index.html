@@ -5,18 +5,227 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VOO3D | Lukas R. - CS2 Visuals</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;900&family=Roboto:wght@100&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Roboto:wght@100;300&family=JetBrains+Mono:wght@300;400&display=swap');
+
+        :root {
+            --bg: #050505;
+            --white: #ffffff;
+            --gray: #888888;
+            --dark-gray: #555555;
+            --subtle: rgba(255, 255, 255, 0.05);
+            --border: rgba(255, 255, 255, 0.1);
+            --accent: #00ff88;
+        }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
+        html {
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: #222 var(--bg);
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: #222; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #444; }
+
         body {
-            background-color: #050505;
-            color: white;
+            background-color: var(--bg);
+            color: var(--white);
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
             line-height: 1.6;
+            cursor: none;
         }
 
+        /* ══════════════════════════════════════
+           CUSTOM CURSOR
+        ══════════════════════════════════════ */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            transition: transform 0.15s ease, border-color 0.3s ease, width 0.3s ease, height 0.3s ease;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: difference;
+        }
+
+        .cursor-dot {
+            width: 4px;
+            height: 4px;
+            background: var(--white);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 10001;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s ease;
+        }
+
+        .cursor.hover {
+            width: 50px;
+            height: 50px;
+            border-color: var(--accent);
+            background: rgba(0, 255, 136, 0.05);
+        }
+
+        /* ══════════════════════════════════════
+           PRELOADER
+        ══════════════════════════════════════ */
+        .preloader {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: var(--bg);
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        .preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .preloader-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 8px;
+            color: #333;
+            text-transform: uppercase;
+        }
+
+        .preloader-bar {
+            width: 200px;
+            height: 1px;
+            background: #111;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .preloader-bar::after {
+            content: '';
+            position: absolute;
+            left: 0; top: 0;
+            height: 100%;
+            width: 0%;
+            background: var(--white);
+            animation: preload 2.5s ease-in-out forwards;
+        }
+
+        @keyframes preload {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        /* ══════════════════════════════════════
+           NAVIGATION
+        ══════════════════════════════════════ */
+        .nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+
+        .nav.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .nav.scrolled {
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border-bottom: 1px solid var(--border);
+            padding: 15px 50px;
+        }
+
+        .nav-logo {
+            font-weight: 900;
+            font-size: 1.2rem;
+            letter-spacing: -1px;
+        }
+
+        .nav-logo span {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 100;
+            color: transparent;
+            -webkit-text-stroke: 1px white;
+            margin-left: 5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--dark-gray);
+            text-decoration: none;
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--white);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover { color: var(--white); }
+        .nav-links a:hover::after { width: 100%; }
+
+        .nav-status {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            color: #333;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* ══════════════════════════════════════
+           HERO
+        ══════════════════════════════════════ */
         .hero {
             position: relative;
             height: 100vh;
@@ -28,95 +237,782 @@
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
+            overflow: hidden;
         }
 
         .hero::before {
             content: "";
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.1), #050505);
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), var(--bg));
             z-index: 1;
         }
 
-        .logo-container { position: relative; z-index: 2; display: flex; align-items: baseline; }
-        .char { opacity: 0; filter: blur(20px); display: inline-block; }
-        .char-v, .char-o { color: white; font-weight: 900; font-size: clamp(3rem, 15vw, 7rem); letter-spacing: -6px; }
-        .char-3d { 
-            font-family: 'Roboto', sans-serif; font-weight: 100; font-size: clamp(3.5rem, 16vw, 8rem);
-            color: transparent; -webkit-text-stroke: 1.5px white; margin-left: 20px;
+        .hero-particles {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 1;
+            overflow: hidden;
         }
 
-        .char-v { animation: fogIn 1.5s forwards; }
+        .particle {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: float linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+        }
+
+        .logo-container {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: baseline;
+            cursor: none;
+        }
+
+        .logo-container:hover .char-v,
+        .logo-container:hover .char-o {
+            animation: glitch 0.3s ease;
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-3px, 3px); }
+            40% { transform: translate(3px, -3px); }
+            60% { transform: translate(-2px, -2px); }
+            80% { transform: translate(2px, 2px); }
+            100% { transform: translate(0); }
+        }
+
+        .char { opacity: 0; filter: blur(20px); display: inline-block; }
+        .char-v, .char-o {
+            color: white;
+            font-weight: 900;
+            font-size: clamp(3rem, 15vw, 7rem);
+            letter-spacing: -6px;
+        }
+        .char-3d {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 100;
+            font-size: clamp(3.5rem, 16vw, 8rem);
+            color: transparent;
+            -webkit-text-stroke: 1.5px white;
+            margin-left: 20px;
+        }
+
+        .char-v { animation: fogIn 1.5s forwards; animation-delay: 2.8s; }
         .char-o { animation: fogRotateIn 2s forwards; }
-        .o1 { animation-delay: 0.4s; }
-        .o2 { animation-delay: 0.6s; }
-        .char-3d { animation: fogSlideDown 1.8s forwards; animation-delay: 1s; }
+        .o1 { animation-delay: 3.2s; }
+        .o2 { animation-delay: 3.4s; }
+        .char-3d { animation: fogSlideDown 1.8s forwards; animation-delay: 3.8s; }
 
         @keyframes fogIn { to { opacity: 1; filter: blur(0); } }
         @keyframes fogRotateIn { 0% { transform: rotate(-45deg); } 100% { opacity: 1; filter: blur(0); transform: rotate(0); } }
         @keyframes fogSlideDown { 0% { transform: translateY(-40px); } 100% { opacity: 1; filter: blur(0); transform: translateY(0); } }
 
         .subtitle {
-            position: relative; z-index: 2; margin-top: 10px; font-size: 0.9rem; letter-spacing: 6px;
-            color: rgba(255, 255, 255, 0.5); text-transform: uppercase; opacity: 0;
-            animation: fogIn 2s forwards; animation-delay: 2s;
+            position: relative;
+            z-index: 2;
+            margin-top: 10px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 8px;
+            color: rgba(255, 255, 255, 0.3);
+            text-transform: uppercase;
+            opacity: 0;
+            animation: fogIn 2s forwards;
+            animation-delay: 4.5s;
         }
 
-        .content { padding: 100px 20px; max-width: 1100px; margin: 0 auto; }
-        .section-title { font-size: 1.5rem; text-transform: uppercase; letter-spacing: 12px; margin-bottom: 80px; text-align: center; }
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            opacity: 0;
+            animation: fogIn 2s forwards;
+            animation-delay: 5s;
+        }
 
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-bottom: 150px; }
-        .project-card { border: 1px solid rgba(255, 255, 255, 0.1); height: 400px; overflow: hidden; transition: 0.4s; position: relative; }
-        .project-card:hover { border-color: white; }
-        .project-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.4; transition: 0.6s; }
-        .project-card:hover img { opacity: 0.8; transform: scale(1.05); }
+        .scroll-indicator span {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.5rem;
+            letter-spacing: 4px;
+            color: #333;
+            text-transform: uppercase;
+        }
 
-        .contact-container { 
-            background: rgba(255, 255, 255, 0.02); 
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 60px; margin-top: 100px; border-radius: 4px;
+        .scroll-line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, #333, transparent);
+            animation: scrollPulse 2s ease-in-out infinite;
         }
-        .contact-form { display: grid; gap: 20px; max-width: 700px; margin: 0 auto; }
-        .form-group { display: flex; flex-direction: column; }
-        .form-group label { text-transform: uppercase; font-size: 0.7rem; letter-spacing: 3px; margin-bottom: 10px; color: #555; }
-        .form-group input, .form-group textarea {
-            background: transparent; border: 1px solid rgba(255,255,255,0.1); padding: 15px; color: white;
-            font-family: 'Inter', sans-serif; outline: none; transition: 0.3s;
-        }
-        .form-group input:focus, .form-group textarea:focus { border-color: white; }
-        .send-btn { 
-            background: white; color: black; border: none; padding: 20px; 
-            text-transform: uppercase; letter-spacing: 5px; font-weight: 900; cursor: pointer; transition: 0.3s;
-            margin-top: 20px;
-        }
-        .send-btn:hover { background: #888; transform: translateY(-3px); }
 
-        .about-section { 
-            margin-top: 200px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; 
+        @keyframes scrollPulse {
+            0%, 100% { opacity: 0.3; transform: scaleY(0.5); }
+            50% { opacity: 1; transform: scaleY(1); }
         }
-        .about-image { 
-            border: 1px solid rgba(255, 255, 255, 0.1); height: 600px; 
+
+        /* ══════════════════════════════════════
+           SECTION TRANSITIONS
+        ══════════════════════════════════════ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+
+        /* ══════════════════════════════════════
+           CONTENT
+        ══════════════════════════════════════ */
+        .content { padding: 100px 20px; max-width: 1200px; margin: 0 auto; }
+
+        .section-header {
+            margin-bottom: 80px;
+            text-align: center;
+        }
+
+        .section-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 6px;
+            color: #333;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .section-title {
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            text-transform: uppercase;
+            letter-spacing: 12px;
+            text-align: center;
+        }
+
+        .section-line {
+            width: 60px;
+            height: 1px;
+            background: var(--border);
+            margin: 25px auto 0;
+        }
+
+        /* ══════════════════════════════════════
+           STATS BAR
+        ══════════════════════════════════════ */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: var(--border);
+            margin-bottom: 150px;
+            border: 1px solid var(--border);
+        }
+
+        .stat-item {
+            background: var(--bg);
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            letter-spacing: -2px;
+            margin-bottom: 5px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .stat-number .accent {
+            color: var(--accent);
+            font-weight: 300;
+        }
+
+        .stat-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.55rem;
+            letter-spacing: 4px;
+            color: #333;
+            text-transform: uppercase;
+        }
+
+        /* ══════════════════════════════════════
+           PROJECT GRID
+        ══════════════════════════════════════ */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 20px;
+            margin-bottom: 150px;
+        }
+
+        .project-card {
+            border: 1px solid var(--border);
+            height: 450px;
+            overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            cursor: none;
+        }
+
+        .project-card:hover {
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .project-card img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            opacity: 0.3;
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: grayscale(30%);
+        }
+
+        .project-card:hover img {
+            opacity: 0.7;
+            transform: scale(1.08);
+            filter: grayscale(0%);
+        }
+
+        .project-overlay {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 30px;
+            background: linear-gradient(to top, rgba(5,5,5,0.95), transparent);
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .project-card:hover .project-overlay {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .project-category {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.55rem;
+            letter-spacing: 4px;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .project-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .project-number {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            color: #222;
+            letter-spacing: 2px;
+        }
+
+        /* ══════════════════════════════════════
+           SHOWREEL SECTION
+        ══════════════════════════════════════ */
+        .showreel {
+            margin-bottom: 150px;
+            position: relative;
+        }
+
+        .showreel-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/9;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            cursor: none;
+        }
+
+        .showreel-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .showreel-play {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.5s ease;
+            cursor: none;
+        }
+
+        .showreel-play:hover {
+            border-color: var(--white);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .showreel-play::after {
+            content: '';
+            width: 0; height: 0;
+            border-style: solid;
+            border-width: 10px 0 10px 18px;
+            border-color: transparent transparent transparent var(--white);
+            margin-left: 4px;
+        }
+
+        /* ══════════════════════════════════════
+           TOOLS SECTION
+        ══════════════════════════════════════ */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 150px;
+        }
+
+        .tool-card {
+            border: 1px solid var(--border);
+            padding: 35px;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .tool-card:hover::before {
+            transform: translateX(0);
+        }
+
+        .tool-card:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .tool-name {
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .tool-desc {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            color: #444;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .tool-bar {
+            width: 100%;
+            height: 2px;
+            background: #111;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), rgba(0, 255, 136, 0.3));
+            width: 0%;
+            transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .tool-card.active .tool-bar-fill {
+            width: var(--level);
+        }
+
+        /* ══════════════════════════════════════
+           TESTIMONIALS
+        ══════════════════════════════════════ */
+        .testimonials {
+            margin-bottom: 150px;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .testimonial-card {
+            border: 1px solid var(--border);
+            padding: 40px;
+            position: relative;
+            transition: all 0.5s ease;
+        }
+
+        .testimonial-card:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .testimonial-quote {
+            font-size: 1rem;
+            color: var(--gray);
+            font-style: italic;
+            margin-bottom: 25px;
+            line-height: 1.8;
+        }
+
+        .testimonial-quote::before {
+            content: '"';
+            font-size: 3rem;
+            color: #1a1a1a;
+            position: absolute;
+            top: 15px;
+            left: 25px;
+            font-family: Georgia, serif;
+        }
+
+        .testimonial-author {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .testimonial-role {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.55rem;
+            color: #333;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-top: 5px;
+        }
+
+        /* ══════════════════════════════════════
+           ABOUT
+        ══════════════════════════════════════ */
+        .about-section {
+            margin-top: 200px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-image {
+            border: 1px solid var(--border);
+            height: 600px;
             background-image: url('voo3d.png');
-            background-size: cover; background-position: center;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
         }
-        .about-text h2 { font-size: 2rem; letter-spacing: 5px; margin-bottom: 30px; text-transform: uppercase; }
-        .about-text p { color: #888; font-size: 1.1rem; margin-bottom: 25px; }
+
+        .about-image::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(5,5,5,0.3), transparent);
+        }
+
+        .about-text h2 {
+            font-size: 2rem;
+            letter-spacing: 5px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        .about-text p {
+            color: var(--gray);
+            font-size: 1rem;
+            margin-bottom: 25px;
+            line-height: 1.8;
+        }
+
+        .about-meta {
+            display: flex;
+            gap: 30px;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border);
+        }
+
+        .about-meta-item {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .about-meta-item .label {
+            font-size: 0.5rem;
+            letter-spacing: 3px;
+            color: #333;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .about-meta-item .value {
+            font-size: 0.75rem;
+            color: var(--gray);
+            letter-spacing: 2px;
+        }
 
         .steam-button {
-            display: inline-block; padding: 12px 30px; border: 1px solid rgba(255,255,255,0.2);
-            color: #555; text-decoration: none; text-transform: uppercase; letter-spacing: 2px; font-size: 0.7rem;
-            transition: 0.3s; margin-top: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 35px;
+            border: 1px solid var(--border);
+            color: var(--dark-gray);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.65rem;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            margin-top: 30px;
+            position: relative;
+            overflow: hidden;
         }
-        .steam-button:hover { color: white; border-color: white; }
 
-        footer { padding: 100px 50px; text-align: center; color: #111; font-size: 0.7rem; letter-spacing: 4px; }
+        .steam-button::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            transition: left 0.4s ease;
+        }
 
-        @media (max-width: 768px) { .about-section { grid-template-columns: 1fr; } .contact-container { padding: 30px; } }
+        .steam-button:hover::before { left: 0; }
+        .steam-button:hover { color: var(--white); border-color: rgba(255, 255, 255, 0.3); transform: translateX(5px); }
+
+        /* ══════════════════════════════════════
+           CONTACT
+        ══════════════════════════════════════ */
+        .contact-container {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid var(--border);
+            padding: 80px;
+            margin-top: 150px;
+            position: relative;
+        }
+
+        .contact-container::before {
+            content: 'CONTACT';
+            position: absolute;
+            top: -8px; left: 30px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.55rem;
+            letter-spacing: 5px;
+            color: #222;
+            background: var(--bg);
+            padding: 0 15px;
+        }
+
+        .contact-form { display: grid; gap: 25px; max-width: 700px; margin: 0 auto; }
+
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+
+        .form-group { display: flex; flex-direction: column; }
+        .form-group label {
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+            font-size: 0.55rem;
+            letter-spacing: 4px;
+            margin-bottom: 12px;
+            color: #333;
+        }
+
+        .form-group input, .form-group textarea {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            padding: 18px;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            outline: none;
+            transition: all 0.4s ease;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .form-group input::placeholder, .form-group textarea::placeholder {
+            color: #222;
+        }
+
+        .send-btn {
+            background: var(--white);
+            color: var(--bg);
+            border: none;
+            padding: 20px;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            font-weight: 900;
+            font-size: 0.75rem;
+            cursor: none;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            margin-top: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .send-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0,0,0,0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .send-btn:hover::before { left: 100%; }
+        .send-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 40px rgba(255,255,255,0.1); }
+
+        /* ══════════════════════════════════════
+           FOOTER
+        ══════════════════════════════════════ */
+        footer {
+            padding: 60px 50px;
+            border-top: 1px solid #0a0a0a;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-left {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.55rem;
+            letter-spacing: 4px;
+            color: #1a1a1a;
+        }
+
+        .footer-right {
+            display: flex;
+            gap: 25px;
+        }
+
+        .footer-right a {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.55rem;
+            letter-spacing: 3px;
+            color: #222;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        .footer-right a:hover { color: var(--gray); }
+
+        /* ══════════════════════════════════════
+           MAGNETIC EFFECT AREAS
+        ══════════════════════════════════════ */
+        .grain {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+
+        /* ══════════════════════════════════════
+           MOBILE RESPONSIVE
+        ══════════════════════════════════════ */
+        @media (max-width: 768px) {
+            .cursor, .cursor-dot { display: none; }
+            body { cursor: auto; }
+
+            .nav { padding: 15px 20px; }
+            .nav-links { display: none; }
+            .nav-status { display: none; }
+
+            .stats-bar { grid-template-columns: repeat(2, 1fr); }
+            .about-section { grid-template-columns: 1fr; }
+            .contact-container { padding: 30px; }
+            .form-row { grid-template-columns: 1fr; }
+            .grid { grid-template-columns: 1fr; }
+            .tools-grid { grid-template-columns: 1fr; }
+
+            footer { flex-direction: column; gap: 20px; text-align: center; }
+            .footer-right { flex-wrap: wrap; justify-content: center; }
+        }
+
+        @media (max-width: 480px) {
+            .stats-bar { grid-template-columns: 1fr; }
+            .section-title { letter-spacing: 6px; font-size: 1rem; }
+        }
     </style>
 </head>
 <body>
 
+    <!-- Grain Overlay -->
+    <div class="grain"></div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-dot"></div>
+
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="preloader-text">Initializing</div>
+        <div class="preloader-bar"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav" id="navbar">
+        <div class="nav-logo">VOO<span>3D</span></div>
+        <ul class="nav-links">
+            <li><a href="#works">Works</a></li>
+            <li><a href="#tools">Tools</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="nav-status">
+            <div class="status-dot"></div>
+            Available for Projects
+        </div>
+    </nav>
+
+    <!-- Hero -->
     <section class="hero">
+        <div class="hero-particles" id="particles"></div>
         <div class="logo-container">
             <span class="char char-v">V</span>
             <span class="char char-o o1">O</span>
@@ -124,22 +1020,193 @@
             <span class="char char-3d">3D</span>
         </div>
         <p class="subtitle">Visualizing the Meta</p>
+        <div class="scroll-indicator">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
     </section>
 
+    <!-- Content -->
     <section class="content">
-        <h2 class="section-title">Selected Works</h2>
-        <div class="grid">
-            <div class="project-card"><img src="project1.jpg" alt="Portfolio 1"></div>
-            <div class="project-card"><img src="project2.jpg" alt="Portfolio 2"></div>
-            <div class="project-card"><img src="project3.jpg" alt="Portfolio 3"></div>
+
+        <!-- Stats -->
+        <div class="stats-bar reveal">
+            <div class="stat-item">
+                <div class="stat-number"><span class="counter" data-target="20">0</span><span class="accent">+</span></div>
+                <div class="stat-label">Years CS Experience</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number"><span class="counter" data-target="150">0</span><span class="accent">+</span></div>
+                <div class="stat-label">Projects Delivered</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number"><span class="counter" data-target="50">0</span><span class="accent">+</span></div>
+                <div class="stat-label">Happy Clients</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number"><span class="counter" data-target="4">0</span><span class="accent">K</span></div>
+                <div class="stat-label">Render Hours</div>
+            </div>
         </div>
 
-        <div class="contact-container">
-            <h2 style="text-align: center; margin-bottom: 40px; letter-spacing: 5px;">INQUIRIES</h2>
-            <form class="contact-form" action="https://formspree.io/f/mqewrkyl" method="POST">
+        <!-- Selected Works -->
+        <div id="works">
+            <div class="section-header reveal">
+                <span class="section-label">// Portfolio</span>
+                <h2 class="section-title">Selected Works</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="grid">
+                <div class="project-card reveal reveal-delay-1">
+                    <span class="project-number">001</span>
+                    <img src="project1.jpg" alt="AK-47 Neon Rider">
+                    <div class="project-overlay">
+                        <div class="project-category">Weapon Render</div>
+                        <div class="project-name">AK-47 Neon Rider</div>
+                    </div>
+                </div>
+                <div class="project-card reveal reveal-delay-2">
+                    <span class="project-number">002</span>
+                    <img src="project2.jpg" alt="AWP Dragon Lore">
+                    <div class="project-overlay">
+                        <div class="project-category">Scene Design</div>
+                        <div class="project-name">AWP Dragon Lore</div>
+                    </div>
+                </div>
+                <div class="project-card reveal reveal-delay-3">
+                    <span class="project-number">003</span>
+                    <img src="project3.jpg" alt="Karambit Fade">
+                    <div class="project-overlay">
+                        <div class="project-category">Motion Design</div>
+                        <div class="project-name">Karambit Fade</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Showreel -->
+        <div class="showreel reveal">
+            <div class="section-header">
+                <span class="section-label">// Showreel 2026</span>
+                <h2 class="section-title">In Motion</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="showreel-container" style="margin-top: 60px;">
+                <!-- Replace with your actual showreel video -->
+                <video id="showreel" poster="showreel-poster.jpg" loop muted>
+                    <source src="showreel.mp4" type="video/mp4">
+                </video>
+                <div class="showreel-play" id="playBtn"></div>
+            </div>
+        </div>
+
+        <!-- Tools -->
+        <div id="tools">
+            <div class="section-header reveal">
+                <span class="section-label">// Arsenal</span>
+                <h2 class="section-title">Tools & Software</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="tools-grid">
+                <div class="tool-card reveal reveal-delay-1" data-level="95">
+                    <div class="tool-name">Blender</div>
+                    <div class="tool-desc">Primary 3D Suite</div>
+                    <div class="tool-bar"><div class="tool-bar-fill" style="--level: 95%"></div></div>
+                </div>
+                <div class="tool-card reveal reveal-delay-2" data-level="80">
+                    <div class="tool-name">Cinema 4D</div>
+                    <div class="tool-desc">Legacy Workflow</div>
+                    <div class="tool-bar"><div class="tool-bar-fill" style="--level: 80%"></div></div>
+                </div>
+                <div class="tool-card reveal reveal-delay-3" data-level="90">
+                    <div class="tool-name">After Effects</div>
+                    <div class="tool-desc">Motion & Compositing</div>
+                    <div class="tool-bar"><div class="tool-bar-fill" style="--level: 90%"></div></div>
+                </div>
+                <div class="tool-card reveal reveal-delay-4" data-level="85">
+                    <div class="tool-name">Photoshop</div>
+                    <div class="tool-desc">Textures & Post</div>
+                    <div class="tool-bar"><div class="tool-bar-fill" style="--level: 85%"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Testimonials -->
+        <div class="testimonials">
+            <div class="section-header reveal">
+                <span class="section-label">// Feedback</span>
+                <h2 class="section-title">Client Words</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial-card reveal reveal-delay-1">
+                    <p class="testimonial-quote">Absolutely insane work. The attention to detail on the skin renders is unmatched. Will definitely work together again.</p>
+                    <div class="testimonial-author">@SkinCollector</div>
+                    <div class="testimonial-role">CS2 Content Creator</div>
+                </div>
+                <div class="testimonial-card reveal reveal-delay-2">
+                    <p class="testimonial-quote">VOO3D delivered beyond expectations. Clean communication, fast turnaround, and the quality speaks for itself.</p>
+                    <div class="testimonial-author">@TradeKing</div>
+                    <div class="testimonial-role">Skin Trading Community</div>
+                </div>
+                <div class="testimonial-card reveal reveal-delay-3">
+                    <p class="testimonial-quote">The cinematic feel of every render is something else. This guy understands the CS2 aesthetic on another level.</p>
+                    <div class="testimonial-author">@FragHighlights</div>
+                    <div class="testimonial-role">YouTube // 250K Subs</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- About -->
+        <div class="about-section" id="about">
+            <div class="about-image reveal"></div>
+            <div class="about-text reveal reveal-delay-2">
+                <span class="section-label">// The Artist</span>
+                <h2>About Me</h2>
+                <p>I'm Lukas R., better known as Voodoo in the CS community. If I look familiar to you, it's probably because I'm the real-life counterpart of the Blackwolf | Sabre T-model.</p>
+                <p>My journey in the Counter-Strike world began in 2003 with Version 1.5. Over two decades later, my passion for the game remains as strong as ever, now driving my professional career in visual arts.</p>
+                <p>I started my path in 3D design using Cinema4D and have since transitioned to Blender to create high-end visuals for the community. I specialize in bringing the atmosphere of CS2 to life through modern motion design and meticulous rendering.</p>
+                <div class="about-meta">
+                    <div class="about-meta-item">
+                        <div class="label">Location</div>
+                        <div class="value">Germany</div>
+                    </div>
+                    <div class="about-meta-item">
+                        <div class="label">Active Since</div>
+                        <div class="value">2003</div>
+                    </div>
+                    <div class="about-meta-item">
+                        <div class="label">Focus</div>
+                        <div class="value">CS2 Visuals</div>
+                    </div>
+                </div>
+                <a href="https://steamcommunity.com/profiles/76561197974977104/" target="_blank" class="steam-button">
+                    Access Steam Profile →
+                </a>
+            </div>
+        </div>
+
+        <!-- Contact -->
+        <div class="contact-container reveal" id="contact">
+            <div class="section-header">
+                <span class="section-label">// Get in Touch</span>
+                <h2 class="section-title" style="margin-bottom: 0;">Inquiries</h2>
+                <div class="section-line"></div>
+            </div>
+            <form class="contact-form" action="https://formspree.io/f/mqewrkyl" method="POST" style="margin-top: 50px;">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" name="name" placeholder="Your Identity" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" placeholder="contact@example.com" required>
+                    </div>
+                </div>
                 <div class="form-group">
-                    <label>Full Name</label>
-                    <input type="text" name="name" placeholder="Your Identity" required>
+                    <label>Project Type</label>
+                    <input type="text" name="project" placeholder="Skin Render, Scene Design, Animation...">
                 </div>
                 <div class="form-group">
                     <label>Message</label>
@@ -147,43 +1214,231 @@
                 </div>
                 <button type="submit" id="submit-btn" class="send-btn">Transmit Message</button>
             </form>
-            <div id="status" style="display:none; text-align:center; letter-spacing:5px; margin-top:20px;">MISSION ACCOMPLISHED.</div>
-        </div>
-
-        <div class="about-section">
-            <div class="about-image"></div>
-            <div class="about-text">
-                <h2>About Me</h2>
-                <p>I’m Lukas R., better known as Voodoo in the CS community. If I look familiar to you, it’s probably because I’m the real-life counterpart of the Blackwolf | Sabre T-model.</p>
-                <p>My journey in the Counter-Strike world began in 2003 with Version 1.5. Over two decades later, my passion for the game remains as strong as ever, now driving my professional career in visual arts.</p>
-                <p>I started my path in 3D design using Cinema4D and have since transitioned to Blender to create high-end visuals for the community. I specialize in bringing the atmosphere of CS2 to life through modern motion design and meticulous rendering.</p>
-                <a href="https://steamcommunity.com/profiles/76561197974977104/" target="_blank" class="steam-button">Access Steam Profile // Established 2003</a>
+            <div id="status" style="display:none; text-align:center; font-family: 'JetBrains Mono', monospace; letter-spacing:5px; margin-top:30px; color: var(--accent); font-size: 0.8rem;">
+                ✓ TRANSMISSION SUCCESSFUL
             </div>
         </div>
     </section>
 
+    <!-- Footer -->
     <footer>
-        VOO3D // VISUALIZING THE META // 2026
+        <div class="footer-left">VOO3D // VISUALIZING THE META // 2026</div>
+        <div class="footer-right">
+            <a href="https://steamcommunity.com/profiles/76561197974977104/" target="_blank">Steam</a>
+            <a href="#" target="_blank">Twitter</a>
+            <a href="#" target="_blank">YouTube</a>
+            <a href="#" target="_blank">Discord</a>
+        </div>
     </footer>
 
     <script>
-      const form = document.querySelector('.contact-form');
-      const status = document.getElementById('status');
-      form.onsubmit = async (e) => {
-        e.preventDefault();
-        const data = new FormData(form);
-        const response = await fetch(form.action, {
-          method: 'POST',
-          body: data,
-          headers: { 'Accept': 'application/json' }
+        // ══════════════════════════════════════
+        // PRELOADER
+        // ══════════════════════════════════════
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelector('.preloader').classList.add('hidden');
+            }, 3000);
         });
-        if (response.ok) {
-          form.style.display = 'none';
-          status.style.display = 'block';
-        } else {
-          alert("ERROR. PLEASE TRY AGAIN.");
+
+        // ══════════════════════════════════════
+        // CUSTOM CURSOR
+        // ══════════════════════════════════════
+        const cursor = document.querySelector('.cursor');
+        const cursorDot = document.querySelector('.cursor-dot');
+
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            cursorDot.style.left = mouseX + 'px';
+            cursorDot.style.top = mouseY + 'px';
+        });
+
+        function animateCursor() {
+            cursorX += (mouseX - cursorX) * 0.15;
+            cursorY += (mouseY - cursorY) * 0.15;
+            cursor.style.left = cursorX + 'px';
+            cursor.style.top = cursorY + 'px';
+            requestAnimationFrame(animateCursor);
         }
-      };
+        animateCursor();
+
+        // Hover states
+        const hoverElements = document.querySelectorAll('a, button, .project-card, .tool-card, .showreel-play');
+        hoverElements.forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+
+        // ══════════════════════════════════════
+        // NAVIGATION
+        // ══════════════════════════════════════
+        const navbar = document.getElementById('navbar');
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.scrollY;
+
+            if (currentScroll > 100) {
+                navbar.classList.add('visible');
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('visible');
+                navbar.classList.remove('scrolled');
+            }
+
+            lastScroll = currentScroll;
+        });
+
+        // ══════════════════════════════════════
+        // PARTICLES
+        // ══════════════════════════════════════
+        const particleContainer = document.getElementById('particles');
+        for (let i = 0; i < 40; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.width = Math.random() * 2 + 1 + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.animationDuration = Math.random() * 15 + 10 + 's';
+            particle.style.animationDelay = Math.random() * 10 + 's';
+            particleContainer.appendChild(particle);
+        }
+
+        // ══════════════════════════════════════
+        // SCROLL REVEAL
+        // ══════════════════════════════════════
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // ══════════════════════════════════════
+        // TOOL BARS ANIMATION
+        // ══════════════════════════════════════
+        const toolCards = document.querySelectorAll('.tool-card');
+        const toolObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.5 });
+
+        toolCards.forEach(card => toolObserver.observe(card));
+
+        // ══════════════════════════════════════
+        // COUNTER ANIMATION
+        // ══════════════════════════════════════
+        const counters = document.querySelectorAll('.counter');
+        let countersStarted = false;
+
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !countersStarted) {
+                    countersStarted = true;
+                    counters.forEach(counter => {
+                        const target = parseInt(counter.getAttribute('data-target'));
+                        const duration = 2000;
+                        const start = performance.now();
+
+                        function updateCounter(currentTime) {
+                            const elapsed = currentTime - start;
+                            const progress = Math.min(elapsed / duration, 1);
+                            const eased = 1 - Math.pow(1 - progress, 4);
+                            counter.textContent = Math.floor(eased * target);
+
+                            if (progress < 1) {
+                                requestAnimationFrame(updateCounter);
+                            } else {
+                                counter.textContent = target;
+                            }
+                        }
+                        requestAnimationFrame(updateCounter);
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const statsBar = document.querySelector('.stats-bar');
+        if (statsBar) counterObserver.observe(statsBar);
+
+        // ══════════════════════════════════════
+        // SHOWREEL PLAY
+        // ══════════════════════════════════════
+        const playBtn = document.getElementById('playBtn');
+        const showreel = document.getElementById('showreel');
+
+        if (playBtn && showreel) {
+            playBtn.addEventListener('click', () => {
+                if (showreel.paused) {
+                    showreel.play();
+                    playBtn.style.opacity = '0';
+                } else {
+                    showreel.pause();
+                    playBtn.style.opacity = '1';
+                }
+            });
+
+            showreel.addEventListener('click', () => {
+                if (!showreel.paused) {
+                    showreel.pause();
+                    playBtn.style.opacity = '1';
+                }
+            });
+        }
+
+        // ══════════════════════════════════════
+        // FORM SUBMISSION
+        // ══════════════════════════════════════
+        const form = document.querySelector('.contact-form');
+        const status = document.getElementById('status');
+
+        form.onsubmit = async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('submit-btn');
+            btn.textContent = 'TRANSMITTING...';
+            btn.style.opacity = '0.5';
+
+            const data = new FormData(form);
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: data,
+                headers: { 'Accept': 'application/json' }
+            });
+
+            if (response.ok) {
+                form.style.display = 'none';
+                status.style.display = 'block';
+            } else {
+                btn.textContent = 'ERROR — RETRY';
+                btn.style.opacity = '1';
+                btn.style.background = '#ff4444';
+            }
+        };
+
+        // ══════════════════════════════════════
+        // SMOOTH SCROLL FOR NAV LINKS
+        // ══════════════════════════════════════
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
     </script>
 </body>
 </html>
