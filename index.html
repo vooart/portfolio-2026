@@ -457,10 +457,10 @@
         .stat-item { background: var(--bg); padding: 40px 30px; text-align: center; }
 
         .stat-number {
-    font-size: 2.5rem;
+    font-size: 2.7rem;
     font-weight: 900;
-    letter-spacing: -2px;
-    margin-bottom: 10px;
+    letter-spacing: -1px;
+    margin-bottom: 12px;
     font-variant-numeric: tabular-nums;
 }
 
@@ -1318,20 +1318,31 @@
 
         <div class="stats-bar reveal">
     <div class="stat-item">
-        <div class="stat-number"><span class="counter" data-target="20">0</span><span class="accent">+</span></div>
+        <div class="stat-number">
+            <span class="counter" data-target="20" data-start="0" data-duration="1800">0</span><span class="accent">+</span>
+        </div>
         <div class="stat-label">Years in Counter-Strike</div>
     </div>
+
     <div class="stat-item">
-        <div class="stat-number"><span class="counter" data-target="2003">0</span></div>
-        <div class="stat-label">CS Since</div>
+        <div class="stat-number">
+            <span class="counter" data-target="2003" data-start="2000" data-duration="1400">2000</span>
+        </div>
+        <div class="stat-label">Since CS 1.5</div>
     </div>
+
     <div class="stat-item">
-        <div class="stat-number"><span class="counter" data-target="4">0</span><span class="accent">K+</span></div>
+        <div class="stat-number">
+            <span class="counter" data-target="4" data-start="0" data-duration="1600">0</span><span class="accent">K+</span>
+        </div>
         <div class="stat-label">Render Hours</div>
     </div>
+
     <div class="stat-item">
-        <div class="stat-number"><span class="counter" data-target="60">0</span><span class="accent">FPS</span></div>
-        <div class="stat-label">Motion Design</div>
+        <div class="stat-number">
+            <span class="counter" data-target="100" data-start="0" data-duration="1800">0</span><span class="accent">%</span>
+        </div>
+        <div class="stat-label">Handmade Visuals</div>
     </div>
 </div>
         
@@ -1719,30 +1730,45 @@
         document.querySelectorAll('.tool-card').forEach(card => toolObserver.observe(card));
 
         // COUNTER
-        let countersStarted = false;
-        const counterObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && !countersStarted) {
-                    countersStarted = true;
-                    document.querySelectorAll('.counter').forEach(counter => {
-                        const target = parseInt(counter.dataset.target);
-                        const duration = 2000;
-                        const start = performance.now();
-                        function update(now) {
-                            const progress = Math.min((now - start) / duration, 1);
-                            const eased = 1 - Math.pow(1 - progress, 4);
-                            counter.textContent = Math.floor(eased * target);
-                            if (progress < 1) requestAnimationFrame(update);
-                            else counter.textContent = target;
-                        }
-                        requestAnimationFrame(update);
-                    });
-                }
-            });
-        }, { threshold: 0.5 });
+        // COUNTER
+let countersStarted = false;
 
-        const sb = document.querySelector('.stats-bar');
-        if (sb) counterObserver.observe(sb);
+const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting && !countersStarted) {
+            countersStarted = true;
+
+            document.querySelectorAll('.counter').forEach(counter => {
+                const target = parseInt(counter.dataset.target || 0);
+                const from = parseInt(counter.dataset.start || 0);
+                const duration = parseInt(counter.dataset.duration || 1600);
+                const startTime = performance.now();
+
+                function updateCounter(currentTime) {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+
+                    // smooth ease-out
+                    const eased = 1 - Math.pow(1 - progress, 4);
+
+                    const value = Math.floor(from + (target - from) * eased);
+                    counter.textContent = value;
+
+                    if (progress < 1) {
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.textContent = target;
+                    }
+                }
+
+                requestAnimationFrame(updateCounter);
+            });
+        }
+    });
+}, { threshold: 0.5 });
+
+const sb = document.querySelector('.stats-bar');
+if (sb) counterObserver.observe(sb);
 
         // SHOWREEL
         const playBtn = document.getElementById('playBtn');
