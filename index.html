@@ -813,67 +813,211 @@
             margin-left: 4px;
         }
 
-        /* SERVICES */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1px;
-            background: var(--border);
-            border: 1px solid var(--border);
-            margin-bottom: 150px;
-        }
+/* ══════════════════════════════════════
+   SERVICES - ALTERNATING WITH SLIDER
+══════════════════════════════════════ */
+.services-list {
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+    margin-bottom: 150px;
+}
 
-        .service-card {
-            background: var(--bg);
-            padding: 45px 35px;
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
-            overflow: hidden;
-        }
+.service-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--border);
+    min-height: 450px;
+}
 
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(255, 255, 255, 0.02);
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
+.service-row.reversed {
+    direction: rtl;
+}
 
-        .service-card:hover::before { opacity: 1; }
-        .service-card:hover { transform: translateY(-3px); }
+.service-row.reversed > * {
+    direction: ltr;
+}
 
-        .service-number {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.5rem;
-            letter-spacing: 3px;
-            color: var(--accent);
-            margin-bottom: 20px;
-            display: block;
-        }
+.service-info {
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 
-        .service-name {
-            font-size: 1rem;
-            font-weight: 700;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-bottom: 15px;
-        }
+.service-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    color: var(--accent);
+    margin-bottom: 20px;
+    display: block;
+}
 
-        .service-desc { font-size: 0.8rem; color: #444; line-height: 1.7; }
+.service-name {
+    font-size: 1.3rem;
+    font-weight: 900;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
 
-        .service-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+.service-desc {
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.9;
+    margin-bottom: 25px;
+}
 
-        .service-tag {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.5rem;
-            letter-spacing: 2px;
-            color: #333;
-            border: 1px solid #1a1a1a;
-            padding: 4px 10px;
-            text-transform: uppercase;
-        }
+.service-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.service-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    color: #444;
+    border: 1px solid #222;
+    padding: 5px 12px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+.service-tag:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+/* ══════════════════════════════════════
+   COMPARISON SLIDER
+══════════════════════════════════════ */
+.comparison-slider {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 450px;
+    overflow: hidden;
+    cursor: none;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.comparison-slider .img-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.comparison-slider .img-layer img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.comparison-slider .img-before {
+    z-index: 1;
+}
+
+.comparison-slider .img-after {
+    z-index: 2;
+    clip-path: inset(0 50% 0 0);
+}
+
+.comparison-slider .slider-handle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 3px;
+    background: var(--white);
+    z-index: 3;
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+
+.comparison-slider .slider-handle::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 44px;
+    height: 44px;
+    border: 2px solid var(--white);
+    border-radius: 50%;
+    background: rgba(5, 5, 5, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.comparison-slider .slider-handle::after {
+    content: '◄ ►';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.55rem;
+    letter-spacing: 3px;
+    color: var(--white);
+    white-space: nowrap;
+    z-index: 4;
+}
+
+.comparison-slider .slider-label-before,
+.comparison-slider .slider-label-after {
+    position: absolute;
+    bottom: 15px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    z-index: 4;
+    padding: 5px 10px;
+    background: rgba(5, 5, 5, 0.7);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+.comparison-slider .slider-label-before {
+    left: 15px;
+    color: #555;
+}
+
+.comparison-slider .slider-label-after {
+    right: 15px;
+    color: var(--accent);
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+    .service-row {
+        grid-template-columns: 1fr;
+    }
+
+    .service-row.reversed {
+        direction: ltr;
+    }
+
+    .comparison-slider {
+        min-height: 300px;
+    }
+
+    .service-info {
+        padding: 30px;
+    }
+
+    .comparison-slider .slider-handle::before {
+        width: 36px;
+        height: 36px;
+    }
+}
 
         /* TOOLS */
         .tools-grid {
@@ -1426,53 +1570,115 @@
             </div>
         </div>
 
-        <div id="services">
+                <div id="services">
             <div class="section-header reveal">
                 <span class="section-label">// What I Do</span>
                 <h2 class="section-title">Services</h2>
                 <div class="section-line"></div>
             </div>
-            <div class="services-grid reveal">
-                <div class="service-card">
-                    <span class="service-number">01</span>
-                    <div class="service-name">3D Skin Renders</div>
-                    <div class="service-desc">High-end weapon skin renders with cinematic lighting and studio-quality compositing.</div>
-                    <div class="service-tags">
-                        <span class="service-tag">Blender</span>
-                        <span class="service-tag">4K Output</span>
-                        <span class="service-tag">PBR</span>
+
+            <div class="services-list">
+
+                <!-- SERVICE 01 - Text Links, Slider Rechts -->
+                <div class="service-row reveal">
+                    <div class="service-info">
+                        <span class="service-number">01</span>
+                        <div class="service-name">3D Skin Renders</div>
+                        <div class="service-desc">High-end weapon skin renders with cinematic lighting and studio-quality compositing. Every detail matters.</div>
+                        <div class="service-tags">
+                            <span class="service-tag">Blender</span>
+                            <span class="service-tag">4K Output</span>
+                            <span class="service-tag">PBR</span>
+                        </div>
+                    </div>
+                    <div class="comparison-slider" data-slider>
+                        <div class="img-layer img-before">
+                            <img src="service1-before.jpg" alt="Before">
+                        </div>
+                        <div class="img-layer img-after">
+                            <img src="service1-after.jpg" alt="After">
+                        </div>
+                        <div class="slider-handle"></div>
+                        <span class="slider-label-before">Before</span>
+                        <span class="slider-label-after">After</span>
                     </div>
                 </div>
-                <div class="service-card">
-                    <span class="service-number">02</span>
-                    <div class="service-name">Scene Design</div>
-                    <div class="service-desc">Custom environment builds and atmospheric scene compositions based on CS2 maps and aesthetics.</div>
-                    <div class="service-tags">
-                        <span class="service-tag">Environments</span>
-                        <span class="service-tag">Lighting</span>
-                        <span class="service-tag">Mood</span>
+
+                <!-- SERVICE 02 - Slider Links, Text Rechts -->
+                <div class="service-row reversed reveal">
+                    <div class="service-info">
+                        <span class="service-number">02</span>
+                        <div class="service-name">Scene Design</div>
+                        <div class="service-desc">Custom environment builds and atmospheric scene compositions based on CS2 maps and aesthetics.</div>
+                        <div class="service-tags">
+                            <span class="service-tag">Environments</span>
+                            <span class="service-tag">Lighting</span>
+                            <span class="service-tag">Mood</span>
+                        </div>
+                    </div>
+                    <div class="comparison-slider" data-slider>
+                        <div class="img-layer img-before">
+                            <img src="service2-before.jpg" alt="Before">
+                        </div>
+                        <div class="img-layer img-after">
+                            <img src="service2-after.jpg" alt="After">
+                        </div>
+                        <div class="slider-handle"></div>
+                        <span class="slider-label-before">Before</span>
+                        <span class="slider-label-after">After</span>
                     </div>
                 </div>
-                <div class="service-card">
-                    <span class="service-number">03</span>
-                    <div class="service-name">Motion Design</div>
-                    <div class="service-desc">Animated weapon showcases, intro sequences, and cinematic loops for content creators.</div>
-                    <div class="service-tags">
-                        <span class="service-tag">Animation</span>
-                        <span class="service-tag">60fps</span>
-                        <span class="service-tag">After Effects</span>
+
+                <!-- SERVICE 03 - Text Links, Slider Rechts -->
+                <div class="service-row reveal">
+                    <div class="service-info">
+                        <span class="service-number">03</span>
+                        <div class="service-name">Motion Design</div>
+                        <div class="service-desc">Animated weapon showcases, intro sequences, and cinematic loops for content creators.</div>
+                        <div class="service-tags">
+                            <span class="service-tag">Animation</span>
+                            <span class="service-tag">Cinematic</span>
+                            <span class="service-tag">After Effects</span>
+                        </div>
+                    </div>
+                    <div class="comparison-slider" data-slider>
+                        <div class="img-layer img-before">
+                            <img src="service3-before.jpg" alt="Before">
+                        </div>
+                        <div class="img-layer img-after">
+                            <img src="service3-after.jpg" alt="After">
+                        </div>
+                        <div class="slider-handle"></div>
+                        <span class="slider-label-before">Before</span>
+                        <span class="slider-label-after">After</span>
                     </div>
                 </div>
-                <div class="service-card">
-                    <span class="service-number">04</span>
-                    <div class="service-name">Thumbnails & Social</div>
-                    <div class="service-desc">Eye-catching thumbnails and social media visuals optimized for YouTube, Twitter, and Steam.</div>
-                    <div class="service-tags">
-                        <span class="service-tag">YouTube</span>
-                        <span class="service-tag">Twitter</span>
-                        <span class="service-tag">Steam</span>
+
+                <!-- SERVICE 04 - Slider Links, Text Rechts -->
+                <div class="service-row reversed reveal">
+                    <div class="service-info">
+                        <span class="service-number">04</span>
+                        <div class="service-name">Thumbnails & Social</div>
+                        <div class="service-desc">Eye-catching thumbnails and social media visuals optimized for YouTube, Twitter, and Steam.</div>
+                        <div class="service-tags">
+                            <span class="service-tag">YouTube</span>
+                            <span class="service-tag">Twitter</span>
+                            <span class="service-tag">Steam</span>
+                        </div>
+                    </div>
+                    <div class="comparison-slider" data-slider>
+                        <div class="img-layer img-before">
+                            <img src="service4-before.jpg" alt="Before">
+                        </div>
+                        <div class="img-layer img-after">
+                            <img src="service4-after.jpg" alt="After">
+                        </div>
+                        <div class="slider-handle"></div>
+                        <span class="slider-label-before">Before</span>
+                        <span class="slider-label-after">After</span>
                     </div>
                 </div>
+
             </div>
         </div>
 
@@ -1885,6 +2091,62 @@ if (sb) counterObserver.observe(sb);
                 if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
         });
+
+        // ══════════════════════════════════════
+        // COMPARISON SLIDER
+        // ══════════════════════════════════════
+        document.querySelectorAll('[data-slider]').forEach(slider => {
+            const handle = slider.querySelector('.slider-handle');
+            const afterLayer = slider.querySelector('.img-after');
+            let isDragging = false;
+
+            function updateSlider(x) {
+                const rect = slider.getBoundingClientRect();
+                let position = (x - rect.left) / rect.width;
+                position = Math.max(0.05, Math.min(0.95, position));
+
+                const percentage = position * 100;
+                handle.style.left = percentage + '%';
+                afterLayer.style.clipPath = `inset(0 ${100 - percentage}% 0 0)`;
+            }
+
+            // Mouse Events
+            slider.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                updateSlider(e.clientX);
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+                updateSlider(e.clientX);
+            });
+
+            document.addEventListener('mouseup', () => {
+                isDragging = false;
+            });
+
+            // Touch Events
+            slider.addEventListener('touchstart', (e) => {
+                isDragging = true;
+                updateSlider(e.touches[0].clientX);
+            });
+
+            slider.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+                updateSlider(e.touches[0].clientX);
+            });
+
+            slider.addEventListener('touchend', () => {
+                isDragging = false;
+            });
+
+            // Hover cursor
+            slider.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            slider.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+        
     </script>
 </body>
 </html>
