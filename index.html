@@ -421,21 +421,21 @@
         .section-header { margin-bottom: 80px; text-align: center; }
 
         .section-label {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.6rem;
-            letter-spacing: 6px;
-            color: #333;
-            text-transform: uppercase;
-            margin-bottom: 15px;
-            display: block;
-        }
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 6px;
+    color: #444;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    display: block;
+}
 
-        .section-title {
-            font-size: clamp(1.2rem, 3vw, 1.5rem);
-            text-transform: uppercase;
-            letter-spacing: 12px;
-            text-align: center;
-        }
+.section-title {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    text-transform: uppercase;
+    letter-spacing: 12px;
+    text-align: center;
+}
 
         .section-line {
             width: 60px;
@@ -457,22 +457,33 @@
         .stat-item { background: var(--bg); padding: 40px 30px; text-align: center; }
 
         .stat-number {
-            font-size: 2.5rem;
-            font-weight: 900;
-            letter-spacing: -2px;
-            margin-bottom: 5px;
-            font-variant-numeric: tabular-nums;
-        }
+    font-size: 2.5rem;
+    font-weight: 900;
+    letter-spacing: -2px;
+    margin-bottom: 10px;
+    font-variant-numeric: tabular-nums;
+}
 
-        .stat-number .accent { color: var(--accent); font-weight: 300; }
+.stat-number .accent {
+    color: var(--accent);
+    font-weight: 300;
+}
 
-        .stat-label {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.55rem;
-            letter-spacing: 4px;
-            color: #333;
-            text-transform: uppercase;
-        }
+.stat-number-text {
+    font-size: 1.4rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    color: #555;
+    text-transform: uppercase;
+}
 
         /* PROJECT GRID */
         .grid {
@@ -906,13 +917,13 @@
         }
 
         .tool-desc {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.6rem;
-            color: #444;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-        }
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: #555;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
 
         .tool-bar { width: 100%; height: 2px; background: #111; overflow: hidden; }
 
@@ -1306,24 +1317,24 @@
     <section class="content">
 
         <div class="stats-bar reveal">
-            <div class="stat-item">
-                <div class="stat-number"><span class="counter" data-target="20">0</span><span class="accent">+</span></div>
-                <div class="stat-label">Years CS Experience</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number"><span class="counter" data-target="150">0</span><span class="accent">+</span></div>
-                <div class="stat-label">Projects Delivered</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number"><span class="counter" data-target="50">0</span><span class="accent">+</span></div>
-                <div class="stat-label">Happy Clients</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number"><span class="counter" data-target="4">0</span><span class="accent">K</span></div>
-                <div class="stat-label">Render Hours</div>
-            </div>
-        </div>
-
+    <div class="stat-item">
+        <div class="stat-number"><span class="counter" data-target="20">0</span><span class="accent">+</span></div>
+        <div class="stat-label">Years in Counter-Strike</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number-text">CS 1.5</div>
+        <div class="stat-label">Where It All Started</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number-text">C4D → B3D</div>
+        <div class="stat-label">Cinema 4D to Blender</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number-text">Open</div>
+        <div class="stat-label">Available for Commissions</div>
+    </div>
+</div>
+        
         <div id="works">
             <div class="section-header reveal">
                 <span class="section-label">// Portfolio</span>
