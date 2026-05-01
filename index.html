@@ -39,13 +39,9 @@
             cursor: none;
         }
 
-        body.lightbox-open {
-            overflow: hidden;
-        }
+        body.lightbox-open { overflow: hidden; }
 
-        /* ══════════════════════════════════════
-           CUSTOM CURSOR
-        ══════════════════════════════════════ */
+        /* CURSOR */
         .cursor {
             width: 20px;
             height: 20px;
@@ -78,9 +74,7 @@
             background: rgba(0, 255, 136, 0.05);
         }
 
-        /* ══════════════════════════════════════
-           PRELOADER
-        ══════════════════════════════════════ */
+        /* PRELOADER */
         .preloader {
             position: fixed;
             top: 0; left: 0;
@@ -94,10 +88,7 @@
             transition: opacity 0.8s ease, visibility 0.8s ease;
         }
 
-        .preloader.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
+        .preloader.hidden { opacity: 0; visibility: hidden; }
 
         .preloader-text {
             font-family: 'JetBrains Mono', monospace;
@@ -131,9 +122,7 @@
             100% { width: 100%; }
         }
 
-        /* ══════════════════════════════════════
-           NAVIGATION
-        ══════════════════════════════════════ */
+        /* NAV */
         .nav {
             position: fixed;
             top: 0; left: 0; right: 0;
@@ -147,10 +136,7 @@
             opacity: 0;
         }
 
-        .nav.visible {
-            transform: translateY(0);
-            opacity: 1;
-        }
+        .nav.visible { transform: translateY(0); opacity: 1; }
 
         .nav.scrolled {
             background: rgba(5, 5, 5, 0.8);
@@ -160,11 +146,7 @@
             padding: 15px 50px;
         }
 
-        .nav-logo {
-            font-weight: 900;
-            font-size: 1.2rem;
-            letter-spacing: -1px;
-        }
+        .nav-logo { font-weight: 900; font-size: 1.2rem; letter-spacing: -1px; }
 
         .nav-logo span {
             font-family: 'Roboto', sans-serif;
@@ -174,11 +156,7 @@
             margin-left: 5px;
         }
 
-        .nav-links {
-            display: flex;
-            gap: 40px;
-            list-style: none;
-        }
+        .nav-links { display: flex; gap: 40px; list-style: none; }
 
         .nav-links a {
             color: var(--dark-gray);
@@ -227,9 +205,7 @@
             50% { opacity: 0.3; }
         }
 
-        /* ══════════════════════════════════════
-           HERO
-        ══════════════════════════════════════ */
+        /* HERO */
         .hero {
             position: relative;
             height: 100vh;
@@ -276,9 +252,7 @@
             100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
         }
 
-        /* ══════════════════════════════════════
-           LOGO
-        ══════════════════════════════════════ */
+        /* LOGO */
         .logo-container {
             position: relative;
             z-index: 2;
@@ -394,10 +368,7 @@
             opacity: 0;
         }
 
-        .subtitle .accent-text {
-            color: var(--accent);
-            font-weight: 400;
-        }
+        .subtitle .accent-text { color: var(--accent); font-weight: 400; }
 
         .scroll-indicator {
             position: absolute;
@@ -430,34 +401,23 @@
             50% { opacity: 1; transform: scaleY(1); }
         }
 
-        /* ══════════════════════════════════════
-           SECTION TRANSITIONS
-        ══════════════════════════════════════ */
+        /* REVEAL */
         .reveal {
             opacity: 0;
             transform: translateY(60px);
             transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
+        .reveal.active { opacity: 1; transform: translateY(0); }
         .reveal-delay-1 { transition-delay: 0.1s; }
         .reveal-delay-2 { transition-delay: 0.2s; }
         .reveal-delay-3 { transition-delay: 0.3s; }
         .reveal-delay-4 { transition-delay: 0.4s; }
 
-        /* ══════════════════════════════════════
-           CONTENT
-        ══════════════════════════════════════ */
+        /* CONTENT */
         .content { padding: 100px 20px; max-width: 1200px; margin: 0 auto; }
 
-        .section-header {
-            margin-bottom: 80px;
-            text-align: center;
-        }
+        .section-header { margin-bottom: 80px; text-align: center; }
 
         .section-label {
             font-family: 'JetBrains Mono', monospace;
@@ -483,9 +443,7 @@
             margin: 25px auto 0;
         }
 
-        /* ══════════════════════════════════════
-           STATS BAR
-        ══════════════════════════════════════ */
+        /* STATS */
         .stats-bar {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -495,11 +453,7 @@
             border: 1px solid var(--border);
         }
 
-        .stat-item {
-            background: var(--bg);
-            padding: 40px 30px;
-            text-align: center;
-        }
+        .stat-item { background: var(--bg); padding: 40px 30px; text-align: center; }
 
         .stat-number {
             font-size: 2.5rem;
@@ -509,10 +463,7 @@
             font-variant-numeric: tabular-nums;
         }
 
-        .stat-number .accent {
-            color: var(--accent);
-            font-weight: 300;
-        }
+        .stat-number .accent { color: var(--accent); font-weight: 300; }
 
         .stat-label {
             font-family: 'JetBrains Mono', monospace;
@@ -522,9 +473,7 @@
             text-transform: uppercase;
         }
 
-        /* ══════════════════════════════════════
-           PROJECT GRID
-        ══════════════════════════════════════ */
+        /* PROJECT GRID */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
@@ -570,10 +519,7 @@
             transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .project-card:hover .project-overlay {
-            transform: translateY(0);
-            opacity: 1;
-        }
+        .project-card:hover .project-overlay { transform: translateY(0); opacity: 1; }
 
         .project-category {
             font-family: 'JetBrains Mono', monospace;
@@ -614,13 +560,9 @@
             transition: opacity 0.5s ease;
         }
 
-        .project-card:hover .project-hint {
-            opacity: 1;
-        }
+        .project-card:hover .project-hint { opacity: 1; }
 
-        /* ══════════════════════════════════════
-           LIGHTBOX
-        ══════════════════════════════════════ */
+        /* LIGHTBOX */
         .lightbox {
             position: fixed;
             top: 0; left: 0;
@@ -631,14 +573,10 @@
             justify-content: center;
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-                        visibility 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .lightbox.active {
-            opacity: 1;
-            visibility: visible;
-        }
+        .lightbox.active { opacity: 1; visibility: visible; }
 
         .lightbox-backdrop {
             position: absolute;
@@ -664,9 +602,7 @@
             transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .lightbox.active .lightbox-content {
-            transform: translateY(0) scale(1);
-        }
+        .lightbox.active .lightbox-content { transform: translateY(0) scale(1); }
 
         .lightbox-image {
             width: 100%;
@@ -728,9 +664,7 @@
             border-bottom: 1px solid var(--border);
         }
 
-        .lightbox-meta-item {
-            font-family: 'JetBrains Mono', monospace;
-        }
+        .lightbox-meta-item { font-family: 'JetBrains Mono', monospace; }
 
         .lightbox-meta-item .meta-label {
             font-size: 0.45rem;
@@ -782,9 +716,7 @@
             z-index: 3;
         }
 
-        .lightbox-close:hover {
-            transform: rotate(90deg);
-        }
+        .lightbox-close:hover { transform: rotate(90deg); }
 
         .lightbox-close::before,
         .lightbox-close::after {
@@ -797,10 +729,7 @@
         }
 
         .lightbox-close:hover::before,
-        .lightbox-close:hover::after {
-            background: var(--white);
-        }
-
+        .lightbox-close:hover::after { background: var(--white); }
         .lightbox-close::before { transform: rotate(45deg); }
         .lightbox-close::after { transform: rotate(-45deg); }
 
@@ -827,17 +756,10 @@
             transition: all 0.3s ease;
         }
 
-        .lightbox-nav-btn:hover {
-            color: var(--white);
-            border-color: var(--gray);
-        }
+        .lightbox-nav-btn:hover { color: var(--white); border-color: var(--gray); }
 
-        /* ══════════════════════════════════════
-           SHOWREEL
-        ══════════════════════════════════════ */
-        .showreel {
-            margin-bottom: 150px;
-        }
+        /* SHOWREEL */
+        .showreel { margin-bottom: 150px; }
 
         .showreel-container {
             position: relative;
@@ -848,11 +770,7 @@
             cursor: none;
         }
 
-        .showreel-container video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .showreel-container video { width: 100%; height: 100%; object-fit: cover; }
 
         .showreel-play {
             position: absolute;
@@ -883,9 +801,7 @@
             margin-left: 4px;
         }
 
-        /* ══════════════════════════════════════
-           SERVICES
-        ══════════════════════════════════════ */
+        /* SERVICES */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -933,18 +849,9 @@
             margin-bottom: 15px;
         }
 
-        .service-desc {
-            font-size: 0.8rem;
-            color: #444;
-            line-height: 1.7;
-        }
+        .service-desc { font-size: 0.8rem; color: #444; line-height: 1.7; }
 
-        .service-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 20px;
-        }
+        .service-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
 
         .service-tag {
             font-family: 'JetBrains Mono', monospace;
@@ -956,9 +863,7 @@
             text-transform: uppercase;
         }
 
-        /* ══════════════════════════════════════
-           TOOLS
-        ══════════════════════════════════════ */
+        /* TOOLS */
         .tools-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -985,6 +890,7 @@
         }
 
         .tool-card:hover::before { transform: translateX(0); }
+
         .tool-card:hover {
             border-color: rgba(255, 255, 255, 0.2);
             transform: translateY(-3px);
@@ -1007,12 +913,7 @@
             margin-bottom: 20px;
         }
 
-        .tool-bar {
-            width: 100%;
-            height: 2px;
-            background: #111;
-            overflow: hidden;
-        }
+        .tool-bar { width: 100%; height: 2px; background: #111; overflow: hidden; }
 
         .tool-bar-fill {
             height: 100%;
@@ -1024,106 +925,130 @@
         .tool-card.active .tool-bar-fill { width: var(--level); }
 
         /* ══════════════════════════════════════
-           ABOUT
+           ABOUT - COMPACT (NEW!)
         ══════════════════════════════════════ */
-        .about-section {
+        .about-compact {
             margin-top: 200px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            align-items: center;
+            margin-bottom: 50px;
         }
 
-        .about-image {
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            width: 100%;
-            max-width: 450px;
-            aspect-ratio: 3 / 4;
-            background-image: url('voodoo3d.jpg');
-            background-size: cover;
-            background-position: center top;
-            background-repeat: no-repeat;
-            justify-self: start;
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
         }
 
-        .about-image::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: linear-gradient(135deg, rgba(5,5,5,0.3), transparent);
-        }
-
-        .about-text h2 {
-            font-size: 2rem;
-            letter-spacing: 5px;
-            margin-bottom: 30px;
-            text-transform: uppercase;
-        }
-
-        .about-text p {
+        .about-statement {
+            font-size: 1.15rem;
             color: var(--gray);
-            font-size: 1rem;
-            margin-bottom: 25px;
-            line-height: 1.8;
+            line-height: 2;
+            margin-bottom: 50px;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .about-meta {
-            display: flex;
-            gap: 30px;
-            margin-top: 30px;
-            padding-top: 30px;
-            border-top: 1px solid var(--border);
+        .about-statement strong {
+            color: var(--white);
+            font-weight: 700;
         }
 
-        .about-meta-item { font-family: 'JetBrains Mono', monospace; }
+        .about-details {
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.01);
+        }
 
-        .about-meta-item .label {
-            font-size: 0.5rem;
+        .about-meta-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .about-meta-row .about-meta-item {
+            background: var(--bg);
+            padding: 30px 20px;
+            text-align: center;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .about-meta-row .meta-label {
+            font-size: 0.45rem;
             letter-spacing: 3px;
             color: #333;
             text-transform: uppercase;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
         }
 
-        .about-meta-item .value {
-            font-size: 0.75rem;
+        .about-meta-row .meta-value {
+            font-size: 0.7rem;
             color: var(--gray);
             letter-spacing: 2px;
         }
 
-        .steam-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 15px 35px;
-            border: 1px solid var(--border);
-            color: var(--dark-gray);
+        .social-links {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--border);
+        }
+
+        .social-link {
+            background: var(--bg);
+            padding: 30px 20px;
             text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            font-size: 0.65rem;
+            text-align: center;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            margin-top: 30px;
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
         }
 
-        .steam-button::before {
+        .social-link::before {
             content: '';
             position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: rgba(255, 255, 255, 0.05);
-            transition: left 0.4s ease;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
         }
 
-        .steam-button:hover::before { left: 0; }
-        .steam-button:hover { color: var(--white); border-color: rgba(255, 255, 255, 0.3); transform: translateX(5px); }
+        .social-link:hover::before { transform: scaleX(1); }
+        .social-link:hover { background: rgba(255, 255, 255, 0.02); }
 
-        /* ══════════════════════════════════════
-           CONTACT
-        ══════════════════════════════════════ */
+        .social-icon {
+            font-size: 1.3rem;
+            color: #333;
+            transition: color 0.3s ease;
+        }
+
+        .social-link:hover .social-icon { color: var(--accent); }
+
+        .social-name {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--white);
+        }
+
+        .social-detail {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.5rem;
+            letter-spacing: 3px;
+            color: #333;
+            text-transform: uppercase;
+        }
+
+        /* CONTACT */
         .contact-container {
             background: rgba(255, 255, 255, 0.01);
             border: 1px solid var(--border);
@@ -1203,9 +1128,7 @@
         .send-btn:hover::before { left: 100%; }
         .send-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 40px rgba(255,255,255,0.1); }
 
-        /* ══════════════════════════════════════
-           FOOTER
-        ══════════════════════════════════════ */
+        /* FOOTER */
         footer {
             padding: 60px 50px;
             border-top: 1px solid #0a0a0a;
@@ -1235,9 +1158,7 @@
 
         .footer-right a:hover { color: var(--gray); }
 
-        /* ══════════════════════════════════════
-           GRAIN
-        ══════════════════════════════════════ */
+        /* GRAIN */
         .grain {
             position: fixed;
             top: 0; left: 0;
@@ -1248,9 +1169,7 @@
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
         }
 
-        /* ══════════════════════════════════════
-           MOBILE
-        ══════════════════════════════════════ */
+        /* MOBILE */
         @media (max-width: 768px) {
             .cursor, .cursor-dot { display: none; }
             body { cursor: auto; }
@@ -1258,13 +1177,14 @@
             .nav-links { display: none; }
             .nav-status { display: none; }
             .stats-bar { grid-template-columns: repeat(2, 1fr); }
-            .about-section { grid-template-columns: 1fr; }
             .contact-container { padding: 30px; }
             .form-row { grid-template-columns: 1fr; }
             .grid { grid-template-columns: 1fr; }
             .tools-grid { grid-template-columns: 1fr; }
             .services-grid { grid-template-columns: 1fr; }
-            .send-btn, .steam-button, .lightbox-link, .lightbox-close, .lightbox-nav-btn { cursor: pointer; }
+            .about-meta-row { grid-template-columns: repeat(2, 1fr); }
+            .social-links { grid-template-columns: 1fr; }
+            .send-btn, .lightbox-link, .lightbox-close, .lightbox-nav-btn, .social-link { cursor: pointer; }
             .project-card { cursor: pointer; }
 
             .lightbox-content {
@@ -1273,15 +1193,8 @@
                 width: 95%;
             }
 
-            .lightbox-image {
-                height: 250px;
-                min-height: 200px;
-            }
-
-            .lightbox-info {
-                padding: 25px;
-            }
-
+            .lightbox-image { height: 250px; min-height: 200px; }
+            .lightbox-info { padding: 25px; }
             .lightbox-title { font-size: 1.2rem; }
             .lightbox-meta { flex-wrap: wrap; gap: 15px; }
 
@@ -1306,9 +1219,7 @@
         <div class="preloader-bar"></div>
     </div>
 
-    <!-- ══════════════════════════════════════
-         LIGHTBOX OVERLAY
-    ══════════════════════════════════════ -->
+    <!-- LIGHTBOX -->
     <div class="lightbox" id="lightbox">
         <div class="lightbox-backdrop" id="lightboxBackdrop"></div>
         <div class="lightbox-content">
@@ -1395,10 +1306,6 @@
             </div>
         </div>
 
-        <!-- ══════════════════════════════════════
-             PROJECT CARDS WITH DATA ATTRIBUTES
-             Edit these to customize your lightbox content!
-        ══════════════════════════════════════ -->
         <div id="works">
             <div class="section-header reveal">
                 <span class="section-label">// Portfolio</span>
@@ -1410,14 +1317,14 @@
                      data-category="Commercial // Promo Video"
                      data-title="PashaBiceps"
                      data-client="Client: Jarosław 'pashaBiceps' Jarząbkowski"
-                     data-desc="Created a high-end 3D promotional video for pashaBiceps and his PA PI TO brand. The project included cinematic weapon renders, dynamic camera movements, and brand-integrated motion graphics designed to capture the essence of the legendary CS player's personal brand."
+                     data-desc="Created a high-end 3D promotional video for pashaBiceps and his PA PI TO brand. The project included cinematic weapon renders, dynamic camera movements, and brand-integrated motion graphics."
                      data-software="Blender / After Effects"
                      data-year="2026"
                      data-type="Promo Video"
                      data-link="https://youtube.com/example"
                      data-image="project1.jpg">
                     <span class="project-number">001</span>
-                    <img src="project1.jpg" alt="PashaBiceps PA PI TO">
+                    <img src="project1.jpg" alt="PashaBiceps">
                     <div class="project-overlay">
                         <div class="project-category">Commercial</div>
                         <div class="project-name">PashaBiceps</div>
@@ -1429,7 +1336,7 @@
                      data-category="Weapon Render // Showcase"
                      data-title="AWP Dragon Lore"
                      data-client="Personal Project"
-                     data-desc="A cinematic showcase of the legendary AWP Dragon Lore skin. Rendered with realistic PBR materials, volumetric lighting, and a moody environment inspired by the map de_cobblestone. Every detail from the hand-painted dragon to the subtle wear patterns was carefully recreated in 3D."
+                     data-desc="A cinematic showcase of the legendary AWP Dragon Lore skin. Rendered with realistic PBR materials, volumetric lighting, and a moody environment."
                      data-software="Blender / Photoshop"
                      data-year="2025"
                      data-type="3D Render"
@@ -1448,7 +1355,7 @@
                      data-category="Motion Design // Animation"
                      data-title="Karambit Fade"
                      data-client="Commission Work"
-                     data-desc="A smooth 60fps animation showcasing the iconic Karambit Fade with a full 360° inspection animation. The piece features dynamic lighting transitions that highlight the gradient fade pattern, combined with subtle particle effects and a clean dark environment."
+                     data-desc="A smooth 60fps animation showcasing the iconic Karambit Fade with a full 360° inspection animation and dynamic lighting transitions."
                      data-software="Blender / After Effects"
                      data-year="2025"
                      data-type="Animation"
@@ -1543,7 +1450,7 @@
                 </div>
                 <div class="tool-card reveal reveal-delay-2">
                     <div class="tool-name">Cinema 4D</div>
-                    <div class="tool-desc">Legacy Workflow</div>
+                    <div class="tool-desc">Where It All Started</div>
                     <div class="tool-bar"><div class="tool-bar-fill" style="--level: 80%"></div></div>
                 </div>
                 <div class="tool-card reveal reveal-delay-3">
@@ -1559,31 +1466,61 @@
             </div>
         </div>
 
-        <div class="about-section" id="about">
-            <div class="about-image reveal"></div>
-            <div class="about-text reveal reveal-delay-2">
+        <!-- ══════════════════════════════════════
+             ABOUT - NEW COMPACT VERSION
+        ══════════════════════════════════════ -->
+        <div class="about-compact" id="about">
+            <div class="section-header reveal">
                 <span class="section-label">// The Artist</span>
-                <h2>About Me</h2>
-                <p>I'm Lukas R., better known as Voodoo in the CS community. If I look familiar to you, it's probably because I'm the real-life counterpart of the Blackwolf | Sabre T-model.</p>
-                <p>My journey in the Counter-Strike world began in 2003 with Version 1.5. Over two decades later, my passion for the game remains as strong as ever, now driving my professional career in visual arts.</p>
-                <p>I started my path in 3D design using Cinema4D and have since transitioned to Blender to create high-end visuals for the community. I specialize in bringing the atmosphere of CS2 to life through modern motion design and meticulous rendering.</p>
-                <div class="about-meta">
-                    <div class="about-meta-item">
-                        <div class="label">Location</div>
-                        <div class="value">Germany</div>
+                <h2 class="section-title">About Me</h2>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="about-content reveal">
+                <p class="about-statement">
+                    <strong>Lukas R.</strong> aka <strong>Voodoo</strong> — playing Counter-Strike since <strong>2003</strong>. 
+                    Fascinated by 3D since childhood, I started my journey with <strong>Cinema 4D</strong> and 
+                    later switched to <strong>Blender</strong> to bring the CS2 universe to life through cinematic visuals.
+                </p>
+
+                <div class="about-details">
+                    <div class="about-meta-row">
+                        <div class="about-meta-item">
+                            <div class="meta-label">Playing Since</div>
+                            <div class="meta-value">CS 1.5 // 2003</div>
+                        </div>
+                        <div class="about-meta-item">
+                            <div class="meta-label">Location</div>
+                            <div class="meta-value">Germany</div>
+                        </div>
+                        <div class="about-meta-item">
+                            <div class="meta-label">Focus</div>
+                            <div class="meta-value">CS2 3D Art</div>
+                        </div>
+                        <div class="about-meta-item">
+                            <div class="meta-label">Main Tool</div>
+                            <div class="meta-value">Blender</div>
+                        </div>
                     </div>
-                    <div class="about-meta-item">
-                        <div class="label">Active Since</div>
-                        <div class="value">2003</div>
-                    </div>
-                    <div class="about-meta-item">
-                        <div class="label">Focus</div>
-                        <div class="value">CS2 Visuals</div>
+
+                    <div class="social-links">
+                        <a href="https://steamcommunity.com/profiles/76561197974977104/" target="_blank" class="social-link">
+                            <span class="social-icon">⬡</span>
+                            <span class="social-name">Steam</span>
+                            <span class="social-detail">Est. 2003</span>
+                        </a>
+                        <a href="#" target="_blank" class="social-link">
+                            <span class="social-icon">▶</span>
+                            <span class="social-name">YouTube</span>
+                            <span class="social-detail">Showreels & More</span>
+                        </a>
+                        <a href="#" target="_blank" class="social-link">
+                            <span class="social-icon">◆</span>
+                            <span class="social-name">Discord</span>
+                            <span class="social-detail">Direct Contact</span>
+                        </a>
                     </div>
                 </div>
-                <a href="https://steamcommunity.com/profiles/76561197974977104/" target="_blank" class="steam-button">
-                    Access Steam Profile →
-                </a>
             </div>
         </div>
 
@@ -1616,7 +1553,7 @@
             </form>
             <div id="status" style="display:none; text-align:center; font-family: 'JetBrains Mono', monospace; letter-spacing:5px; margin-top:30px; color: var(--accent); font-size: 0.8rem;">
                 ✓ TRANSMISSION SUCCESSFUL
-             </div>
+            </div>
 
             <div class="payment-info" style="
                 text-align: center;
@@ -1657,16 +1594,13 @@
         <div class="footer-left">VOO3D // CS2 3D ART & MOTION DESIGN // 2026</div>
         <div class="footer-right">
             <a href="https://steamcommunity.com/profiles/76561197974977104/" target="_blank">Steam</a>
-            <a href="#" target="_blank">Twitter</a>
             <a href="#" target="_blank">YouTube</a>
             <a href="#" target="_blank">Discord</a>
         </div>
     </footer>
 
     <script>
-        // ══════════════════════════════════════
         // PRELOADER + LOGO
-        // ══════════════════════════════════════
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.getElementById('preloader').classList.add('hidden');
@@ -1688,9 +1622,7 @@
             if (scroll) scroll.style.opacity = '1';
         }, 6000);
 
-        // ══════════════════════════════════════
-        // CUSTOM CURSOR
-        // ══════════════════════════════════════
+        // CURSOR
         const cursor = document.querySelector('.cursor');
         const cursorDot = document.querySelector('.cursor-dot');
         let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0;
@@ -1711,17 +1643,12 @@
         }
         animateCursor();
 
-        function setupHoverCursors() {
-            document.querySelectorAll('a, button, .project-card, .tool-card, .service-card, .showreel-play, .lightbox-close, .lightbox-nav-btn').forEach(el => {
-                el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-                el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-            });
-        }
-        setupHoverCursors();
+        document.querySelectorAll('a, button, .project-card, .tool-card, .service-card, .showreel-play, .lightbox-close, .lightbox-nav-btn, .social-link').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
 
-        // ══════════════════════════════════════
-        // NAVIGATION
-        // ══════════════════════════════════════
+        // NAV
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 100) {
@@ -1731,9 +1658,7 @@
             }
         });
 
-        // ══════════════════════════════════════
         // PARTICLES
-        // ══════════════════════════════════════
         const pc = document.getElementById('particles');
         for (let i = 0; i < 40; i++) {
             const p = document.createElement('div');
@@ -1746,9 +1671,7 @@
             pc.appendChild(p);
         }
 
-        // ══════════════════════════════════════
-        // SCROLL REVEAL
-        // ══════════════════════════════════════
+        // REVEAL
         const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) entry.target.classList.add('active');
@@ -1757,9 +1680,7 @@
 
         document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-        // ══════════════════════════════════════
         // TOOL BARS
-        // ══════════════════════════════════════
         const toolObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) entry.target.classList.add('active');
@@ -1768,9 +1689,7 @@
 
         document.querySelectorAll('.tool-card').forEach(card => toolObserver.observe(card));
 
-        // ══════════════════════════════════════
         // COUNTER
-        // ══════════════════════════════════════
         let countersStarted = false;
         const counterObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -1796,9 +1715,7 @@
         const sb = document.querySelector('.stats-bar');
         if (sb) counterObserver.observe(sb);
 
-        // ══════════════════════════════════════
         // SHOWREEL
-        // ══════════════════════════════════════
         const playBtn = document.getElementById('playBtn');
         const showreel = document.getElementById('showreel');
         if (playBtn && showreel) {
@@ -1811,9 +1728,7 @@
             });
         }
 
-        // ══════════════════════════════════════
-        // LIGHTBOX SYSTEM
-        // ══════════════════════════════════════
+        // LIGHTBOX
         const lightbox = document.getElementById('lightbox');
         const lightboxImage = document.getElementById('lightboxImage');
         const lightboxCategory = document.getElementById('lightboxCategory');
@@ -1878,10 +1793,8 @@
             openLightbox(currentProject);
         });
 
-        // Keyboard navigation
         document.addEventListener('keydown', (e) => {
             if (!lightbox.classList.contains('active')) return;
-
             if (e.key === 'Escape') closeLightbox();
             if (e.key === 'ArrowLeft') {
                 currentProject = (currentProject - 1 + projectCards.length) % projectCards.length;
@@ -1893,9 +1806,7 @@
             }
         });
 
-        // ══════════════════════════════════════
         // FORM
-        // ══════════════════════════════════════
         const form = document.querySelector('.contact-form');
         const status = document.getElementById('status');
         form.onsubmit = async (e) => {
@@ -1911,9 +1822,7 @@
             else { btn.textContent = 'ERROR — RETRY'; btn.style.opacity = '1'; btn.style.background = '#ff4444'; }
         };
 
-        // ══════════════════════════════════════
-        // SMOOTH SCROLL NAV
-        // ══════════════════════════════════════
+        // SMOOTH SCROLL
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
