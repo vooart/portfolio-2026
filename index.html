@@ -40,8 +40,7 @@ nav .wrap{display:flex;justify-content:space-between;align-items:center;}
 .rv-r.vis{opacity:1;transform:translateX(0);}
 .rv-s{opacity:0;transform:scale(.88);transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1s cubic-bezier(.16,1,.3,1);}
 .rv-s.vis{opacity:1;transform:scale(1);}
-.lf-c:nth-child(2){transition-delay:.12s;}
-.lf-c:nth-child(3){transition-delay:.24s;}
+
 .nlinks a{position:relative;}
 .nlinks a::after{content:'';position:absolute;left:0;bottom:-5px;width:0;height:1px;background:var(--ink);transition:width .35s cubic-bezier(.16,1,.3,1);}
 .nlinks a:hover::after{width:100%;}
@@ -75,6 +74,15 @@ nav .wrap{display:flex;justify-content:space-between;align-items:center;}
 .cmp{padding:90px 0 76px;border-bottom:1px solid var(--line);}
 .cmp h2{font-size:1.55rem;font-weight:900;letter-spacing:-.5px;margin-bottom:8px;}
 .cmp p.s{color:var(--dim);max-width:54ch;line-height:1.6;margin-bottom:36px;}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:12px;display:block;}
+.tt-row{display:flex;gap:20px;flex-wrap:wrap;}
+.tt-box{width:240px;max-width:100%;aspect-ratio:9/16;border-radius:16px;overflow:hidden;background:#0d0e10;position:relative;border:1px solid var(--line);box-shadow:0 24px 48px rgba(0,0,0,.1);}
+.tt-box video{width:100%;height:100%;object-fit:cover;display:block;}
+.tt-box .tt-tag{position:absolute;top:12px;left:12px;font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.55);padding:5px 10px;border-radius:100px;z-index:2;}
+.tt-empty{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;background:linear-gradient(160deg,#1c1d21,#0c0d0f);color:#666;}
+.tt-empty .pl{width:38px;height:38px;border-radius:50%;border:1px solid #333;display:flex;align-items:center;justify-content:center;}
+.tt-empty .pl::after{content:'';border-style:solid;border-width:7px 0 7px 11px;border-color:transparent transparent transparent #555;margin-left:3px;}
+.tt-empty span{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:2px;text-transform:uppercase;color:#555;}
 .ba{position:relative;max-width:760px;margin:0 auto;aspect-ratio:16/9;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 60px rgba(0,0,0,.08);cursor:ew-resize;}
 .ba-l{position:absolute;inset:0;display:flex;align-items:flex-end;padding:18px;}
 .ba-l span{background:rgba(255,255,255,.92);border-radius:100px;padding:7px 15px;font-size:.72rem;font-weight:600;}
@@ -88,19 +96,7 @@ nav .wrap{display:flex;justify-content:space-between;align-items:center;}
 .lf{padding:76px 0;background:var(--bg2);border-bottom:1px solid var(--line);}
 .lf h2{font-size:1.55rem;font-weight:900;letter-spacing:-.5px;margin-bottom:8px;}
 .lf p.s{color:var(--dim);max-width:54ch;line-height:1.6;margin-bottom:36px;}
-.lf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
-.lf-c{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;transition:transform .4s cubic-bezier(.16,1,.3,1),box-shadow .4s cubic-bezier(.16,1,.3,1),border-color .4s;}
-.lf-c:hover{transform:translateY(-8px) scale(1.015);box-shadow:0 24px 48px rgba(0,0,0,.12);border-color:var(--ink);}
-.lf-c:hover .lf-t{transform:scale(1.04);}
-.lf-t{transition:transform .5s cubic-bezier(.16,1,.3,1);}
-.lf-t{aspect-ratio:16/9;background:linear-gradient(150deg,#eceef1,#d9dce1);position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;}
-.lf-t .ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.75),transparent 60%);opacity:0;transition:.4s;display:flex;align-items:flex-end;padding:14px;color:#fff;font-size:.72rem;letter-spacing:1px;}
-.lf-c:hover .ov{opacity:1;}
-.play{width:36px;height:36px;border-radius:50%;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;}
-.play::after{content:'';border-style:solid;border-width:6px 0 6px 10px;border-color:transparent transparent transparent #888;margin-left:3px;}
-.lf-b{padding:16px;}
-.lf-b b{display:block;font-size:.95rem;margin-bottom:5px;}
-.lf-b p{color:var(--dim);font-size:.82rem;line-height:1.5;}
+
 .kt{padding:80px 0;border-bottom:1px solid var(--line);}
 .kt p.s{color:var(--dim);max-width:54ch;line-height:1.6;margin-bottom:36px;}
 .kt-form{max-width:560px;display:grid;gap:14px;}
@@ -121,7 +117,7 @@ footer{padding:44px 0;padding-bottom:calc(44px + env(safe-area-inset-bottom,0));
 footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:18px;}
 footer b{display:block;font-size:1rem;}
 footer span{color:var(--dim);font-size:.82rem;}
-@media(max-width:760px){.lf-grid{grid-template-columns:1fr;}}
+@media(max-width:760px){.tt-row{justify-content:center;}}
 @media(prefers-reduced-motion:reduce){.rv,.rv-l,.rv-r,.rv-s,.h-name,.h-sub,.h-lead,.h-cta,.scroll-ind,.hero::before,.hero::after{animation:none!important;opacity:1!important;filter:none!important;transform:none!important;}}
 </style>
 </head>
@@ -142,7 +138,7 @@ footer span{color:var(--dim);font-size:.82rem;}
     <div>
       <div class="h-name">LUKASZ<br>ROGAL</div>
       <div class="h-sub">Video Editor <b>&amp;</b> Cutter</div>
-      <p class="h-lead">Lukasz, 37. Editiere seit 2010 (damals noch CS-Montages). Angefangen mit Sony Vegas, über DaVinci Resolve bis hin zu CapCut.</p>
+      <p class="h-lead">Hi, ich bin Lukasz, 37 Jahre jung. 2010 hab ich mit dem Editieren angefangen — damals noch für Gamer, allen voran Counter-Strike-Edits. Gestartet bin ich mit Sony Vegas, dann kam DaVinci Resolve, und heute arbeite ich mit CapCut.</p>
       <div class="h-cta"><a class="btn p" href="#langform">Arbeiten ansehen</a><a class="btn g" href="#kontakt">Kontakt</a></div>
     </div>
     <div class="h-photo">
@@ -157,27 +153,47 @@ footer span{color:var(--dim);font-size:.82rem;}
 
 <section class="cmp" id="vorher-nachher">
   <div class="wrap">
+    <span class="eyebrow rv">Shorts Edits</span>
     <h2 class="rv-l">Vorher / Nachher</h2>
-    <p class="s rv">Zieh den Regler: links das Rohmaterial, rechts das fertig bearbeitete Ergebnis.</p>
+    <p class="s rv">Edit von Arda Saatçi — links die unbearbeitete Rohversion, rechts das fertige Ergebnis.</p>
+    <div class="tt-row rv-s">
+      <div class="tt-box">
+        <span class="tt-tag">Vorher</span>
+        <!-- Sobald das Rohmaterial-Video da ist: <video src="vorher-short.mp4" controls playsinline></video> -->
+        <div class="tt-empty"><div class="pl"></div><span>Video folgt</span></div>
+      </div>
+      <div class="tt-box">
+        <span class="tt-tag">Nachher</span>
+        <!-- Sobald das fertige Video da ist: <video src="nachher-short.mp4" controls playsinline></video> -->
+        <div class="tt-empty"><div class="pl"></div><span>Video folgt</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cmp" id="thumbnails">
+  <div class="wrap">
+    <span class="eyebrow rv">Thumbnails</span>
+    <h2 class="rv-l">Vorher / Nachher</h2>
+    <p class="s rv">Auch Thumbnails erstelle ich — zieh den Regler: links das Rohmaterial, rechts das fertige Thumbnail.</p>
     <div class="ba rv-s" id="ba">
-      <div class="ba-l ba-a"><span>Bearbeitet</span></div>
-      <div class="ba-l ba-b" id="baB"><span>Rohmaterial</span></div>
+      <div class="ba-l ba-a"><span>Nachher</span></div>
+      <div class="ba-l ba-b" id="baB"><span>Vorher</span></div>
       <div class="ba-line" id="baLine"></div>
       <div class="ba-h">↔</div>
       <input type="range" min="0" max="100" value="50" class="ba-r" id="baR" aria-label="Vorher/Nachher">
     </div>
-    <p class="hint mono">.ba-a / .ba-b im Code → background: durch background-image: url('dein-bild.jpg') ersetzen</p>
+    <p class="hint mono">.ba-a / .ba-b im Code → background: durch background-image: url('dein-thumbnail.jpg') ersetzen</p>
   </div>
 </section>
 
 <section class="lf" id="langform">
   <div class="wrap">
-    <h2 class="rv-l">Ausgewählte Arbeiten</h2>
-    <p class="s rv">Breitbild-Langform &amp; Highlight-Edits. Kacheln durch echte YouTube-Embeds ersetzen.</p>
-    <div class="lf-grid">
-      <div class="lf-c rv"><div class="lf-t"><div class="play"></div><div class="ov mono">s1mple · CS2 Highlight-Edit</div></div><div class="lf-b"><b>s1mple — CS2 Highlight-Edit</b><p>Musiksynchronisation &amp; Tempowechsel.</p></div></div>
-      <div class="lf-c rv"><div class="lf-t"><div class="play"></div><div class="ov mono">natürlichpflanzlich.de · Spot</div></div><div class="lf-b"><b>natürlichpflanzlich.de — Werbespot</b><p>Klare Struktur, sauberes Timing.</p></div></div>
-      <div class="lf-c rv"><div class="lf-t"><div class="play"></div><div class="ov mono">2D Comic Animation</div></div><div class="lf-b"><b>2D-Comic-Animation, Line-Art</b><p>Vertikaler Clip im Comic-Stil.</p></div></div>
+    <h2 class="rv-l">CS2 Edit</h2>
+    <div class="tt-row rv">
+      <div class="tt-box">
+        <video src="s1mpleedit.mp4" controls playsinline preload="metadata"></video>
+      </div>
     </div>
   </div>
 </section>
@@ -185,6 +201,7 @@ footer span{color:var(--dim);font-size:.82rem;}
 <section class="kt" id="kontakt">
   <div class="wrap">
     <h2 class="rv-l">Kontakt</h2>
+    <p class="s rv">Projekt, Frage oder einfach nur Hallo sagen — Nachricht geht direkt an mich raus.</p>
     <form class="kt-form rv" id="ktForm">
       <div class="kt-row">
         <div>
@@ -205,6 +222,7 @@ footer span{color:var(--dim);font-size:.82rem;}
         <div class="kt-msg" id="ktMsg2"></div>
       </div>
     </form>
+    <p class="kt-fallback">Lieber direkt? <a href="mailto:vooart89@gmail.com">vooart89@gmail.com</a></p>
   </div>
 </section>
 
