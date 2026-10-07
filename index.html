@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Lukasz Rogal – Video Editor & Cutter</title>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#fff;--fg:#0a0a0a;--mute:rgba(10,10,10,.58);--line:rgba(10,10,10,.14);--card:#e4e4e7;--disp:Anton,Impact,"Arial Narrow",sans-serif;--mono:"Space Mono",ui-monospace,Menlo,monospace;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root{--bg:#fff;--fg:#0a0a0a;--mute:rgba(10,10,10,.58);--line:rgba(10,10,10,.14);--card:#e4e4e7;--disp:Archivo,"Arial Narrow",sans-serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0a0a0a;--fg:#f5f5f5;--mute:rgba(245,245,245,.58);--line:rgba(245,245,245,.16);--card:#222225}}
 :root[data-theme="dark"]{--bg:#0a0a0a;--fg:#f5f5f5;--mute:rgba(245,245,245,.58);--line:rgba(245,245,245,.16);--card:#222225}
 *{box-sizing:border-box;margin:0}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--fg);font-family:"Space Grotesk",system-ui,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--fg);font-family:Archivo,system-ui,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
 nav{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:16px;color:#fff;mix-blend-mode:difference;font:400 11px var(--mono);text-transform:uppercase;letter-spacing:.06em;pointer-events:none}
 nav>*{pointer-events:auto}
@@ -36,7 +36,7 @@ nav>*{pointer-events:auto}
 .bgfx:after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 118px,rgba(0,0,0,.35) 118px 120px)}
 @keyframes drift{to{transform:translate3d(30vw,12vh,0) scale(1.3)}}
 .mask{position:absolute;inset:0;z-index:2;background:#000;mix-blend-mode:multiply;display:grid;place-items:center}
-#word{color:#fff;font-family:var(--disp);font-size:17.5vw;line-height:.95;white-space:nowrap;will-change:transform;text-transform:uppercase}
+#word{color:#fff;font-family:var(--disp);font-size:15vw;line-height:.95;white-space:nowrap;will-change:transform;text-transform:uppercase}
 .wd{display:inline-block;margin:0 .1em}
 .c{display:inline-block;overflow:hidden;vertical-align:top;padding-top:.04em}
 .c i{display:block;font-style:normal;transform:translateY(108%);animation:up 1.2s cubic-bezier(.16,1,.3,1) forwards}
@@ -64,8 +64,8 @@ section{position:relative;padding:110px 20px}
 .eyebrow{font:400 11px var(--mono);text-transform:uppercase;letter-spacing:.12em;color:var(--mute);display:flex;gap:8px;align-items:center;margin-bottom:16px}
 .eyebrow:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--fg)}
 h2{font:400 clamp(2.4rem,7vw,5rem)/.98 var(--disp);text-transform:uppercase;margin-bottom:22px}
-.w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em}
-.w i{display:inline-block;font-style:normal;transform:translateY(112%);transition:transform 1s cubic-bezier(.16,1,.3,1)}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:.22em 0 .1em;margin:-.22em 0 -.1em}
+.w i{display:inline-block;font-style:normal;transform:translateY(130%);transition:transform 1s cubic-bezier(.16,1,.3,1)}
 .in .w i,.w.in i{transform:none}
 .rv{opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
 .rv.in{opacity:1;transform:none}
@@ -129,6 +129,31 @@ h2{font:400 clamp(2.4rem,7vw,5rem)/.98 var(--disp);text-transform:uppercase;marg
 .cur.big{width:84px;height:84px;margin:-42px 0 0 -42px}
 @media(pointer:coarse){.cur{display:none}}
 @media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.tl{opacity:1}.w i,.c i{transform:none;animation:none;transition:none}html{scroll-behavior:auto}.bgfx i,.mq div,.live{animation:none}}
+
+h2,#word,.ph2,.num,.before h3,.after h3{font-weight:800;font-stretch:62%;font-variation-settings:"wdth" 62}
+.contact{text-align:left}.contact .eyebrow{justify-content:flex-start}.contact .lead{color:rgba(255,255,255,.65)}
+.kt-form{display:grid;gap:24px;max-width:720px;margin-top:34px}
+.kt-row{display:grid;gap:24px}@media(min-width:700px){.kt-row{grid-template-columns:1fr 1fr}}
+.kt label{display:block;font:400 11px var(--mono);text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.6);margin-bottom:8px}
+.kt input,.kt textarea{width:100%;background:transparent;border:0;border-bottom:1px solid rgba(255,255,255,.3);color:#fff;font:400 18px Archivo,sans-serif;padding:10px 0;outline:0;border-radius:0;transition:border-color .3s}
+.kt input:focus,.kt textarea:focus{border-color:#fff}
+.kt textarea{min-height:130px;resize:vertical}
+.kt-msg{font:400 12px var(--mono);margin-top:14px;color:rgba(255,255,255,.75);min-height:1.3em}
+.kt-fallback{margin-top:26px;font-size:14px;color:rgba(255,255,255,.6)}.kt-fallback a{color:#fff;border-bottom:1px solid rgba(255,255,255,.4)}
+.btn.g{background:transparent;color:#fff;border-color:rgba(255,255,255,.4)}
+footer{background:#000;color:#fff;padding:0 20px 70px}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.16);padding-top:28px}
+footer b{font-weight:600;display:block;margin-bottom:4px}footer span{font:400 11px var(--mono);color:rgba(255,255,255,.6)}
+
+.cert{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap;border:1px solid var(--line);border-radius:18px;padding:18px 20px;margin-top:26px;background:var(--card)}
+.cert b{display:block;font-weight:600;font-size:15px;margin-bottom:4px}.cert span{font-size:13px;color:var(--mute);line-height:1.5;display:block;max-width:44ch}
+.cert .btn{background:var(--fg);color:var(--bg);border-color:var(--fg)}.cert .btn:hover{background:transparent;color:var(--fg)}
+.src{padding-top:70px;padding-bottom:70px;border-top:1px solid var(--line)}
+.src .lead{font-size:14px;max-width:70ch}
+.src ul{list-style:none;padding:0;margin-top:22px;display:grid;gap:0;max-width:760px}
+.src li{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:14px 0;border-bottom:1px solid var(--line);font-size:14px}
+.src li em{font:400 11px var(--mono);font-style:normal;color:var(--mute);text-transform:uppercase;letter-spacing:.06em}
+.src li a{border-bottom:1px solid currentColor}
 </style>
 </head>
 <body>
@@ -170,6 +195,7 @@ h2{font:400 clamp(2.4rem,7vw,5rem)/.98 var(--disp);text-transform:uppercase;marg
       <div class="eyebrow rv">Über mich</div>
       <h2 class="sp" data-t="Ich bin|Lukasz."></h2>
       <p class="lead rv" id="a1"></p><p class="lead rv" id="a2"></p><p class="lead rv" id="a3"></p>
+      <div class="cert rv"><div><b id="cTitle"></b><span id="cText"></span></div><a class="btn" id="cLink" target="_blank" rel="noopener">Zertifikat öffnen (PDF)</a></div>
     </div>
   </div>
 </section>
@@ -208,27 +234,61 @@ h2{font:400 clamp(2.4rem,7vw,5rem)/.98 var(--disp);text-transform:uppercase;marg
   </div>
 </section>
 
-<section id="kontakt" class="contact">
+<section class="src" id="quellen">
   <div class="wrap">
-    <div class="eyebrow rv">Kontakt</div>
-    <h2 class="sp" data-t="Lass uns|zusammen|arbeiten."></h2>
-    <p class="lead rv" style="margin:0 auto 28px;color:rgba(255,255,255,.65)">Du suchst einen Video Editor für dein Team? Schreib mir, ich melde mich schnell zurück.</p>
-    <a class="btn rv" id="mail" href="#">E-Mail</a>
+    <div class="eyebrow rv">Quellen &amp; Rechte</div>
+    <h2 class="sp" data-t="Quellen."></h2>
+    <p class="lead rv" id="srcText"></p>
+    <ul class="rv" id="srcList"></ul>
   </div>
 </section>
+
+<section class="kt contact" id="kontakt">
+  <div class="wrap">
+    <div class="eyebrow rv">Teilzeit · 100% Remote</div>
+    <h2 class="sp" data-t="Kontakt"></h2>
+    <p class="lead rv">Du suchst einen Video Editor für dein Team? Schreib mir kurz, worum es geht. Die Nachricht geht direkt an mich und ich melde mich schnell zurück.</p>
+    <form class="kt-form rv" id="ktForm">
+      <div class="kt-row">
+        <div><label for="ktName">Name</label><input type="text" id="ktName" name="name" required autocomplete="name"></div>
+        <div><label for="ktEmail">E-Mail</label><input type="email" id="ktEmail" name="email" required autocomplete="email"></div>
+      </div>
+      <div><label for="ktMsg">Nachricht</label><textarea id="ktMsg" name="message" required></textarea></div>
+      <div><button class="btn p" type="submit" id="ktBtn">Nachricht senden</button><div class="kt-msg" id="ktMsg2" role="status"></div></div>
+    </form>
+    <p class="kt-fallback">Lieber direkt? <a class="ml" data-t="1" href="mailto:vooart89@gmail.com">vooart89@gmail.com</a></p>
+  </div>
+</section>
+<footer>
+  <div class="wrap rv">
+    <div><b>Lukasz Rogal</b><span>Video Editor / Cutter · Teilzeit · 100% Remote</span></div>
+    <a class="btn g ml" href="mailto:vooart89@gmail.com">E-Mail schreiben</a>
+  </div>
+</footer>
 
 <script>
 /* ======= HIER DEINE INHALTE EINTRAGEN ======= */
 const CONFIG = {
   name: "Lukasz Rogal",
-  mail: "deine@mail.de",
-  status: "Offen für neue Aufgaben",
+  mail: "vooart89@gmail.com",
+  formEndpoint: "",             // z.B. Formspree- oder Web3Forms-URL, damit das Formular direkt sendet
+  status: "Teilzeit · 100% Remote",
   heroVideo: "",                 // z.B. "videos/hero.mp4" – scheint durch die Buchstaben
   photo: "lukaszrogal.png",      // Datei neben index.html legen
   about: [
     "Ich bin Video Editor und Cutter und schneide Shorts, Reels und YouTube-Videos. Mein Fokus: ein starker Einstieg, sauberer Rhythmus, Sounddesign und Untertitel, die Zuschauer bis zum Ende halten.",
     "Dazu bringe ich 2D-Animation im Comic- und Line-Art-Stil sowie 3D-Animation mit, die ich direkt in meine Edits einbaue. Als zertifizierter Social Media Manager weiß ich außerdem, wie Inhalte auf den Plattformen funktionieren.",
-    "Ich suche eine feste Zusammenarbeit in einer Agentur oder einem Creator-Team, in dem ich langfristig Videos schneide und mich weiterentwickle."
+    "Ich suche eine Teilzeit-Stelle, 100% remote, in einer Agentur oder einem Creator-Team, in dem ich langfristig Videos schneide und mich weiterentwickle."
+  ],
+  cert: {
+    title: "Social Media Manager – Weiterbildung",
+    text: "Vom 15. April bis zum 15. September 2026 habe ich eine Schulung zum Social Media Manager abgeschlossen.",
+    url: "https://github.com/vooart/portfolio-2026/blob/main/Zertifikat_Social_Media_Manager.pdf"
+  },
+  sourcesText: "Das Rohmaterial der gezeigten Videos stammt aus den unten genannten Quellen. Alle Rechte am Originalmaterial liegen bei den jeweiligen Urhebern. Meine Schnitte sind reine Arbeitsproben für Bewerbungszwecke: Sie werden nicht kommerziell genutzt, nicht monetarisiert und dienen ausschließlich dazu, meine Schnittarbeit zu zeigen. Auf Wunsch der Rechteinhaber entferne ich Inhalte umgehend.",
+  sources: [
+    { for: "Short 01–04", who: "Arda Saatçi", url: "" },
+    { for: "Longform-Video", who: "Quelle hier eintragen", url: "" }
   ],
   shortsText: "Vier Beispiele aus meiner Arbeit: Hover zeigt, was ich bei jedem Video gemacht habe.",
   shorts: [
@@ -246,10 +306,13 @@ const CONFIG = {
 const $=s=>document.querySelector(s),clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const still=matchMedia("(prefers-reduced-motion:reduce)").matches;
 $("#nm").textContent=CONFIG.name;$("#status").textContent=CONFIG.status;
-$("#mail").textContent=CONFIG.mail;$("#mail").href="mailto:"+CONFIG.mail;
+document.querySelectorAll(".ml").forEach(a=>{a.href="mailto:"+CONFIG.mail;if(a.dataset.t)a.textContent=CONFIG.mail});
 CONFIG.about.forEach((t,i)=>$("#a"+(i+1)).textContent=t);
 $("#sd").textContent=CONFIG.shortsText;$("#ld").textContent=CONFIG.long.desc;$("#td").textContent=CONFIG.thumbText;
 $("#lm").innerHTML=CONFIG.long.meta.map(m=>`<span>${m}</span>`).join("");
+$("#cTitle").textContent=CONFIG.cert.title;$("#cText").textContent=CONFIG.cert.text;$("#cLink").href=CONFIG.cert.url;
+$("#srcText").textContent=CONFIG.sourcesText;
+$("#srcList").innerHTML=CONFIG.sources.map(x=>`<li><span><em>${x.for}</em><br>${x.who}</span>${x.url?`<a href="${x.url}" target="_blank" rel="noopener">Quelle öffnen</a>`:`<em>Link folgt</em>`}</li>`).join("");
 const tk=CONFIG.ticker.map(t=>`<span>${t}</span>/`).join("");$("#tk").innerHTML=tk+tk+tk+tk;
 const ph=$("#photo");ph.onerror=()=>ph.remove();ph.src=CONFIG.photo;
 if(CONFIG.heroVideo)$("#bgfx").insertAdjacentHTML("afterbegin",`<video src="${CONFIG.heroVideo}" autoplay muted loop playsinline></video>`);
@@ -277,7 +340,7 @@ if(CONFIG.thumbAfter)$("#bAfter").innerHTML=`<img src="${CONFIG.thumbAfter}" alt
 $("#rng").addEventListener("input",e=>$("#ba").style.setProperty("--pos",e.target.value+"%"));
 
 /* Timeline-Leiste */
-const secs=[["hero","Intro"],["ueber","Über mich"],["shorts","Shorts"],["long","Longform"],["thumb","Thumbnail"],["kontakt","Kontakt"]];
+const secs=[["hero","Intro"],["ueber","Über mich"],["shorts","Shorts"],["long","Longform"],["thumb","Thumbnail"],["quellen","Quellen"],["kontakt","Kontakt"]];
 const trk=$("#trk");
 function build(){trk.querySelectorAll(".seg").forEach(e=>e.remove());const tot=document.body.scrollHeight;
   secs.forEach(([id,l])=>{const e=document.getElementById(id),s=document.createElement("div");s.className="seg";s.textContent=l;s.style.flex=e.offsetHeight/tot+" 1 0";s.onclick=()=>e.scrollIntoView({behavior:"smooth"});trk.insertBefore(s,$("#head"));});}
@@ -292,6 +355,13 @@ document.querySelectorAll(".btn").forEach(b=>{b.addEventListener("pointermove",e
 let mx=0,my=0,bx=0,by=0;addEventListener("pointermove",e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5});
 
 const hero=$("#hero"),mask=$("#mask"),word=$("#word"),hcopy=$("#hcopy"),bgfx=$("#bgfx"),head=$("#head");
+function fit(){word.style.fontSize="100px";const w=word.scrollWidth||1;word.style.fontSize=Math.min(100*innerWidth*.9/w,innerHeight*.5)+"px"}
+fit();addEventListener("resize",fit);document.fonts&&document.fonts.ready.then(fit);
+const form=$("#ktForm"),km=$("#ktMsg2");
+form.addEventListener("submit",async e=>{e.preventDefault();const d=Object.fromEntries(new FormData(form));km.textContent="Wird gesendet …";
+  if(CONFIG.formEndpoint){try{const r=await fetch(CONFIG.formEndpoint,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(d)});if(r.ok){km.textContent="Danke! Deine Nachricht ist angekommen.";form.reset();return}}catch(_){}}
+  location.href="mailto:"+CONFIG.mail+"?subject="+encodeURIComponent("Nachricht von "+d.name)+"&body="+encodeURIComponent(d.message+"\n\n"+d.name+" ("+d.email+")");
+  km.textContent="Dein E-Mail-Programm öffnet sich mit der fertigen Nachricht …";});
 function frame(t){
   const y=scrollY,vh=innerHeight,max=document.body.scrollHeight-vh,pr=clamp(y/max,0,1);
   const p=clamp(y/(hero.offsetHeight-vh)*1.15,0,1);
