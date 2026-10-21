@@ -104,7 +104,7 @@ h2{font:400 clamp(2.4rem,7vw,5rem)/.98 var(--disp);text-transform:uppercase;marg
 .short.on .cap p{max-height:120px;opacity:1;margin-top:8px}
 /* LONG */
 .meta{font:400 11px var(--mono);color:var(--mute);margin-top:18px;display:flex;gap:18px;flex-wrap:wrap;text-transform:uppercase;letter-spacing:.05em}
-.long-wrap{perspective:1400px;margin-top:40px;max-width:620px;margin-left:auto;margin-right:auto}
+.long-wrap{perspective:1400px;margin-top:40px;max-width:860px;margin-left:auto;margin-right:auto}
 .long{aspect-ratio:16/9;border-radius:22px;background:var(--card);border:1px solid var(--line);overflow:hidden;position:relative;transform-origin:50% 100%;will-change:transform;box-shadow:0 40px 80px -30px rgba(0,0,0,.35)}
 .long video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000}
 .long .ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;font:400 11px var(--mono);color:var(--mute)}
@@ -244,7 +244,7 @@ footer b{font-weight:600;display:block;margin-bottom:4px}footer span{font:400 11
 <section id="long" style="padding-top:40px">
   <div class="wrap">
     <div class="eyebrow rv">Longform</div>
-    <h2 class="sp" data-t="Breitbild-Short,|fette Edits."></h2>
+    <h2 class="sp" data-t="Cinematic Widescreen|Edit – Arda Saatçi"></h2>
     <p class="lead rv" id="ld"></p>
     <div class="long-wrap" data-cur="PLAY"><div class="long" id="longEl"></div></div>
     <div class="meta rv" id="lm"></div>
@@ -321,7 +321,7 @@ const CONFIG = {
   sourcesText: "Das Rohmaterial der gezeigten Videos stammt aus den unten genannten Quellen. Alle Rechte am Originalmaterial liegen bei den jeweiligen Urhebern. Meine Schnitte sind reine Arbeitsproben für Bewerbungszwecke: Sie werden nicht kommerziell genutzt, nicht monetarisiert und dienen ausschließlich dazu, meine Schnittarbeit zu zeigen.",
   sources: [
     { for: "Short 01–04", who: "Arda Saatçi", url: "" },
-    { for: "Breitbild-Short", who: "Arda Saatçi", url: "" }
+    { for: "Cinematic Widescreen Edit", who: "Arda Saatçi", url: "" }
   ],
   pitch: {
     eyebrow: "Video Editor · Teilzeit · 100% Remote",
@@ -337,7 +337,7 @@ const CONFIG = {
     { title: "Short 03", role: "Schnitt · Effekte", desc: "Hier beschreiben: Um welches Video geht es und was war meine Aufgabe?", src: "" },
     { title: "Short 04", role: "Schnitt · Thumbnail", desc: "Hier beschreiben: Um welches Video geht es und was war meine Aufgabe?", src: "" }
   ],
-  long: { title: "Breitbild-Short", src: "ardaedit.mp4", desc: "Ein Short im Breitbild-Format mit Material von Arda Saatçi: harte Cuts, fette Effekte und Sounddesign, das den Rhythmus trägt.", meta: ["Format: Short im Breitbild", "Aufgaben: Schnitt, Effekte, Sounddesign", "Material: Arda Saatçi"] },
+  long: { title: "Cinematic Widescreen Edit", src: "ardaedit.mp4", desc: "Projekt-Overview: Ein dynamischer Widescreen-Teaser mit Arda Saatçi. Konzipiert mit einem cinematischen 21:9-Look, der kompromisslose, harte Cuts mit treibendem Sounddesign und präzisem Rhythmus-Editing verbindet.", meta: ["Format: Widescreen-Teaser", "Aufgaben: Schnitt, Sounddesign, Rhythmus-Editing"] },
   thumbText: "Links das Ausgangsbild, rechts mein fertiges Thumbnail: mehr Kontrast, größerer Titel, klarer Fokus.",
   thumbBefore: "THUMBNAIL1.png", thumbAfter: "THUMBNAIL2.png",
   ticker: ["Video Editing","Cutting","Shorts","Reels","YouTube","Sounddesign","Untertitel","2D-Animation","3D-Animation","Motion","Thumbnails","Social Media"]
@@ -378,6 +378,7 @@ const longEl=$("#longEl");
 longEl.innerHTML=CONFIG.long.src?`<video src="${CONFIG.long.src}" controls controlsList="nofullscreen nodownload noremoteplayback" disablePictureInPicture playsinline preload="metadata"></video>`:`<div class="ph"><div class="play"></div>${CONFIG.long.title} – Video hier einfügen</div>`;
 if(CONFIG.thumbBefore)$("#bBefore").innerHTML=`<img src="${CONFIG.thumbBefore}" alt="Thumbnail vorher">`;
 if(CONFIG.thumbAfter)$("#bAfter").innerHTML=`<img src="${CONFIG.thumbAfter}" alt="Thumbnail nachher">`;
+{const lv=longEl.querySelector("video");if(lv){lv.volume=.5;lv.addEventListener("loadedmetadata",()=>{lv.volume=.5},{once:true});}}
 $("#rng").addEventListener("input",e=>$("#ba").style.setProperty("--pos",e.target.value+"%"));
 
 /* Timeline-Leiste */
