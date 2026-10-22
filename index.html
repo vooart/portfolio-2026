@@ -184,6 +184,19 @@ footer b{font-weight:600;display:block;margin-bottom:4px}footer span{font:400 11
 .mt span,.mt span:nth-child(even){font:400 11px/1.4 var(--mono);font-stretch:normal;font-variation-settings:normal;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);-webkit-text-stroke:0;padding:0;margin-right:18px}
 .mt span:after{content:"/";margin-left:18px;font-size:inherit;vertical-align:baseline;opacity:1}
 @media(prefers-reduced-motion:reduce){.mt{animation-duration:90s}}
+/* LIGHTBOX */
+.lb{position:fixed;inset:0;z-index:90;display:none;align-items:center;justify-content:center;background:rgba(8,8,10,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);opacity:0;transition:opacity .3s}
+.lb.open{display:flex}.lb.show{opacity:1}
+.lb-box{position:relative;display:flex;flex-direction:column;align-items:center;gap:14px;max-width:92vw}
+.lb video{height:min(80vh,calc(92vw*16/9));aspect-ratio:9/16;max-width:92vw;border-radius:18px;background:#000;box-shadow:0 40px 100px -20px rgba(0,0,0,.8)}
+.lb-info{color:#fff;text-align:center;max-width:min(92vw,460px)}
+.lb-info b{display:block;font-size:15px}.lb-info em{display:block;font:400 11px var(--mono);font-style:normal;opacity:.6;text-transform:uppercase;letter-spacing:.06em;margin-top:4px}
+.lb-btn{position:absolute;z-index:2;width:52px;height:52px;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);color:#fff;font:400 22px/1 var(--mono);display:grid;place-items:center;cursor:pointer;transition:background .2s}
+.lb-btn:hover{background:rgba(255,255,255,.22)}
+.lb-x{top:max(16px,env(safe-area-inset-top,0px));right:16px}
+.lb-p{left:max(12px,calc(50% - 340px));top:50%;margin-top:-26px}.lb-n{right:max(12px,calc(50% - 340px));top:50%;margin-top:-26px}
+@media(max-width:700px){.lb-p,.lb-n{top:auto;bottom:18px;margin:0}.lb-p{left:18px}.lb-n{right:18px}.lb-info{display:none}}
+.sw{cursor:pointer}
 </style>
 </head>
 <body>
@@ -235,7 +248,7 @@ footer b{font-weight:600;display:block;margin-bottom:4px}footer span{font:400 11
 <section id="shorts" style="padding-top:40px">
   <div class="wrap">
     <div class="eyebrow rv">Shorts</div>
-    <h2 class="sp" data-t="Vertikale Videos,|die hängen bleiben."></h2>
+    <h2 class="sp" data-t="Short-Form Content"></h2>
     <p class="lead rv" id="sd"></p>
     <div class="shorts" id="shortsGrid"></div>
   </div>
@@ -299,6 +312,7 @@ footer b{font-weight:600;display:block;margin-bottom:4px}footer span{font:400 11
   </div>
 </footer>
 
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Video ansehen"><button class="lb-btn lb-x" id="lbX" aria-label="Schließen" data-cur="X">✕</button><button class="lb-btn lb-p" id="lbP" aria-label="Vorheriges Video" data-cur="">←</button><button class="lb-btn lb-n" id="lbN" aria-label="Nächstes Video" data-cur="">→</button><div class="lb-box"><video id="lbV" controls controlsList="nofullscreen nodownload noremoteplayback" disablePictureInPicture playsinline loop></video><div class="lb-info"><b id="lbT"></b><em id="lbR"></em></div></div></div>
 <script>
 /* ======= HIER DEINE INHALTE EINTRAGEN ======= */
 const CONFIG = {
@@ -330,12 +344,12 @@ const CONFIG = {
     text: "Shorts, Reels und YouTube mit starkem Einstieg, Sounddesign, Untertiteln sowie 2D- und 3D-Animation. Alles aus einer Hand, für dein Team.",
     chips: ["Shorts","Reels","YouTube","Sounddesign","2D & 3D"]
   },
-  shortsText: "Vier Beispiele aus meiner Arbeit: Hover zeigt, was ich bei jedem Video gemacht habe.",
+  shortsText: "Vier Beispiele für modernen Content. Hover für Details zum Workflow.",
   shorts: [
     { title: "Not Just A Cut", role: "Cinematic Opener · Timing · Audio-Design", desc: "Ein minimalistischer Cinematic-Opener, der zeigt, dass Editing mehr ist als nur harte Schnitte. Fokus auf präzises Timing, Atmospheric Audio-Design und einen edlen, cleanen Look (Obsidian &amp; Monochrom).", src: "justcut.mp4" },
-    { title: "Urban Noir / Portfolio Intro", role: "Styling-Edit · Sounddesign · Dark Look", desc: "Atmosphärischer, dark-aesthetic Clip mit präzisem Sounddesign, Neon-Akzenten und einem sauberen Look, der sofort ins Auge springt und die richtige Stimmung transportiert.", src: "edit1.mp4" },
+    { title: "Clean Captions &amp; Storytelling", role: "Short-Form · Captions · Retention", desc: "Short-Form Storytelling mit High-End-Captions. Clean, übersichtlich und ohne ablenkenden visuellen Overkill. Der Fokus liegt ganz auf dem Rhythmus des Sprechers und maximaler Retention.", src: "ardashort.mp4" },
     { title: "The Protein Edit", role: "Commercial-Stil · Übergänge · Farbkorrektur", desc: "Dynamischer Produkt-Commercial-Stil mit flüssigen visuellen Übergängen, High-End-Farbkorrektur und perfekt getimtem Sound-Design. Fokus auf Ästhetik, Branding und visuellen Sog.", src: "morevid.mp4" },
-    { title: "Clean Captions &amp; Storytelling", role: "Short-Form · Captions · Retention", desc: "Short-Form Storytelling mit High-End-Captions. Clean, übersichtlich und ohne ablenkenden visuellen Overkill. Der Fokus liegt ganz auf dem Rhythmus des Sprechers und maximaler Retention.", src: "ardashort.mp4" }
+    { title: "Urban Noir / Portfolio Intro", role: "Styling-Edit · Sounddesign · Dark Look", desc: "Atmosphärischer, dark-aesthetic Clip mit präzisem Sounddesign, Neon-Akzenten und einem sauberen Look, der sofort ins Auge springt und die richtige Stimmung transportiert.", src: "edit1.mp4" }
   ],
   long: { title: "Cinematic Widescreen Edit", src: "ardaedit.mp4", desc: "Projekt-Overview: Ein dynamischer Widescreen-Teaser mit Arda Saatçi. Konzipiert mit einem cinematischen 21:9-Look, der kompromisslose, harte Cuts mit treibendem Sounddesign und präzisem Rhythmus-Editing verbindet.", meta: ["Format: Widescreen-Teaser", "Aufgaben: Schnitt, Sounddesign, Rhythmus-Editing"] },
   thumbText: "Links das Ausgangsbild, rechts mein fertiges Thumbnail: mehr Kontrast, größerer Titel, klarer Fokus.",
@@ -367,6 +381,17 @@ const grays=[["#2b2b2e","#8d8d92"],["#4a4a4f","#c4c4c9"],["#17171a","#5d5d63"],[
 const grid=$("#shortsGrid");
 CONFIG.shorts.forEach((s,i)=>{const w=document.createElement("div");w.className="sw";w.dataset.cur="PLAY";const [c1,c2]=grays[i%4];
   w.innerHTML=`<div class="short tl" style="--c1:${c1};--c2:${c2}">${s.src?`<video src="${s.src}" muted loop playsinline preload="metadata"></video>`:`<div class="ph"><span class="num">${String(i+1).padStart(2,"0")}</span></div>`}<div class="cap"><b>${s.title}</b><em>${s.role}</em><p>${s.desc}</p></div></div>`;grid.appendChild(w);});
+/* LIGHTBOX */
+const lb=$("#lb"),lbV=$("#lbV");let lbI=0;
+const dec=t=>{const d=document.createElement("textarea");d.innerHTML=t;return d.value};
+function lbLoad(i){const n=CONFIG.shorts.length;lbI=(i+n)%n;const s=CONFIG.shorts[lbI];lbV.src=s.src;lbV.volume=.5;lbV.currentTime=0;lbV.play().catch(()=>{});$("#lbT").textContent=dec(s.title);$("#lbR").textContent=dec(s.role);}
+function lbOpen(i){const s=CONFIG.shorts[i];if(!s||!s.src)return;grid.querySelectorAll("video").forEach(v=>v.pause());lb.classList.add("open");requestAnimationFrame(()=>lb.classList.add("show"));document.body.style.overflow="hidden";lbLoad(i);}
+function lbClose(){lbV.pause();lbV.removeAttribute("src");lbV.load();lb.classList.remove("show");setTimeout(()=>lb.classList.remove("open"),300);document.body.style.overflow="";}
+[...grid.children].forEach((w,i)=>w.addEventListener("click",()=>lbOpen(i)));
+$("#lbX").onclick=lbClose;$("#lbP").onclick=()=>lbLoad(lbI-1);$("#lbN").onclick=()=>lbLoad(lbI+1);
+lb.addEventListener("click",e=>{if(e.target===lb||e.target.classList.contains("lb-box"))lbClose();});
+addEventListener("keydown",e=>{if(!lb.classList.contains("open"))return;if(e.key==="Escape")lbClose();else if(e.key==="ArrowLeft")lbLoad(lbI-1);else if(e.key==="ArrowRight")lbLoad(lbI+1);});
+let lbX0=null;lb.addEventListener("touchstart",e=>{lbX0=e.touches[0].clientX},{passive:true});lb.addEventListener("touchend",e=>{if(lbX0===null)return;const d=e.changedTouches[0].clientX-lbX0;if(Math.abs(d)>60)lbLoad(lbI+(d<0?1:-1));lbX0=null;});
 const items=[...grid.children,document.querySelector(".pw")].map((w,i)=>({w,el:w.querySelector(".tl"),dir:i%2?1:-1,tx:0,ty:0,gx:0,gy:0,h:0,hg:0,v:w.querySelector("video"),sh:w.parentNode===grid}));
 items.forEach(it=>{
   it.w.addEventListener("pointermove",e=>{const r=it.w.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
