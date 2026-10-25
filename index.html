@@ -92,7 +92,7 @@ h2{font:400 clamp(2.4rem,7vw,5rem)/.98 var(--disp);text-transform:uppercase;marg
 .short{aspect-ratio:9/16;border-radius:22px;background:var(--card);border:1px solid var(--line);overflow:hidden;position:relative;box-shadow:0 20px 40px -24px rgba(0,0,0,.4)}
 .shorts.hv .short:not(.on){filter:grayscale(1) brightness(.8)}
 .short.on{box-shadow:0 50px 80px -30px rgba(0,0,0,.6);z-index:5}
-.short video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.short video,.short img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .short .ph{position:absolute;inset:0;background:linear-gradient(160deg,var(--c1),var(--c2));display:grid;place-items:center;overflow:hidden}
 .short .ph:before{content:"";position:absolute;inset:-50%;background:repeating-linear-gradient(0deg,transparent 0 40px,rgba(255,255,255,.12) 40px 42px);animation:roll 3s linear infinite paused}
 .short.on .ph:before{animation-play-state:running}
@@ -188,7 +188,7 @@ footer b{font-weight:600;display:block;margin-bottom:4px}footer span{font:400 11
 .lb{position:fixed;inset:0;z-index:90;display:none;align-items:center;justify-content:center;background:rgba(8,8,10,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);opacity:0;transition:opacity .3s}
 .lb.open{display:flex}.lb.show{opacity:1}
 .lb-box{position:relative;display:flex;flex-direction:column;align-items:center;gap:14px;max-width:92vw}
-.lb video{height:min(80vh,calc(92vw*16/9));aspect-ratio:9/16;max-width:92vw;border-radius:18px;background:#000;box-shadow:0 40px 100px -20px rgba(0,0,0,.8)}
+.lb video,.lb iframe{border:0;height:min(80vh,calc(92vw*16/9));aspect-ratio:9/16;max-width:92vw;border-radius:18px;background:#000;box-shadow:0 40px 100px -20px rgba(0,0,0,.8)}
 .lb-info{color:#fff;text-align:center;max-width:min(92vw,460px)}
 .lb-info b{display:block;font-size:15px}.lb-info em{display:block;font:400 11px var(--mono);font-style:normal;opacity:.6;text-transform:uppercase;letter-spacing:.06em;margin-top:4px}
 .lb-btn{position:absolute;z-index:2;width:52px;height:52px;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);color:#fff;font:400 22px/1 var(--mono);display:grid;place-items:center;cursor:pointer;transition:background .2s}
@@ -198,6 +198,7 @@ footer b{font-weight:600;display:block;margin-bottom:4px}footer span{font:400 11
 @media(max-width:700px){.lb-p,.lb-n{top:auto;bottom:18px;margin:0}.lb-p{left:18px}.lb-n{right:18px}.lb-info{display:none}}
 .sw{cursor:pointer}
 </style>
+<link rel="preconnect" href="https://i.ytimg.com"><link rel="preconnect" href="https://www.youtube-nocookie.com">
 </head>
 <body>
 <div class="cur" id="cur"></div>
@@ -312,7 +313,7 @@ footer b{font-weight:600;display:block;margin-bottom:4px}footer span{font:400 11
   </div>
 </footer>
 
-<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Video ansehen"><button class="lb-btn lb-x" id="lbX" aria-label="Schließen" data-cur="X">✕</button><button class="lb-btn lb-p" id="lbP" aria-label="Vorheriges Video" data-cur="">←</button><button class="lb-btn lb-n" id="lbN" aria-label="Nächstes Video" data-cur="">→</button><div class="lb-box"><video id="lbV" controls controlsList="nofullscreen nodownload noremoteplayback" disablePictureInPicture playsinline loop></video><div class="lb-info"><b id="lbT"></b><em id="lbR"></em></div></div></div>
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Video ansehen"><button class="lb-btn lb-x" id="lbX" aria-label="Schließen" data-cur="X">✕</button><button class="lb-btn lb-p" id="lbP" aria-label="Vorheriges Video" data-cur="">←</button><button class="lb-btn lb-n" id="lbN" aria-label="Nächstes Video" data-cur="">→</button><div class="lb-box"><iframe id="lbV" title="Video" allow="autoplay; encrypted-media; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" frameborder="0"></iframe><div class="lb-info"><b id="lbT"></b><em id="lbR"></em></div></div></div>
 <script>
 /* ======= HIER DEINE INHALTE EINTRAGEN ======= */
 const CONFIG = {
@@ -346,10 +347,10 @@ const CONFIG = {
   },
   shortsText: "Vier Beispiele für modernen Content. Hover für Details zum Workflow.",
   shorts: [
-    { title: "Not Just A Cut", role: "Cinematic Opener · Timing · Audio-Design", desc: "Ein minimalistischer Cinematic-Opener, der zeigt, dass Editing mehr ist als nur harte Schnitte. Fokus auf präzises Timing, Atmospheric Audio-Design und einen edlen, cleanen Look (Obsidian &amp; Monochrom).", src: "justcut.mp4" },
-    { title: "Clean Captions &amp; Storytelling", role: "Short-Form · Captions · Retention", desc: "Short-Form Storytelling mit High-End-Captions. Clean, übersichtlich und ohne ablenkenden visuellen Overkill. Der Fokus liegt ganz auf dem Rhythmus des Sprechers und maximaler Retention.", src: "ardashort.mp4" },
-    { title: "The Protein Edit", role: "Commercial-Stil · Übergänge · Farbkorrektur", desc: "Dynamischer Produkt-Commercial-Stil mit flüssigen visuellen Übergängen, High-End-Farbkorrektur und perfekt getimtem Sound-Design. Fokus auf Ästhetik, Branding und visuellen Sog.", src: "morevid.mp4" },
-    { title: "Urban Noir / Portfolio Intro", role: "Styling-Edit · Sounddesign · Dark Look", desc: "Atmosphärischer, dark-aesthetic Clip mit präzisem Sounddesign, Neon-Akzenten und einem sauberen Look, der sofort ins Auge springt und die richtige Stimmung transportiert.", src: "edit1.mp4" }
+    { title: "Not Just A Cut", role: "Cinematic Opener · Timing · Audio-Design", desc: "Ein minimalistischer Cinematic-Opener, der zeigt, dass Editing mehr ist als nur harte Schnitte. Fokus auf präzises Timing, Atmospheric Audio-Design und einen edlen, cleanen Look (Obsidian &amp; Monochrom).", yt: "CcbMiqSqg_Y" },
+    { title: "Clean Captions &amp; Storytelling", role: "Short-Form · Captions · Retention", desc: "Short-Form Storytelling mit High-End-Captions. Clean, übersichtlich und ohne ablenkenden visuellen Overkill. Der Fokus liegt ganz auf dem Rhythmus des Sprechers und maximaler Retention.", yt: "ta00BUqA-4s" },
+    { title: "The Protein Edit", role: "Commercial-Stil · Übergänge · Farbkorrektur", desc: "Dynamischer Produkt-Commercial-Stil mit flüssigen visuellen Übergängen, High-End-Farbkorrektur und perfekt getimtem Sound-Design. Fokus auf Ästhetik, Branding und visuellen Sog.", yt: "CPjFjPXj_lQ" },
+    { title: "Urban Noir / Portfolio Intro", role: "Styling-Edit · Sounddesign · Dark Look", desc: "Atmosphärischer, dark-aesthetic Clip mit präzisem Sounddesign, Neon-Akzenten und einem sauberen Look, der sofort ins Auge springt und die richtige Stimmung transportiert.", yt: "HIKi1NEgrEg" }
   ],
   long: { title: "Cinematic Widescreen Edit", src: "ardaedit.mp4", desc: "Projekt-Overview: Ein dynamischer Widescreen-Teaser mit Arda Saatçi. Konzipiert mit einem cinematischen 21:9-Look, der kompromisslose, harte Cuts mit treibendem Sounddesign und präzisem Rhythmus-Editing verbindet.", meta: ["Format: Widescreen-Teaser", "Aufgaben: Schnitt, Sounddesign, Rhythmus-Editing"] },
   thumbText: "Links das Ausgangsbild, rechts mein fertiges Thumbnail: mehr Kontrast, größerer Titel, klarer Fokus.",
@@ -380,13 +381,13 @@ document.querySelectorAll(".sp").forEach(h=>{let k=0;h.innerHTML=h.dataset.t.spl
 const grays=[["#2b2b2e","#8d8d92"],["#4a4a4f","#c4c4c9"],["#17171a","#5d5d63"],["#6a6a70","#e0e0e4"]];
 const grid=$("#shortsGrid");
 CONFIG.shorts.forEach((s,i)=>{const w=document.createElement("div");w.className="sw";w.dataset.cur="PLAY";const [c1,c2]=grays[i%4];
-  w.innerHTML=`<div class="short tl" style="--c1:${c1};--c2:${c2}">${s.src?`<video src="${s.src}" muted loop playsinline preload="metadata"></video>`:`<div class="ph"><span class="num">${String(i+1).padStart(2,"0")}</span></div>`}<div class="cap"><b>${s.title}</b><em>${s.role}</em><p>${s.desc}</p></div></div>`;grid.appendChild(w);});
+  w.innerHTML=`<div class="short tl" style="--c1:${c1};--c2:${c2}">${s.yt?`<img src="https://i.ytimg.com/vi/${s.yt}/maxresdefault.jpg" alt="${s.title}" loading="lazy" decoding="async" onerror="if(!this.dataset.f){this.dataset.f=1;this.src='https://i.ytimg.com/vi/${s.yt}/hqdefault.jpg'}">`:`<div class="ph"><span class="num">${String(i+1).padStart(2,"0")}</span></div>`}<div class="cap"><b>${s.title}</b><em>${s.role}</em><p>${s.desc}</p></div></div>`;grid.appendChild(w);});
 /* LIGHTBOX */
 const lb=$("#lb"),lbV=$("#lbV");let lbI=0;
 const dec=t=>{const d=document.createElement("textarea");d.innerHTML=t;return d.value};
-function lbLoad(i){const n=CONFIG.shorts.length;lbI=(i+n)%n;const s=CONFIG.shorts[lbI];lbV.src=s.src;lbV.volume=.5;lbV.currentTime=0;lbV.play().catch(()=>{});$("#lbT").textContent=dec(s.title);$("#lbR").textContent=dec(s.role);}
-function lbOpen(i){const s=CONFIG.shorts[i];if(!s||!s.src)return;grid.querySelectorAll("video").forEach(v=>v.pause());lb.classList.add("open");requestAnimationFrame(()=>lb.classList.add("show"));document.body.style.overflow="hidden";lbLoad(i);}
-function lbClose(){lbV.pause();lbV.removeAttribute("src");lbV.load();lb.classList.remove("show");setTimeout(()=>lb.classList.remove("open"),300);document.body.style.overflow="";}
+function lbLoad(i){const n=CONFIG.shorts.length;lbI=(i+n)%n;const s=CONFIG.shorts[lbI];lbV.src=`https://www.youtube-nocookie.com/embed/${s.yt}?autoplay=1&playsinline=1&rel=0&loop=1&playlist=${s.yt}&fs=0&modestbranding=1`;$("#lbT").textContent=dec(s.title);$("#lbR").textContent=dec(s.role);}
+function lbOpen(i){const s=CONFIG.shorts[i];if(!s||!s.yt)return;grid.querySelectorAll("video").forEach(v=>v.pause());lb.classList.add("open");requestAnimationFrame(()=>lb.classList.add("show"));document.body.style.overflow="hidden";lbLoad(i);}
+function lbClose(){lbV.removeAttribute("src");lb.classList.remove("show");setTimeout(()=>lb.classList.remove("open"),300);document.body.style.overflow="";}
 [...grid.children].forEach((w,i)=>w.addEventListener("click",()=>lbOpen(i)));
 $("#lbX").onclick=lbClose;$("#lbP").onclick=()=>lbLoad(lbI-1);$("#lbN").onclick=()=>lbLoad(lbI+1);
 lb.addEventListener("click",e=>{if(e.target===lb||e.target.classList.contains("lb-box"))lbClose();});
